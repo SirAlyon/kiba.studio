@@ -13,7 +13,8 @@
       "Bash(npm audit:*)",
       "Bash(npm run clean:*)",
       "Bash(npm run prepare:*)",
-      "Bash(npx nuxi prepare:*)"
+      "Bash(npx nuxi prepare:*)",
+      "Bash(chmod:*)"
     ],
     "deny": [],
     "ask": []

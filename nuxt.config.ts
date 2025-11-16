@@ -6,19 +6,18 @@ export default defineNuxtConfig({
     shim: false
   },
   nitro: {
-    preset: 'github-pages', // Ottimizzato per GitHub Pages
+    preset: process.env.GITHUB_ACTIONS ? 'github-pages' : 'static',
     prerender: {
-      crawlLinks: false, // Non seguire link
-      failOnError: false, // Ignora errori
-      routes: ['/'], // Solo index - le altre pagine saranno caricate client-side
-      // Con ssr: false, il contenuto è già client-side, non serve prerender
+      crawlLinks: false,
+      failOnError: false,
+      routes: ['/']
     }
   },
   alias: {
     "@": fileURLToPath(new URL('./', import.meta.url)),
   },
   app: {
-    baseURL: '/vie_vue_3/', // Nome repository - modifica se necessario
+    baseURL: process.env.NODE_ENV === 'production' ? '/vie_vue_3/' : '/', // Base URL solo in produzione
     head: {
       title: "Kiba.Studio - Software Etico e Sicuro",
       htmlAttrs: {
