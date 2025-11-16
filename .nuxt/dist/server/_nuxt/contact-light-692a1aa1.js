@@ -1,0 +1,53 @@
+import { _ as __nuxt_component_0 } from "./logo-light-15a43a0f.js";
+import { unref, useSSRContext } from "vue";
+import { u as useHead } from "./index-88e9f29c.js";
+import { ssrRenderComponent } from "vue/server-renderer";
+import { _ as _sfc_main$1, a as _sfc_main$4 } from "./Footer-aa56144b.js";
+import { _ as _sfc_main$2, a as _sfc_main$3 } from "./ContactForm-b79ccedf.js";
+import "unhead";
+import "@unhead/shared";
+import "./nuxt-link-afaf4e47.js";
+import "ufo";
+import "hookable";
+import "../server.mjs";
+import "ofetch";
+import "#internal/nitro";
+import "unctx";
+import "vue-router";
+import "h3";
+import "devalue";
+import "destr";
+import "defu";
+import "./2-fa1f2f7e.js";
+import "tsparticles-engine";
+const _sfc_main = {
+  __name: "contact-light",
+  __ssrInlineRender: true,
+  setup(__props) {
+    useHead({
+      titleTemplate: `%s - Contact Light`
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_CommonLoading = __nuxt_component_0;
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(_component_CommonLoading, null, null, _parent));
+      _push(ssrRenderComponent(unref(_sfc_main$1), { theme: "light" }, null, _parent));
+      _push(ssrRenderComponent(unref(_sfc_main$2), null, null, _parent));
+      _push(`<div class="main-content">`);
+      _push(ssrRenderComponent(unref(_sfc_main$3), { theme: "light" }, null, _parent));
+      _push(`<div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29695.671230259337!2d2.3558151621751584!3d48.86295242559001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671d877937b0f%3A0xb975fcfa192f84d4!2z2YXYqtit2YEg2KfZhNmE2YjZgdix!5e0!3m2!1sar!2seg!4v1642786626975!5m2!1sar!2seg" width="100%" height="100%" loading="lazy"></iframe></div>`);
+      _push(ssrRenderComponent(unref(_sfc_main$4), { hideBGCOLOR: "" }, null, _parent));
+      _push(`</div><!--]-->`);
+    };
+  }
+};
+const _sfc_setup = _sfc_main.setup;
+_sfc_main.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/contact/contact-light.vue");
+  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+export {
+  _sfc_main as default
+};
+//# sourceMappingURL=contact-light-692a1aa1.js.map

@@ -1,0 +1,1 @@
+export { default } from "file:///home/alessio/Scaricati/kiba.studio/Main_files/vie_vue_3/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
