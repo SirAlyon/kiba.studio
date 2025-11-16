@@ -9,7 +9,11 @@
       "Bash(npm run build:*)",
       "Bash(find:*)",
       "Bash(npm run dev:*)",
-      "Bash(npm run generate:*)"
+      "Bash(npm run generate:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm run clean:*)",
+      "Bash(npm run prepare:*)",
+      "Bash(npx nuxi prepare:*)"
     ],
     "deny": [],
     "ask": []

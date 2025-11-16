@@ -53,33 +53,23 @@ export default defineNuxtConfig({
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap",
         }
-      ],
-      script: [
-        { src: "/js/wow.min.js" },
-        { src: "/js/isotope.pkgd.min.js" },
-        { src: "/js/pace.min.js" },
-        { src: "/js/splitting.min.js" },
-        { src: "/js/simpleParallax.min.js" },
       ]
     }
   },
   css: [
     'swiper/css/bundle',
-    '@/styles/modal-video.css',
     '@/styles/globals.css'
   ],
-  webpack: {
-    extractCSS: true,
-    optimization: {
-      splitChunks: {
-        layouts: true
-      }
+  build: {
+    transpile: [],
+    analyze: false
+  },
+  vite: {
+    optimizeDeps: {
+      include: ['gsap', 'three', 'swiper']
     }
   },
-  build: {
-    transpile: [
-      "vue3-count-to",
-      "vue3-particles"
-    ]
+  experimental: {
+    payloadExtraction: false // Disabilita per ssr: false
   }
 })

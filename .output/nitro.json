@@ -1,8 +1,0 @@
-{
-  "date": "2025-11-16T21:07:11.475Z",
-  "preset": "github-pages",
-  "commands": {
-    "preview": "npx serve ./public",
-    "deploy": "npx gh-pages -d ./public"
-  }
-}
