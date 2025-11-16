@@ -1,1 +1,0 @@
-import{u as e,r as t}from"./entry.808f5be7.js";const n={__name:"blank",setup(a){return e({link:[{rel:"stylesheet",href:"/assets/css/kiba-theme.css"},{rel:"stylesheet",href:"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"},{rel:"stylesheet",href:"/assets/css/bootstrap.min.css"}]}),(s,l)=>t(s.$slots,"default")}};export{n as default};

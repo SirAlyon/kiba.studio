@@ -1,19 +1,22 @@
 import { fileURLToPath } from 'node:url';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false, // Static site generation for GitHub Pages
   typescript: {
     shim: false
   },
-  nitro: {},
+  nitro: {
+    preset: 'github-pages' // Ottimizzato per GitHub Pages
+  },
   alias: {
     "@": fileURLToPath(new URL('./', import.meta.url)),
   },
   app: {
+    baseURL: '/vie_vue_3/', // Nome repository - modifica se necessario
     head: {
-      title: "Vie",
+      title: "Kiba.Studio - Software Etico e Sicuro",
       htmlAttrs: {
-        lang: 'en'
+        lang: 'it'
       },
       meta: [
         { charset: "utf-8" },
@@ -21,12 +24,12 @@ export default defineNuxtConfig({
         {
           hid: "keywords",
           name: "keywords",
-          content: "Nuxt3 Vue Template vie onepage themeforest",
+          content: "Kiba Studio, software etico, privacy first, sviluppo web, Vue, Nuxt, GDPR",
         },
         {
           hid: "description",
           name: "description",
-          content: "vie - Onepage Multi-Purpose Vue Nuxt3 Template",
+          content: "Kiba.Studio - Software etico, sicuro e fatto per durare. Sviluppo web privacy-first.",
         },
         { name: "format-detection", content: "telephone=no" },
       ],
