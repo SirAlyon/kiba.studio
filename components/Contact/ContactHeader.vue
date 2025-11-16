@@ -25,7 +25,8 @@
 </template>
 
 <script setup>
-import { ParticlesComponent as Particles } from "vue3-particles";
+import particlesPkg from "vue3-particles";
+const Particles = particlesPkg.ParticlesComponent || particlesPkg.default?.ParticlesComponent || particlesPkg;
 //= Static Data
 import contentHeaderData from "@/data/contact-header.json";
 import particlesConfig from "@/config/particle-config";

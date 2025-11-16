@@ -1,5 +1,6 @@
 <script setup>
-import { ParticlesComponent as Particles } from "vue3-particles";
+import pkg from "vue3-particles";
+const Particles = pkg.ParticlesComponent || pkg.default?.ParticlesComponent || pkg;
 import particlesOption from "@/config/particle-config";
 
 const backgroundPosition = useState('backgroundPosition', () => 0);

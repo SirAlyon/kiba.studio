@@ -6,7 +6,13 @@ export default defineNuxtConfig({
     shim: false
   },
   nitro: {
-    preset: 'github-pages' // Ottimizzato per GitHub Pages
+    preset: 'github-pages', // Ottimizzato per GitHub Pages
+    prerender: {
+      crawlLinks: false, // Non seguire link
+      failOnError: false, // Ignora errori
+      routes: ['/'], // Solo index - le altre pagine saranno caricate client-side
+      // Con ssr: false, il contenuto è già client-side, non serve prerender
+    }
   },
   alias: {
     "@": fileURLToPath(new URL('./', import.meta.url)),

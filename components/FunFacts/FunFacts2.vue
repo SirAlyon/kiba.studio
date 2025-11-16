@@ -63,7 +63,8 @@
 </template>
 
 <script setup>
-import { CountTo } from "vue3-count-to";
+import countToPkg from "vue3-count-to";
+const CountTo = countToPkg.CountTo || countToPkg.default?.CountTo || countToPkg;
 
 const countUpRef1 = ref();
 const countUpRef2 = ref();
