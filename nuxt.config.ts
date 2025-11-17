@@ -1,23 +1,15 @@
 import { fileURLToPath } from 'node:url';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false, // Static site generation for GitHub Pages
+  ssr: true,
   typescript: {
     shim: false
   },
-  nitro: {
-    preset: process.env.GITHUB_ACTIONS ? 'github-pages' : 'static',
-    prerender: {
-      crawlLinks: false,
-      failOnError: false,
-      routes: ['/']
-    }
-  },
+  nitro: {},
   alias: {
     "@": fileURLToPath(new URL('./', import.meta.url)),
   },
   app: {
-    baseURL: process.env.NODE_ENV === 'production' ? '/vie_vue_3/' : '/', // Base URL solo in produzione
     head: {
       title: "Kiba.Studio - Software Etico e Sicuro",
       htmlAttrs: {
@@ -59,16 +51,18 @@ export default defineNuxtConfig({
     'swiper/css/bundle',
     '@/styles/globals.css'
   ],
-  build: {
-    transpile: [],
-    analyze: false
-  },
-  vite: {
-    optimizeDeps: {
-      include: ['gsap', 'three', 'swiper']
+  webpack: {
+    extractCSS: true,
+    optimization: {
+      splitChunks: {
+        layouts: true
+      }
     }
   },
-  experimental: {
-    payloadExtraction: false // Disabilita per ssr: false
+  build: {
+    transpile: [
+      "vue3-count-to",
+      "vue3-particles"
+    ]
   }
 })

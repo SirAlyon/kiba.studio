@@ -14,7 +14,11 @@
       "Bash(npm run clean:*)",
       "Bash(npm run prepare:*)",
       "Bash(npx nuxi prepare:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(node --version:*)",
+      "Bash(npm --version)",
+      "Bash(nvm ls:*)",
+      "Bash(source ~/.nvm/nvm.sh)"
     ],
     "deny": [],
     "ask": []

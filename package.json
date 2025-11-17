@@ -1,0 +1,25 @@
+{
+  "name": "vie_vue_3",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^1.0.0",
+    "@types/node": "^22.0.0",
+    "nuxt": "^3.13.0"
+  },
+  "dependencies": {
+    "auto-typer-vue3": "^1.2.2",
+    "gsap": "^3.13.0",
+    "swiper": "^8.4.6",
+    "three": "^0.181.1",
+    "vue3-circle-progress": "^1.0.7",
+    "vue3-count-to": "^1.1.2",
+    "vue3-particles": "^2.12.0"
+  }
+}
