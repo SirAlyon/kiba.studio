@@ -7,13 +7,12 @@
   <div class="kiba-stack-spa">
     <div class="container">
       <div class="text-center mb-5">
-        <div class="kiba-section-label gsap-animate">Tech Stack</div>
+        <div class="kiba-section-label gsap-animate">{{ $t('stack.label') }}</div>
         <h2 class="kiba-section-title gsap-animate">
-          Tecnologie<br />
-          <span class="kiba-text-gradient">moderne</span>
+          {{ $t('stack.title') }}
         </h2>
         <p class="kiba-section-subtitle gsap-animate">
-          Stack testato, affidabile e scalabile per ogni tipo di progetto
+          {{ $t('stack.subtitle') }}
         </p>
       </div>
 
@@ -50,7 +49,7 @@
 
       <!-- Additional Skills -->
       <div class="kiba-stack-additional gsap-animate">
-        <h4 class="kiba-stack-additional-title">Competenze aggiuntive</h4>
+        <h4 class="kiba-stack-additional-title">{{ t('stack.additional_skills_title') || 'Competenze aggiuntive' }}</h4>
         <div class="kiba-stack-tags">
           <span
             v-for="skill in additionalSkills"
@@ -66,41 +65,46 @@
 </template>
 
 <script setup>
-const techStack = [
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
+const techStack = computed(() => [
   {
-    name: 'Frontend',
+    name: t('stack.category_frontend'),
     icon: 'fas fa-desktop',
     technologies: [
-      { name: 'Vue.js 3', icon: 'fab fa-vuejs', level: 'Expert' },
-      { name: 'Nuxt 3', icon: 'fas fa-n', level: 'Expert' },
-      { name: 'React', icon: 'fab fa-react', level: 'Advanced' },
-      { name: 'TailwindCSS', icon: 'fas fa-wind', level: 'Expert' },
-      { name: 'GSAP', icon: 'fas fa-magic', level: 'Advanced' }
+      { name: 'Vue.js 3', icon: 'fab fa-vuejs', level: t('stack.level_expert') },
+      { name: 'Nuxt 3', icon: 'fas fa-n', level: t('stack.level_expert') },
+      { name: 'React', icon: 'fab fa-react', level: t('stack.level_advanced') },
+      { name: 'TailwindCSS', icon: 'fas fa-wind', level: t('stack.level_expert') },
+      { name: 'GSAP', icon: 'fas fa-magic', level: t('stack.level_advanced') }
     ]
   },
   {
-    name: 'Backend',
+    name: t('stack.category_backend'),
     icon: 'fas fa-server',
     technologies: [
-      { name: 'Laravel', icon: 'fab fa-laravel', level: 'Expert' },
-      { name: 'Node.js', icon: 'fab fa-node-js', level: 'Advanced' },
-      { name: 'Python', icon: 'fab fa-python', level: 'Advanced' },
-      { name: 'PHP', icon: 'fab fa-php', level: 'Expert' },
-      { name: 'REST APIs', icon: 'fas fa-plug', level: 'Expert' }
+      { name: 'Laravel', icon: 'fab fa-laravel', level: t('stack.level_expert') },
+      { name: 'Node.js', icon: 'fab fa-node-js', level: t('stack.level_advanced') },
+      { name: 'Python', icon: 'fab fa-python', level: t('stack.level_advanced') },
+      { name: 'PHP', icon: 'fab fa-php', level: t('stack.level_expert') },
+      { name: 'REST APIs', icon: 'fas fa-plug', level: t('stack.level_expert') }
     ]
   },
   {
-    name: 'Database & DevOps',
+    name: t('stack.category_database'),
     icon: 'fas fa-database',
     technologies: [
-      { name: 'PostgreSQL', icon: 'fas fa-database', level: 'Expert' },
-      { name: 'MySQL', icon: 'fas fa-database', level: 'Expert' },
-      { name: 'Redis', icon: 'fas fa-memory', level: 'Advanced' },
-      { name: 'Docker', icon: 'fab fa-docker', level: 'Advanced' },
-      { name: 'Linux/Ubuntu', icon: 'fab fa-ubuntu', level: 'Expert' }
+      { name: 'PostgreSQL', icon: 'fas fa-database', level: t('stack.level_expert') },
+      { name: 'MySQL', icon: 'fas fa-database', level: t('stack.level_expert') },
+      { name: 'Redis', icon: 'fas fa-memory', level: t('stack.level_advanced') },
+      { name: 'Docker', icon: 'fab fa-docker', level: t('stack.level_advanced') },
+      { name: 'Linux/Ubuntu', icon: 'fab fa-ubuntu', level: t('stack.level_expert') }
     ]
   }
-];
+]);
 
 const additionalSkills = [
   'Git/GitHub',

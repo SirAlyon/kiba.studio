@@ -8,9 +8,9 @@
     <div class="container">
       <!-- Titolo sezione -->
       <div class="kiba-section-title wow fadeInUp" data-wow-delay=".1s">
-        <div class="kiba-label">Il Nostro Metodo</div>
+        <div class="kiba-label">{{ $t('process.label') }}</div>
         <h2 class="kiba-heading-lg">
-          Come lavoriamo
+          {{ $t('process.title') }}
         </h2>
         <p class="kiba-subtitle">
           Un processo strutturato garantisce risultati prevedibili e di qualità.
@@ -25,10 +25,9 @@
           <div class="kiba-process-step wow fadeInUp" data-wow-delay=".2s">
             <div class="kiba-process-number">1</div>
             <div class="kiba-process-connector d-none d-lg-block"></div>
-            <h4 class="kiba-heading-sm">Analisi</h4>
+            <h4 class="kiba-heading-sm">{{ $t('process.step_1_title') }}</h4>
             <p class="kiba-small mt-10">
-              Ascoltiamo le tue esigenze, analizziamo i requisiti e definiamo
-              obiettivi chiari e misurabili.
+              {{ $t('process.step_1_description') }}
             </p>
           </div>
         </div>
@@ -38,10 +37,9 @@
           <div class="kiba-process-step wow fadeInUp" data-wow-delay=".3s">
             <div class="kiba-process-number">2</div>
             <div class="kiba-process-connector d-none d-lg-block"></div>
-            <h4 class="kiba-heading-sm">Progettazione</h4>
+            <h4 class="kiba-heading-sm">{{ $t('process.step_2_title') }}</h4>
             <p class="kiba-small mt-10">
-              Disegniamo l'architettura tecnica, scegliamo lo stack e
-              pianifichiamo le milestone di sviluppo.
+              {{ $t('process.step_2_description') }}
             </p>
           </div>
         </div>
@@ -51,10 +49,9 @@
           <div class="kiba-process-step wow fadeInUp" data-wow-delay=".4s">
             <div class="kiba-process-number">3</div>
             <div class="kiba-process-connector d-none d-lg-block"></div>
-            <h4 class="kiba-heading-sm">Sviluppo</h4>
+            <h4 class="kiba-heading-sm">{{ $t('process.step_3_title') }}</h4>
             <p class="kiba-small mt-10">
-              Scriviamo codice pulito, testato e documentato. Aggiornamenti
-              regolari ti tengono informato.
+              {{ $t('process.step_3_description') }}
             </p>
           </div>
         </div>
@@ -64,10 +61,9 @@
           <div class="kiba-process-step wow fadeInUp" data-wow-delay=".5s">
             <div class="kiba-process-number">4</div>
             <div class="kiba-process-connector d-none d-lg-block"></div>
-            <h4 class="kiba-heading-sm">Testing & QA</h4>
+            <h4 class="kiba-heading-sm">{{ $t('process.step_4_title') }}</h4>
             <p class="kiba-small mt-10">
-              Test automatizzati, code review e controllo qualità. Nulla va
-              in produzione senza essere verificato.
+              {{ $t('process.step_4_description') }}
             </p>
           </div>
         </div>
@@ -76,10 +72,9 @@
         <div class="col-lg col-md-6 col-sm-12 mb-4">
           <div class="kiba-process-step wow fadeInUp" data-wow-delay=".6s">
             <div class="kiba-process-number">5</div>
-            <h4 class="kiba-heading-sm">Delivery & Supporto</h4>
+            <h4 class="kiba-heading-sm">{{ $t('process.step_5_title') }}</h4>
             <p class="kiba-small mt-10">
-              Deploy in produzione, monitoraggio attivo e supporto continuo.
-              Non ti lasciamo solo dopo il lancio.
+              {{ $t('process.step_5_description') }}
             </p>
           </div>
         </div>

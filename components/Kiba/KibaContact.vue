@@ -11,16 +11,14 @@
           <!-- Box contatto principale -->
           <div class="kiba-contact-box wow fadeInUp" data-wow-delay=".2s">
             <!-- Titolo -->
-            <div class="kiba-label mb-15">Iniziamo a Collaborare</div>
+            <div class="kiba-label mb-15">{{ $t('contact.label') }}</div>
             <h2 class="kiba-heading-lg">
-              Hai un progetto in mente?
+              {{ $t('contact.title') }}
             </h2>
             <div class="kiba-divider kiba-divider-center"></div>
 
             <p class="kiba-subtitle mt-20">
-              Che si tratti di un piccolo progetto pilota o di una piattaforma
-              complessa, siamo qui per ascoltarti. Raccontaci la tua idea e
-              troviamo insieme la soluzione migliore.
+              {{ $t('contact.subtitle') }}
             </p>
 
             <!-- Form di contatto -->
@@ -34,7 +32,7 @@
                     v-model="form.name"
                     type="text"
                     class="kiba-input"
-                    placeholder="Il tuo nome"
+                    :placeholder="$t('contact.form_name_placeholder')"
                     required
                   />
                 </div>
@@ -43,7 +41,7 @@
                     v-model="form.email"
                     type="email"
                     class="kiba-input"
-                    placeholder="La tua email"
+                    :placeholder="$t('contact.form_email_placeholder')"
                     required
                   />
                 </div>
@@ -54,7 +52,7 @@
                   v-model="form.subject"
                   type="text"
                   class="kiba-input"
-                  placeholder="Oggetto (es. Nuovo progetto e-commerce)"
+                  :placeholder="$t('contact.form_company_placeholder')"
                 />
               </div>
 
@@ -62,7 +60,7 @@
                 <textarea
                   v-model="form.message"
                   class="kiba-input"
-                  placeholder="Raccontaci il tuo progetto... Quali sono gli obiettivi? Che problema vuoi risolvere?"
+                  :placeholder="$t('contact.form_message_placeholder')"
                   rows="5"
                   required
                 ></textarea>
@@ -75,11 +73,11 @@
               >
                 <span v-if="!isSubmitting">
                   <i class="fas fa-paper-plane me-2"></i>
-                  Invia Messaggio
+                  {{ $t('contact.form_submit_button') }}
                 </span>
                 <span v-else>
                   <i class="fas fa-spinner fa-spin me-2"></i>
-                  Invio in corso...
+                  {{ $t('contact.form_submitting') }}
                 </span>
               </button>
             </form>
@@ -87,7 +85,7 @@
             <!-- Messaggio di successo -->
             <div v-if="submitSuccess" class="kiba-success-message mt-20">
               <i class="fas fa-check-circle me-2"></i>
-              Grazie! Il tuo messaggio è stato inviato. Ti risponderemo presto.
+              {{ $t('contact.form_success') }}
             </div>
 
             <!-- Info aggiuntive -->
@@ -102,13 +100,13 @@
                 <div class="col-md-4 mb-3">
                   <div class="kiba-contact-info-item">
                     <i class="fas fa-clock kiba-text-primary"></i>
-                    <span>Risposta entro 24h</span>
+                    <span>{{ $t('contact.info_response_time') }}</span>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3">
                   <div class="kiba-contact-info-item">
                     <i class="fas fa-handshake kiba-text-primary"></i>
-                    <span>Consulenza gratuita</span>
+                    <span>{{ $t('contact.info_consultation') }}</span>
                   </div>
                 </div>
               </div>

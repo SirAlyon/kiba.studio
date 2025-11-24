@@ -35,9 +35,10 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import KibaIcon from './KibaIcon.vue';
 import { useGSAP } from '@/composables/useGSAP';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   currentSection: {
@@ -48,14 +49,16 @@ const props = defineProps({
 
 const emit = defineEmits(['navigate']);
 
-const sections = ref([
-  { id: 'hero', label: 'Home', icon: 'fas fa-home' },
-  { id: 'manifesto', label: 'Chi Siamo', icon: 'fas fa-shield-alt' },
-  { id: 'servizi', label: 'Servizi', icon: 'fas fa-code' },
-  { id: 'processo', label: 'Processo', icon: 'fas fa-project-diagram' },
-  { id: 'stack', label: 'Stack', icon: 'fas fa-layer-group' },
-  { id: 'portfolio', label: 'Portfolio', icon: 'fas fa-briefcase' },
-  { id: 'contatti', label: 'Contatti', icon: 'fas fa-envelope' }
+const { t } = useI18n();
+
+const sections = computed(() => [
+  { id: 'hero', label: t('nav.home'), icon: 'fas fa-home' },
+  { id: 'manifesto', label: t('nav.about'), icon: 'fas fa-shield-alt' },
+  { id: 'servizi', label: t('nav.services'), icon: 'fas fa-code' },
+  { id: 'processo', label: t('nav.process'), icon: 'fas fa-project-diagram' },
+  { id: 'stack', label: t('nav.stack'), icon: 'fas fa-layer-group' },
+  { id: 'portfolio', label: t('nav.portfolio'), icon: 'fas fa-briefcase' },
+  { id: 'contatti', label: t('nav.contact'), icon: 'fas fa-envelope' }
 ]);
 
 const navigateTo = (index, sectionId) => {

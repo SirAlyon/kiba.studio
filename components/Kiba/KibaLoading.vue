@@ -19,7 +19,7 @@
       </div>
 
       <!-- Slogan etico -->
-      <p class="kiba-loader-slogan">Software etico, fatto per durare</p>
+      <p class="kiba-loader-slogan">{{ $t('footer.description') }}</p>
     </div>
   </div>
 </template>

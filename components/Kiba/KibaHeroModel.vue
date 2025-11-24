@@ -15,7 +15,7 @@
     <!-- Canvas Three.js viene montato qui -->
     <div v-if="isLoading" class="kiba-model-loading">
       <div class="kiba-model-spinner"></div>
-      <p>Caricamento...</p>
+      <p>{{ $t('common.loading') }}</p>
     </div>
 
     <!-- Fallback in caso di errore -->
@@ -24,7 +24,7 @@
         <i class="fas fa-shield-alt"></i>
       </div>
       <p>Kiba.Studio</p>
-      <span class="kiba-model-fallback-subtitle">Software etico</span>
+      <span class="kiba-model-fallback-subtitle">{{ $t('footer.description') }}</span>
     </div>
   </div>
 </template>

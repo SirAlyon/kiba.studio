@@ -10,13 +10,12 @@
     <div class="container">
       <!-- Titolo sezione -->
       <div class="kiba-section-title wow fadeInUp" data-wow-delay=".1s">
-        <div class="kiba-label">Portfolio</div>
+        <div class="kiba-label">{{ $t('portfolio.label') }}</div>
         <h2 class="kiba-heading-lg">
-          I nostri progetti
+          {{ $t('portfolio.title') }}
         </h2>
         <p class="kiba-subtitle">
-          Ogni progetto è un'opportunità per dimostrare la nostra competenza
-          tecnica e attenzione ai dettagli. Ecco alcuni esempi del nostro lavoro.
+          {{ $t('portfolio.subtitle') }}
         </p>
       </div>
 
@@ -25,7 +24,7 @@
         <div class="kiba-portfolio-notice">
           <i class="fas fa-info-circle me-2"></i>
           <span>
-            Case study di esempio — progetti reali in arrivo
+            {{ $t('portfolio.privacy_note') }}
           </span>
         </div>
       </div>
@@ -180,10 +179,10 @@
       <!-- CTA Portfolio -->
       <div class="text-center mt-40 wow fadeInUp" data-wow-delay=".8s">
         <p class="kiba-body mb-20">
-          Hai un progetto in mente? Parliamone insieme.
+          {{ $t('contact.subtitle') }}
         </p>
         <a href="#contatti" class="kiba-btn kiba-btn-primary">
-          Discutiamo del tuo progetto
+          {{ $t('portfolio.cta_button') }}
         </a>
       </div>
     </div>

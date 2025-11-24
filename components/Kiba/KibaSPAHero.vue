@@ -10,40 +10,37 @@
         <!-- Colonna Testo -->
         <div class="col-lg-6">
           <div class="kiba-hero-content">
-            <div class="kiba-hero-label gsap-animate">Web Agency Etica</div>
+            <div class="kiba-hero-label gsap-animate">{{ $t('hero.label') }}</div>
             <h1 class="kiba-hero-title gsap-animate">
-              Software che<br />
-              <span class="kiba-text-gradient">protegge</span> il tuo business
+              {{ $t('hero.title') }}
             </h1>
             <p class="kiba-hero-subtitle gsap-animate">
-              Sviluppiamo soluzioni digitali con la serietà giapponese e la
-              protezione di un Akita. Privacy first, codice etico, qualità
-              senza compromessi.
+              {{ $t('hero.subtitle') }}
             </p>
 
             <div class="kiba-hero-cta gsap-animate">
               <button class="kiba-btn kiba-btn-primary" @click="scrollToContact">
-                Inizia il progetto
+                {{ $t('hero.cta_primary') }}
                 <i class="fas fa-arrow-right ms-2"></i>
               </button>
               <button class="kiba-btn kiba-btn-outline" @click="scrollToManifesto">
-                Scopri di più
+                {{ $t('hero.cta_secondary') }}
               </button>
             </div>
 
             <!-- Stats rapide -->
             <div class="kiba-hero-stats gsap-animate">
               <div class="kiba-stat">
-                <span class="kiba-stat-value">6+</span>
-                <span class="kiba-stat-label">Anni esperienza</span>
+                <span class="kiba-stat-value">{{ $t('hero.stat_years') }}</span>
+                <span class="kiba-stat-label">{{ $t('hero.stat_years_label') }}</span>
               </div>
               <div class="kiba-stat">
-                <span class="kiba-stat-value">100%</span>
-                <span class="kiba-stat-label">Privacy First</span>
+                <span class="kiba-stat-value">{{ $t('hero.stat_privacy') }}</span>
+                <span class="kiba-stat-label">{{ $t('hero.stat_privacy_label') }}</span>
               </div>
               <div class="kiba-stat">
-                <span class="kiba-stat-value">0</span>
-                <span class="kiba-stat-label">Dark Patterns</span>
+                <span class="kiba-stat-value">{{ $t('hero.stat_patterns') }}</span>
+                <span class="kiba-stat-label">{{ $t('hero.stat_patterns_label') }}</span>
               </div>
             </div>
           </div>
@@ -63,7 +60,7 @@
 
     <!-- Scroll indicator -->
     <div class="kiba-hero-scroll gsap-animate">
-      <span>Scorri</span>
+      <span>{{ $t('hero.scroll_indicator') }}</span>
       <i class="fas fa-chevron-down"></i>
     </div>
   </div>

@@ -5,7 +5,7 @@
   -->
   <teleport to="body">
     <transition name="modal-fade">
-      <div v-if="isOpen" class="kiba-modal-overlay" @click.self="close">
+      <div v-if="isOpen && project" class="kiba-modal-overlay" @click.self="close">
         <div class="kiba-modal-content" ref="modalRef">
           <!-- Close button -->
           <button
@@ -112,7 +112,8 @@ const props = defineProps({
   },
   project: {
     type: Object,
-    required: true
+    required: false,
+    default: null
   }
 });
 

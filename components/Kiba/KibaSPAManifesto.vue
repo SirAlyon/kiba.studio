@@ -16,9 +16,7 @@
               </div>
               <h3 class="kiba-manifesto-brand">Kiba</h3>
               <p class="kiba-manifesto-meaning">
-                "Kiba" in giapponese significa <strong>zanna</strong>. Come
-                l'Akita, razza nota per lealtà e protezione incrollabile, noi
-                proteggiamo i tuoi dati e il tuo business digitale.
+                {{ $t('manifesto.kiba_meaning') }}
               </p>
               <div class="kiba-manifesto-divider"></div>
 
@@ -26,21 +24,21 @@
               <div class="kiba-manifesto-values">
                 <div class="kiba-value">
                   <i class="fas fa-lock"></i>
-                  <span>Privacy First</span>
+                  <span>{{ $t('manifesto.value_privacy') }}</span>
                 </div>
                 <div class="kiba-value">
                   <i class="fas fa-code"></i>
-                  <span>Codice Etico</span>
+                  <span>{{ $t('manifesto.value_code') }}</span>
                 </div>
                 <div class="kiba-value">
                   <i class="fas fa-infinity"></i>
-                  <span>Soluzioni Durature</span>
+                  <span>{{ $t('manifesto.value_solutions') }}</span>
                 </div>
               </div>
 
               <div class="kiba-manifesto-years">
-                <span class="kiba-years-number">6+</span>
-                <span class="kiba-years-label">Anni di esperienza</span>
+                <span class="kiba-years-number">{{ $t('manifesto.stat_years') }}</span>
+                <span class="kiba-years-label">{{ $t('manifesto.stat_years_label') }}</span>
               </div>
             </div>
           </div>
@@ -49,35 +47,16 @@
         <!-- Colonna Testo -->
         <div class="col-lg-7">
           <div class="kiba-manifesto-content">
-            <div class="kiba-section-label gsap-animate">Il Nostro Manifesto</div>
+            <div class="kiba-section-label gsap-animate">{{ $t('manifesto.label') }}</div>
             <h2 class="kiba-section-title gsap-animate">
-              Software etico,<br />fatto per durare
+              {{ $t('manifesto.title') }}
             </h2>
             <div class="kiba-section-divider gsap-animate"></div>
 
             <div class="kiba-manifesto-text gsap-animate">
-              <p>
-                <strong>Kiba.Studio</strong> nasce come laboratorio etico di
-                software. Fondata da un fullstack developer con oltre 6 anni di
-                esperienza su <strong>Laravel, Vue.js, Node e Python</strong>,
-                l'agenzia mette al centro i valori che altri trascurano:
-                <strong>privacy, trasparenza e qualità senza compromessi</strong>.
-              </p>
-
-              <p>
-                Non siamo una factory che produce siti in serie. Siamo una
-                <strong>boutique tecnica</strong> che crede nel codice come
-                strumento di <strong>libertà</strong>, non di dipendenza. I tuoi
-                dati sono una responsabilità che prendiamo sul serio, non merce
-                da monetizzare.
-              </p>
-
-              <p>
-                Lavoriamo con la <strong>serietà giapponese</strong>: ordine,
-                pulizia, struttura, rigore. Il nostro codice parla per noi:
-                testato, documentato, manutenibile. Niente scorciatoie, niente
-                debito tecnico nascosto.
-              </p>
+              <p>{{ $t('manifesto.paragraph_1') }}</p>
+              <p>{{ $t('manifesto.paragraph_2') }}</p>
+              <p>{{ $t('manifesto.paragraph_3') }}</p>
             </div>
 
             <!-- Feature boxes -->
@@ -85,31 +64,25 @@
               <div class="col-md-6 gsap-animate">
                 <div class="kiba-manifesto-feature">
                   <i class="fas fa-user-shield"></i>
-                  <h4>Privacy First</h4>
-                  <p>
-                    I dati dei tuoi utenti sono una responsabilità sacra. Zero
-                    tracking invasivo, zero vendita dati.
-                  </p>
+                  <h4>{{ $t('manifesto.feature_privacy_title') }}</h4>
+                  <p>{{ $t('manifesto.feature_privacy_description') }}</p>
                 </div>
               </div>
               <div class="col-md-6 gsap-animate">
                 <div class="kiba-manifesto-feature">
                   <i class="fas fa-hand-holding-heart"></i>
-                  <h4>Tecnologia Etica</h4>
-                  <p>
-                    Software come strumento di emancipazione. Niente dark
-                    patterns, niente dipendenza forzata.
-                  </p>
+                  <h4>{{ $t('manifesto.feature_tech_title') }}</h4>
+                  <p>{{ $t('manifesto.feature_tech_description') }}</p>
                 </div>
               </div>
             </div>
 
-            <!-- Target clients -->
-            <div class="kiba-manifesto-target gsap-animate">
+            <!-- Target clients - Removed as not in translation keys -->
+            <!-- <div class="kiba-manifesto-target gsap-animate">
               <strong>Clienti ideali:</strong> Start-up, PMI e professionisti
               che cercano qualità, sicurezza e affidabilità — non progetti
               "veloci e low-cost".
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

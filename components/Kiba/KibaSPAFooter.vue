@@ -12,7 +12,7 @@
         </div>
         <h3 class="kiba-footer-name">Kiba.Studio</h3>
         <p class="kiba-footer-payoff">
-          Software etico, sicuro e fatto per durare.
+          {{ $t('footer.description') }}
         </p>
       </div>
 
@@ -21,23 +21,23 @@
         <div class="row">
           <!-- Colonna Servizi -->
           <div class="col-md-3 col-6 mb-4 mb-md-0">
-            <h4 class="kiba-footer-title">Servizi</h4>
+            <h4 class="kiba-footer-title">{{ $t('nav.services') }}</h4>
             <ul class="kiba-footer-links">
               <li><a href="#servizi">Web Development</a></li>
               <li><a href="#servizi">App Mobile</a></li>
               <li><a href="#servizi">API & Backend</a></li>
-              <li><a href="#servizi">Consulenza</a></li>
+              <li><a href="#servizi">{{ $t('services.consulting_title') }}</a></li>
             </ul>
           </div>
 
           <!-- Colonna Azienda -->
           <div class="col-md-3 col-6 mb-4 mb-md-0">
-            <h4 class="kiba-footer-title">Azienda</h4>
+            <h4 class="kiba-footer-title">{{ $t('footer.quick_links_title') }}</h4>
             <ul class="kiba-footer-links">
-              <li><a href="#manifesto">Chi Siamo</a></li>
-              <li><a href="#processo">Come Lavoriamo</a></li>
-              <li><a href="#stack">Tech Stack</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#manifesto">{{ $t('nav.about') }}</a></li>
+              <li><a href="#processo">{{ $t('nav.process') }}</a></li>
+              <li><a href="#stack">{{ $t('nav.stack') }}</a></li>
+              <li><a href="#portfolio">{{ $t('nav.portfolio') }}</a></li>
             </ul>
           </div>
 
@@ -54,7 +54,7 @@
 
           <!-- Colonna Contatti -->
           <div class="col-md-3 col-6">
-            <h4 class="kiba-footer-title">Contatti</h4>
+            <h4 class="kiba-footer-title">{{ $t('footer.contact_title') }}</h4>
             <div class="kiba-footer-contact">
               <a href="mailto:info@kiba.studio" class="kiba-footer-email">
                 <i class="fas fa-envelope"></i>
@@ -82,10 +82,10 @@
       <!-- Copyright e Legal -->
       <div class="kiba-footer-bottom">
         <p class="kiba-footer-copyright">
-          © {{ currentYear }} Kiba.Studio. Tutti i diritti riservati.
+          {{ $t('footer.copyright', { year: currentYear }) }}
         </p>
         <p class="kiba-footer-legal">
-          P.IVA 00000000000 | Sviluppato con
+          P.IVA 00000000000 | {{ $t('footer.made_with') }}
           <span class="kiba-footer-heart">♥</span> e rispetto per la privacy
         </p>
       </div>

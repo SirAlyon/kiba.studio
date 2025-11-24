@@ -58,7 +58,7 @@
 
           <!-- Footer info in menu -->
           <div class="kiba-mobile-menu-footer">
-            <p class="kiba-mobile-tagline">Software etico e sicuro</p>
+            <p class="kiba-mobile-tagline">{{ t('footer.description') }}</p>
             <div class="kiba-mobile-contact">
               <a href="mailto:info@kiba.studio">info@kiba.studio</a>
             </div>
@@ -70,8 +70,9 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import KibaIcon from './KibaIcon.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   currentSection: {
@@ -84,14 +85,16 @@ const emit = defineEmits(['navigate']);
 
 const isMenuOpen = ref(false);
 
-const sections = ref([
-  { id: 'hero', label: 'Home' },
-  { id: 'manifesto', label: 'Chi Siamo' },
-  { id: 'servizi', label: 'Servizi' },
-  { id: 'processo', label: 'Processo' },
-  { id: 'stack', label: 'Stack' },
-  { id: 'portfolio', label: 'Portfolio' },
-  { id: 'contatti', label: 'Contatti' }
+const { t } = useI18n();
+
+const sections = computed(() => [
+  { id: 'hero', label: t('nav.home') },
+  { id: 'manifesto', label: t('nav.about') },
+  { id: 'servizi', label: t('nav.services') },
+  { id: 'processo', label: t('nav.process') },
+  { id: 'stack', label: t('nav.stack') },
+  { id: 'portfolio', label: t('nav.portfolio') },
+  { id: 'contatti', label: t('nav.contact') }
 ]);
 
 const toggleMenu = () => {

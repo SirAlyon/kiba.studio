@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Kiba.Studio - Tailwind v3 Custom Theme
+ * Design tokens e utilities custom
+ */
+
+@layer base {
+  /* Base styles */
+  body {
+    @apply bg-kiba-bg-dark text-kiba-text-secondary;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-kiba-text-main;
+  }
+}
+
+@layer components {
+  /* Button components */
+  .kiba-btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-kiba-md font-medium;
+    @apply bg-kiba-primary text-white hover:bg-kiba-primary-hover;
+    @apply transition-all duration-300 ease-kiba;
+  }
+
+  .kiba-btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-kiba-md font-medium;
+    @apply bg-kiba-secondary text-kiba-bg-dark hover:bg-kiba-secondary-dark;
+    @apply transition-all duration-300 ease-kiba;
+  }
+
+  .kiba-btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-kiba-md font-medium;
+    @apply border-2 border-kiba-primary text-kiba-primary hover:bg-kiba-primary hover:text-white;
+    @apply transition-all duration-300 ease-kiba;
+  }
+
+  /* Card components */
+  .kiba-card {
+    @apply bg-kiba-bg-surface rounded-kiba-lg p-6 shadow-kiba-md;
+    @apply transition-all duration-300 ease-kiba hover:shadow-kiba-lg;
+  }
+
+  /* Container Bootstrap-like */
+  .kiba-container {
+    @apply max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .kiba-container-fluid {
+    @apply w-full px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  /* Text gradient utility */
+  .text-gradient-kiba {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #c94c4c 0%, #e06666 100%);
+  }
+
+  /* Background gradient */
+  .bg-gradient-kiba {
+    background-image: linear-gradient(135deg, #c94c4c 0%, #e06666 100%);
+  }
+
+  /* Scrollbar custom */
+  .kiba-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .kiba-scrollbar::-webkit-scrollbar-track {
+    @apply bg-kiba-bg-surface;
+  }
+
+  .kiba-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-kiba-primary rounded-full;
+  }
+
+  .kiba-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-kiba-primary-hover;
+  }
+}

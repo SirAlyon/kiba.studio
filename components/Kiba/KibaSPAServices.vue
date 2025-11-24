@@ -7,13 +7,12 @@
   <div class="kiba-services-spa">
     <div class="container">
       <div class="text-center mb-5">
-        <div class="kiba-section-label gsap-animate">I Nostri Servizi</div>
+        <div class="kiba-section-label gsap-animate">{{ $t('services.label') }}</div>
         <h2 class="kiba-section-title gsap-animate">
-          Soluzioni digitali<br />
-          <span class="kiba-text-gradient">complete</span>
+          {{ $t('services.title') }}
         </h2>
         <p class="kiba-section-subtitle gsap-animate">
-          Dalla progettazione al deployment, costruiamo software etico e scalabile
+          {{ $t('services.subtitle') }}
         </p>
       </div>
 
@@ -78,26 +77,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, nextTick, computed } from 'vue';
 import { useGSAP } from '@/composables/useGSAP';
+import { useI18n } from 'vue-i18n';
 
 // GSAP
 const { loadGSAP, animateAccordion } = useGSAP();
 let gsapInstance = null;
 
+// i18n
+const { t } = useI18n();
+
 // State
 const openService = ref(null);
 const contentRefs = ref([]);
 
-// Services data
-const services = [
+// Services data with i18n
+const services = computed(() => [
   {
     id: 'frontend',
     icon: 'fas fa-palette',
-    title: 'Frontend Development',
+    title: t('services.frontend_title'),
     subtitle: 'Interfacce moderne e performanti',
-    description:
-      'Creiamo interfacce utente reattive e accessibili con Vue.js 3, React e Nuxt. Design responsive, animazioni fluide, performance ottimizzate per ogni device.',
+    description: t('services.frontend_description'),
     features: [
       'Single Page Applications (SPA)',
       'Progressive Web Apps (PWA)',
@@ -110,10 +112,9 @@ const services = [
   {
     id: 'backend',
     icon: 'fas fa-server',
-    title: 'Backend Development',
+    title: t('services.backend_title'),
     subtitle: 'API robuste e sicure',
-    description:
-      'Sviluppiamo backend scalabili con Laravel e Node.js. API RESTful, autenticazione sicura, gestione database ottimizzata, architettura pulita e testata.',
+    description: t('services.backend_description'),
     features: [
       'API RESTful documentate',
       'Autenticazione JWT/OAuth',
@@ -142,10 +143,9 @@ const services = [
   {
     id: 'server',
     icon: 'fas fa-cloud',
-    title: 'Server & DevOps',
+    title: t('services.server_title'),
     subtitle: 'Infrastruttura affidabile',
-    description:
-      'Configuriamo e gestiamo server Linux, containerizzazione Docker, orchestrazione con Kubernetes. Monitoring, sicurezza, scalabilità automatica.',
+    description: t('services.server_description'),
     features: [
       'Server Linux administration',
       'Docker containerization',
@@ -158,10 +158,9 @@ const services = [
   {
     id: 'automation',
     icon: 'fas fa-robot',
-    title: 'Automazione & Script',
+    title: t('services.automation_title'),
     subtitle: 'Efficienza operativa',
-    description:
-      'Automatizziamo processi ripetitivi con Python e Bash. Scraping etico, data processing, task scheduling, integrazione API di terze parti.',
+    description: t('services.automation_description'),
     features: [
       'Web scraping etico',
       'Data processing pipelines',
@@ -174,10 +173,9 @@ const services = [
   {
     id: 'consulting',
     icon: 'fas fa-comments',
-    title: 'Consulenza Tecnica',
+    title: t('services.consulting_title'),
     subtitle: 'Strategia e architettura',
-    description:
-      'Offriamo consulenza su architettura software, scelta tecnologica, code review, refactoring. Aiutiamo team interni a migliorare qualità e processi.',
+    description: t('services.consulting_description'),
     features: [
       'Architettura software',
       'Code review approfondite',
@@ -187,7 +185,7 @@ const services = [
     ],
     technologies: ['Clean Code', 'SOLID', 'Design Patterns', 'Security Audit']
   }
-];
+]);
 
 onMounted(async () => {
   const modules = await loadGSAP();

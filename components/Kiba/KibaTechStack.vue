@@ -8,13 +8,12 @@
     <div class="container">
       <!-- Titolo sezione -->
       <div class="kiba-section-title wow fadeInUp" data-wow-delay=".1s">
-        <div class="kiba-label">Stack Tecnologico</div>
+        <div class="kiba-label">{{ $t('stack.label') }}</div>
         <h2 class="kiba-heading-lg">
-          Le tecnologie che padroneggiamo
+          {{ $t('stack.title') }}
         </h2>
         <p class="kiba-subtitle">
-          Scegliamo sempre lo strumento giusto per il lavoro. Ecco alcune delle
-          tecnologie con cui lavoriamo quotidianamente.
+          {{ $t('stack.subtitle') }}
         </p>
       </div>
 
@@ -25,7 +24,7 @@
           <div class="kiba-tech-category wow fadeInUp" data-wow-delay=".2s">
             <h3 class="kiba-heading-sm mb-20">
               <i class="fas fa-palette kiba-text-primary me-2"></i>
-              Front-end
+              {{ $t('stack.category_frontend') }}
             </h3>
             <div class="kiba-tech-tags">
               <span
@@ -44,7 +43,7 @@
           <div class="kiba-tech-category wow fadeInUp" data-wow-delay=".3s">
             <h3 class="kiba-heading-sm mb-20">
               <i class="fas fa-database kiba-text-primary me-2"></i>
-              Back-end
+              {{ $t('stack.category_backend') }}
             </h3>
             <div class="kiba-tech-tags">
               <span
@@ -63,7 +62,7 @@
           <div class="kiba-tech-category wow fadeInUp" data-wow-delay=".4s">
             <h3 class="kiba-heading-sm mb-20">
               <i class="fas fa-cogs kiba-text-primary me-2"></i>
-              DevOps & Infra
+              {{ $t('stack.category_database') }}
             </h3>
             <div class="kiba-tech-tags">
               <span

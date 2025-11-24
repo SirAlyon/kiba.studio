@@ -14,9 +14,7 @@
               Kiba<span>.</span>Studio
             </a>
             <p class="kiba-body mt-20">
-              Sviluppo software su misura con precisione tecnica e cura
-              artigianale. Come un Akita fedele, proteggiamo e rafforziamo
-              il tuo business digitale.
+              {{ $t('footer.description') }}
             </p>
             <div class="kiba-footer-social mt-20">
               <a
@@ -50,14 +48,14 @@
         <!-- Colonna Link Rapidi -->
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
           <div class="kiba-footer-links">
-            <h4 class="kiba-heading-sm mb-20">Link Rapidi</h4>
+            <h4 class="kiba-heading-sm mb-20">{{ $t('footer.quick_links_title') }}</h4>
             <ul>
-              <li><a href="#chi-siamo">Chi Siamo</a></li>
-              <li><a href="#servizi">Servizi</a></li>
-              <li><a href="#processo">Il Nostro Processo</a></li>
-              <li><a href="#tecnologie">Stack Tecnologico</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
-              <li><a href="#contatti">Contattaci</a></li>
+              <li><a href="#chi-siamo">{{ $t('nav.about') }}</a></li>
+              <li><a href="#servizi">{{ $t('nav.services') }}</a></li>
+              <li><a href="#processo">{{ $t('nav.process') }}</a></li>
+              <li><a href="#tecnologie">{{ $t('nav.stack') }}</a></li>
+              <li><a href="#portfolio">{{ $t('nav.portfolio') }}</a></li>
+              <li><a href="#contatti">{{ $t('nav.contact') }}</a></li>
             </ul>
           </div>
         </div>
@@ -65,7 +63,7 @@
         <!-- Colonna Contatti -->
         <div class="col-lg-4 col-md-6">
           <div class="kiba-footer-contact">
-            <h4 class="kiba-heading-sm mb-20">Contatti</h4>
+            <h4 class="kiba-heading-sm mb-20">{{ $t('footer.contact_title') }}</h4>
             <ul>
               <li>
                 <i class="fas fa-envelope kiba-text-primary me-2"></i>
@@ -79,7 +77,7 @@
               </li>
               <li>
                 <i class="fas fa-map-marker-alt kiba-text-primary me-2"></i>
-                <span>Italia - Remote First</span>
+                <span>{{ $t('contact.info_location') }}</span>
               </li>
             </ul>
 
@@ -103,13 +101,12 @@
         <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
             <p class="mb-0">
-              &copy; {{ currentYear }} Kiba.Studio. Tutti i diritti riservati.
+              {{ $t('footer.copyright', { year: currentYear }) }}
             </p>
           </div>
           <div class="col-md-6 text-center text-md-end">
             <p class="mb-0">
-              Sviluppato con <i class="fas fa-heart kiba-text-primary"></i> e
-              tanta caffeina
+              {{ $t('footer.made_with') }} <i class="fas fa-heart kiba-text-primary"></i>
             </p>
           </div>
         </div>

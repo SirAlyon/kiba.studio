@@ -6,13 +6,12 @@
   <div class="kiba-contact-spa">
     <div class="container">
       <div class="text-center mb-5">
-        <div class="kiba-section-label gsap-animate">Contatti</div>
+        <div class="kiba-section-label gsap-animate">{{ $t('contact.label') }}</div>
         <h2 class="kiba-section-title gsap-animate">
-          Iniziamo a<br />
-          <span class="kiba-text-gradient">parlare</span>
+          {{ $t('contact.title') }}
         </h2>
         <p class="kiba-section-subtitle gsap-animate">
-          Raccontaci il tuo progetto. Nessun impegno, solo una conversazione onesta.
+          {{ $t('contact.subtitle') }}
         </p>
       </div>
 
@@ -23,37 +22,37 @@
             <form @submit.prevent="submitForm" class="kiba-contact-form">
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="name" class="kiba-form-label">Nome *</label>
+                  <label for="name" class="kiba-form-label">{{ $t('contact.form_name_label') }}</label>
                   <input
                     id="name"
                     v-model="form.name"
                     type="text"
                     class="kiba-form-input"
                     required
-                    placeholder="Il tuo nome"
+                    :placeholder="$t('contact.form_name_placeholder')"
                   />
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="email" class="kiba-form-label">Email *</label>
+                  <label for="email" class="kiba-form-label">{{ $t('contact.form_email_label') }}</label>
                   <input
                     id="email"
                     v-model="form.email"
                     type="email"
                     class="kiba-form-input"
                     required
-                    placeholder="email@esempio.com"
+                    :placeholder="$t('contact.form_email_placeholder')"
                   />
                 </div>
               </div>
 
               <div class="mb-3">
-                <label for="company" class="kiba-form-label">Azienda</label>
+                <label for="company" class="kiba-form-label">{{ $t('contact.form_company_label') }}</label>
                 <input
                   id="company"
                   v-model="form.company"
                   type="text"
                   class="kiba-form-input"
-                  placeholder="Nome azienda (opzionale)"
+                  :placeholder="$t('contact.form_company_placeholder')"
                 />
               </div>
 
@@ -70,14 +69,14 @@
               </div>
 
               <div class="mb-3">
-                <label for="message" class="kiba-form-label">Messaggio *</label>
+                <label for="message" class="kiba-form-label">{{ $t('contact.form_message_label') }}</label>
                 <textarea
                   id="message"
                   v-model="form.message"
                   class="kiba-form-textarea"
                   required
                   rows="5"
-                  placeholder="Descrivi il tuo progetto, esigenze, timeline..."
+                  :placeholder="$t('contact.form_message_placeholder')"
                 ></textarea>
               </div>
 
@@ -101,11 +100,11 @@
                 :disabled="isSubmitting"
               >
                 <span v-if="!isSubmitting">
-                  Invia messaggio
+                  {{ $t('contact.form_submit_button') }}
                   <i class="fas fa-paper-plane ms-2"></i>
                 </span>
                 <span v-else>
-                  Invio in corso...
+                  {{ $t('contact.form_submitting') }}
                   <i class="fas fa-spinner fa-spin ms-2"></i>
                 </span>
               </button>
@@ -113,7 +112,7 @@
               <!-- Success message -->
               <div v-if="submitSuccess" class="kiba-form-success">
                 <i class="fas fa-check-circle"></i>
-                Messaggio inviato! Ti risponderemo entro 24 ore.
+                {{ $t('contact.form_success') }}
               </div>
             </form>
           </div>
@@ -137,8 +136,8 @@
                 <i class="fas fa-clock"></i>
               </div>
               <div class="kiba-contact-info-content">
-                <h4>Risposta</h4>
-                <p>Entro 24 ore lavorative</p>
+                <h4>{{ $t('contact.info_response_time').split(' ')[0] }}</h4>
+                <p>{{ $t('contact.info_response_time') }}</p>
               </div>
             </div>
 
@@ -148,24 +147,24 @@
               </div>
               <div class="kiba-contact-info-content">
                 <h4>Location</h4>
-                <p>Italia - Lavoriamo in remoto</p>
+                <p>{{ $t('contact.info_location') }}</p>
               </div>
             </div>
 
             <!-- Values reminder -->
             <div class="kiba-contact-values">
-              <h4>I nostri valori</h4>
+              <h4>{{ t('contact.values_title') || 'I nostri valori' }}</h4>
               <div class="kiba-contact-value">
                 <i class="fas fa-shield-alt"></i>
-                <span>Privacy dei tuoi dati garantita</span>
+                <span>{{ $t('contact.value_privacy') }}</span>
               </div>
               <div class="kiba-contact-value">
                 <i class="fas fa-handshake"></i>
-                <span>Nessun impegno per la consulenza iniziale</span>
+                <span>{{ $t('contact.info_consultation') }}</span>
               </div>
               <div class="kiba-contact-value">
                 <i class="fas fa-file-contract"></i>
-                <span>Preventivo dettagliato e trasparente</span>
+                <span>{{ $t('contact.value_transparent') }}</span>
               </div>
             </div>
           </div>
@@ -177,6 +176,9 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const form = reactive({
   name: '',

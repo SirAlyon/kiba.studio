@@ -8,13 +8,12 @@
     <div class="container">
       <!-- Titolo sezione -->
       <div class="kiba-section-title wow fadeInUp" data-wow-delay=".1s">
-        <div class="kiba-label">I Nostri Servizi</div>
+        <div class="kiba-label">{{ $t('services.label') }}</div>
         <h2 class="kiba-heading-lg">
-          Soluzioni digitali complete
+          {{ $t('services.title') }}
         </h2>
         <p class="kiba-subtitle">
-          Dal front-end all'infrastruttura, copriamo ogni aspetto dello sviluppo
-          software moderno. Ecco come possiamo aiutarti.
+          {{ $t('services.subtitle') }}
         </p>
       </div>
 
@@ -26,11 +25,9 @@
             <div class="kiba-card-icon">
               <i class="fas fa-laptop-code"></i>
             </div>
-            <h3 class="kiba-heading-sm">Sviluppo Front-end</h3>
+            <h3 class="kiba-heading-sm">{{ $t('services.frontend_title') }}</h3>
             <p class="kiba-body mt-15">
-              Interfacce moderne, reattive e performanti. Specializziamo in
-              Vue.js, React e architetture SPA/PWA. Ogni componente è
-              ottimizzato per velocità e accessibilità.
+              {{ $t('services.frontend_description') }}
             </p>
             <ul class="kiba-service-list mt-15">
               <li>Single Page Applications (SPA)</li>
@@ -47,11 +44,9 @@
             <div class="kiba-card-icon">
               <i class="fas fa-server"></i>
             </div>
-            <h3 class="kiba-heading-sm">Sviluppo Back-end</h3>
+            <h3 class="kiba-heading-sm">{{ $t('services.backend_title') }}</h3>
             <p class="kiba-body mt-15">
-              API robuste e scalabili, architetture a microservizi e gestione
-              database. Costruiamo il cuore tecnologico del tuo prodotto con
-              sicurezza e performance.
+              {{ $t('services.backend_description') }}
             </p>
             <ul class="kiba-service-list mt-15">
               <li>API REST e GraphQL</li>
@@ -68,11 +63,9 @@
             <div class="kiba-card-icon">
               <i class="fas fa-cloud"></i>
             </div>
-            <h3 class="kiba-heading-sm">Gestione Server & Cloud</h3>
+            <h3 class="kiba-heading-sm">{{ $t('services.server_title') }}</h3>
             <p class="kiba-body mt-15">
-              Configurazione, deploy e monitoraggio di infrastrutture cloud.
-              Dal singolo VPS alle architetture multi-cloud, gestiamo tutto
-              il ciclo di vita del tuo ambiente.
+              {{ $t('services.server_description') }}
             </p>
             <ul class="kiba-service-list mt-15">
               <li>Setup e configurazione server</li>
@@ -89,11 +82,9 @@
             <div class="kiba-card-icon">
               <i class="fas fa-robot"></i>
             </div>
-            <h3 class="kiba-heading-sm">Automazione & Integrazioni</h3>
+            <h3 class="kiba-heading-sm">{{ $t('services.automation_title') }}</h3>
             <p class="kiba-body mt-15">
-              Elimina le operazioni ripetitive e connetti i tuoi sistemi.
-              Script personalizzati, workflow automatizzati e integrazioni
-              tra piattaforme diverse.
+              {{ $t('services.automation_description') }}
             </p>
             <ul class="kiba-service-list mt-15">
               <li>Script e bot personalizzati</li>
@@ -110,11 +101,9 @@
             <div class="kiba-card-icon">
               <i class="fas fa-comments"></i>
             </div>
-            <h3 class="kiba-heading-sm">Consulenza Tecnica</h3>
+            <h3 class="kiba-heading-sm">{{ $t('services.consulting_title') }}</h3>
             <p class="kiba-body mt-15">
-              Hai bisogno di un parere esperto? Ti aiutiamo a scegliere le
-              tecnologie giuste, valutare architetture e pianificare lo
-              sviluppo del tuo prodotto digitale.
+              {{ $t('services.consulting_description') }}
             </p>
             <ul class="kiba-service-list mt-15">
               <li>Analisi requisiti</li>

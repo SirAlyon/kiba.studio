@@ -8,14 +8,13 @@
     <div class="container">
       <!-- Header sezione -->
       <div class="kiba-portfolio-header">
-        <div class="kiba-section-label gsap-animate">Portfolio</div>
+        <div class="kiba-section-label gsap-animate">{{ $t('portfolio.label') }}</div>
         <h2 class="kiba-section-title gsap-animate">
-          Esempi del nostro lavoro<br />
-          <span class="kiba-text-gradient">Privacy dei clienti sempre rispettata</span>
+          {{ $t('portfolio.title') }}<br />
+          <span class="kiba-text-gradient">{{ $t('portfolio.subtitle') }}</span>
         </h2>
         <p class="kiba-section-subtitle gsap-animate">
-          I progetti sono presentati in forma anonima per tutelare la riservatezza dei nostri clienti.
-          Nessun dato sensibile, solo la qualità del nostro lavoro.
+          {{ $t('portfolio.privacy_note') }}
         </p>
       </div>
 
@@ -52,7 +51,7 @@
 
           <!-- Card action -->
           <div class="kiba-portfolio-card-action">
-            <span>Scopri di più</span>
+            <span>{{ $t('portfolio.discover_more') }}</span>
             <i class="fas fa-arrow-right"></i>
           </div>
         </div>
@@ -61,10 +60,7 @@
       <!-- Privacy note -->
       <div class="kiba-portfolio-note gsap-animate">
         <i class="fas fa-shield-alt"></i>
-        <p>
-          <strong>Privacy First:</strong> Tutti i dettagli sensibili sono stati rimossi.
-          I progetti sono descritti preservando completamente l'anonimato dei clienti.
-        </p>
+        <p v-html="$t('portfolio.privacy_note')"></p>
       </div>
     </div>
 

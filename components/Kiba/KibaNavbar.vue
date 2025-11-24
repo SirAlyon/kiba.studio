@@ -33,27 +33,27 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="#chi-siamo" @click="closeMenu">
-              Chi Siamo
+              {{ $t('nav.about') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#servizi" @click="closeMenu">
-              Servizi
+              {{ $t('nav.services') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#processo" @click="closeMenu">
-              Processo
+              {{ $t('nav.process') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#tecnologie" @click="closeMenu">
-              Tecnologie
+              {{ $t('nav.stack') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#portfolio" @click="closeMenu">
-              Portfolio
+              {{ $t('nav.portfolio') }}
             </a>
           </li>
           <li class="nav-item">
@@ -62,7 +62,7 @@
               href="#contatti"
               @click="closeMenu"
             >
-              Contattaci
+              {{ $t('nav.contact') }}
             </a>
           </li>
         </ul>

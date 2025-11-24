@@ -77,16 +77,18 @@
       class="kiba-process-scroll-hint"
     >
       <i class="fas fa-chevron-down"></i>
-      <span>Prossimo step</span>
+      <span>{{ $t('process.scroll_hint') }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useGSAP } from '@/composables/useGSAP';
+import { useI18n } from 'vue-i18n';
 
 const emit = defineEmits(['navigate']);
+const { t } = useI18n();
 
 // Refs
 const sectionRef = ref(null);
@@ -104,16 +106,16 @@ let currentStepTimeline = null;
 let isAnimating = false;
 let canProceed = false;
 
-// Steps del processo
-const steps = [
+// Steps del processo with i18n
+const steps = computed(() => [
   {
     id: 'discovery',
-    label: 'Analisi',
-    title: 'Discovery & Strategy',
-    description: 'Iniziamo con un\'analisi approfondita delle tue esigenze di business, obiettivi e vincoli tecnici. Definiamo insieme la strategia migliore, lo scope del progetto, timeline realistica e budget sostenibile. Ogni dettaglio viene documentato per garantire trasparenza.',
+    label: t('process.step_1_label'),
+    title: t('process.step_1_title'),
+    description: t('process.step_1_description'),
     icon: 'fas fa-compass',
     accentColor: '#c94c4c',
-    duration: '1-2 settimane',
+    duration: t('process.step_1_duration'),
     highlights: [
       'Workshop di scoperta con stakeholder',
       'Analisi competitors e mercato',
@@ -123,12 +125,12 @@ const steps = [
   },
   {
     id: 'design',
-    label: 'Progettazione',
-    title: 'Design & Architecture',
-    description: 'Creiamo wireframe dettagliati, mockup interattivi e definiamo l\'architettura tecnica scalabile. Il design non è solo estetica: è usabilità, accessibilità, performance. Validiamo ogni scelta con te prima di scrivere una singola riga di codice.',
+    label: t('process.step_2_label'),
+    title: t('process.step_2_title'),
+    description: t('process.step_2_description'),
     icon: 'fas fa-drafting-compass',
     accentColor: '#e06666',
-    duration: '2-3 settimane',
+    duration: t('process.step_2_duration'),
     highlights: [
       'Wireframe e prototipi interattivi',
       'Design system componibile',
@@ -138,12 +140,12 @@ const steps = [
   },
   {
     id: 'development',
-    label: 'Sviluppo',
-    title: 'Development Sprint',
-    description: 'Sviluppiamo in sprint agili con demo settimanali. Codice pulito, testato, documentato. Utilizziamo Git per versionamento, CI/CD per deploy automatici, code review per qualità. Trasparenza totale: hai sempre accesso al repository e progress.',
+    label: t('process.step_3_label'),
+    title: t('process.step_3_title'),
+    description: t('process.step_3_description'),
     icon: 'fas fa-code',
     accentColor: '#d45555',
-    duration: '4-12 settimane',
+    duration: t('process.step_3_duration'),
     highlights: [
       'Sprint settimanali con demo',
       'Test automatizzati (TDD)',
@@ -153,12 +155,12 @@ const steps = [
   },
   {
     id: 'testing',
-    label: 'Qualità',
-    title: 'Testing & Security',
-    description: 'Test funzionali, di performance, di sicurezza. Ogni feature viene validata su diversi dispositivi e browser. Security audit completo, penetration testing, OWASP compliance. Correggiamo bug e ottimizziamo prima del lancio.',
+    label: t('process.step_4_label'),
+    title: t('process.step_4_title'),
+    description: t('process.step_4_description'),
     icon: 'fas fa-shield-alt',
     accentColor: '#c94c4c',
-    duration: '1-2 settimane',
+    duration: t('process.step_4_duration'),
     highlights: [
       'Test automatizzati end-to-end',
       'Security audit professionale',
@@ -168,12 +170,12 @@ const steps = [
   },
   {
     id: 'deployment',
-    label: 'Lancio',
-    title: 'Deploy & Support',
-    description: 'Deploy su infrastruttura sicura e scalabile. Configuriamo monitoring 24/7, backup automatici, disaster recovery. Il supporto post-lancio include manutenzione, aggiornamenti di sicurezza e assistenza continua. Il tuo successo è il nostro.',
+    label: t('process.step_5_label'),
+    title: t('process.step_5_title'),
+    description: t('process.step_5_description'),
     icon: 'fas fa-rocket',
     accentColor: '#e06666',
-    duration: 'Ongoing',
+    duration: t('process.step_5_duration'),
     highlights: [
       'Deploy zero-downtime',
       'Monitoring e alerting 24/7',
@@ -181,7 +183,7 @@ const steps = [
       'Supporto e manutenzione continua'
     ]
   }
-];
+]);
 
 onMounted(async () => {
   // Carica GSAP

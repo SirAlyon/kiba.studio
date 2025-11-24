@@ -2,10 +2,29 @@ import { fileURLToPath } from 'node:url';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: true,
+  compatibilityDate: '2025-11-24',
+  modules: ['@nuxtjs/i18n'],
+  i18n: {
+    locales: [
+      { code: 'it', iso: 'it-IT', name: 'Italiano', file: 'it.json' },
+      { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' }
+    ],
+    defaultLocale: 'it',
+    lazy: true,
+    langDir: 'locales',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'kiba_locale',
+      redirectOn: 'root',
+    }
+  },
   typescript: {
     shim: false
   },
-  nitro: {},
+  nitro: {
+    compatibilityDate: '2025-11-24'
+  },
   alias: {
     "@": fileURLToPath(new URL('./', import.meta.url)),
   },
@@ -43,14 +62,27 @@ export default defineNuxtConfig({
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
+          integrity: "sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==",
+          crossorigin: "anonymous"
         }
       ]
     }
   },
   css: [
     'swiper/css/bundle',
+    '@/assets/css/tailwind.css',
     '@/styles/globals.css'
   ],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   webpack: {
     extractCSS: true,
     optimization: {

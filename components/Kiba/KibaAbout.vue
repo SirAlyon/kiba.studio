@@ -21,9 +21,7 @@
               </div>
               <h3 class="kiba-heading-sm mt-20">Kiba</h3>
               <p class="kiba-body mt-10">
-                "Kiba" in giapponese significa zanna. Come l'Akita, razza nota
-                per lealtà e protezione incrollabile, noi proteggiamo i tuoi
-                dati e il tuo business digitale con rigore e dedizione.
+                {{ $t('manifesto.kiba_meaning') }}
               </p>
               <div class="kiba-divider kiba-divider-center mt-20"></div>
 
@@ -31,21 +29,21 @@
               <div class="kiba-about-values mt-20">
                 <div class="kiba-value-item">
                   <i class="fas fa-lock"></i>
-                  <span>Privacy First</span>
+                  <span>{{ $t('manifesto.value_privacy') }}</span>
                 </div>
                 <div class="kiba-value-item">
                   <i class="fas fa-code"></i>
-                  <span>Codice Etico</span>
+                  <span>{{ $t('manifesto.value_code') }}</span>
                 </div>
                 <div class="kiba-value-item">
                   <i class="fas fa-infinity"></i>
-                  <span>Soluzioni Durature</span>
+                  <span>{{ $t('manifesto.value_solutions') }}</span>
                 </div>
               </div>
 
               <div class="kiba-about-stat mt-25">
-                <span class="kiba-stat-number">6+</span>
-                <span class="kiba-stat-label">Anni di esperienza</span>
+                <span class="kiba-stat-number">{{ $t('manifesto.stat_years') }}</span>
+                <span class="kiba-stat-label">{{ $t('manifesto.stat_years_label') }}</span>
               </div>
             </div>
           </div>
@@ -54,34 +52,22 @@
         <!-- Colonna Testo -->
         <div class="col-lg-7">
           <div class="kiba-about-content">
-            <div class="kiba-label kiba-observe kiba-stagger-1">La Nostra Filosofia</div>
+            <div class="kiba-label kiba-observe kiba-stagger-1">{{ $t('manifesto.label') }}</div>
             <h2 class="kiba-heading-lg mt-15 kiba-observe kiba-stagger-2">
-              Software etico, fatto per durare
+              {{ $t('manifesto.title') }}
             </h2>
             <div class="kiba-divider kiba-observe kiba-stagger-3"></div>
 
             <p class="kiba-body mt-20 kiba-observe kiba-stagger-4">
-              <strong>Kiba.Studio</strong> nasce come laboratorio etico di software.
-              Fondata da un fullstack developer con oltre 6 anni di esperienza su
-              <strong>Laravel, Vue.js, Node e Python</strong>, l'agenzia mette
-              al centro i valori che altri trascurano: <strong>privacy,
-              trasparenza e qualità senza compromessi</strong>.
+              {{ $t('manifesto.paragraph_1') }}
             </p>
 
             <p class="kiba-body mt-15 kiba-observe kiba-stagger-5">
-              Non siamo una factory che produce siti in serie. Siamo una
-              <strong>boutique tecnica</strong> che crede nel codice come
-              strumento di <strong>libertà</strong>, non di dipendenza. I tuoi
-              dati sono una responsabilità che prendiamo sul serio, non merce
-              da monetizzare. Ogni soluzione che costruiamo è pensata per
-              <strong>emancipare</strong> il tuo business, non per vincolarlo.
+              {{ $t('manifesto.paragraph_2') }}
             </p>
 
             <p class="kiba-body mt-15 kiba-observe kiba-stagger-6">
-              Lavoriamo con la <strong>serietà giapponese</strong>: ordine,
-              pulizia, struttura, rigore. Il nostro codice parla per noi: testato,
-              documentato, manutenibile. Niente scorciatoie, niente debito tecnico
-              nascosto. Solo soluzioni scalabili, sicure e durature.
+              {{ $t('manifesto.paragraph_3') }}
             </p>
 
             <!-- Feature box con valori -->
@@ -89,20 +75,18 @@
               <div class="col-md-6 kiba-observe kiba-stagger-1">
                 <div class="kiba-about-feature">
                   <i class="fas fa-user-shield kiba-text-primary"></i>
-                  <h4 class="kiba-heading-sm mt-10">Privacy First</h4>
+                  <h4 class="kiba-heading-sm mt-10">{{ $t('manifesto.feature_privacy_title') }}</h4>
                   <p class="kiba-small mt-5">
-                    I dati dei tuoi utenti sono una responsabilità sacra.
-                    Zero tracking invasivo, zero vendita dati.
+                    {{ $t('manifesto.feature_privacy_description') }}
                   </p>
                 </div>
               </div>
               <div class="col-md-6 kiba-observe kiba-stagger-2">
                 <div class="kiba-about-feature">
                   <i class="fas fa-hand-holding-heart kiba-text-primary"></i>
-                  <h4 class="kiba-heading-sm mt-10">Tecnologia Etica</h4>
+                  <h4 class="kiba-heading-sm mt-10">{{ $t('manifesto.feature_tech_title') }}</h4>
                   <p class="kiba-small mt-5">
-                    Software come strumento di emancipazione. Niente dark
-                    patterns, niente dipendenza forzata.
+                    {{ $t('manifesto.feature_tech_description') }}
                   </p>
                 </div>
               </div>

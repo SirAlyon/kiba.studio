@@ -16,7 +16,7 @@
           <div class="kiba-hero-content">
             <!-- Label superiore -->
             <div class="kiba-label kiba-animate-fade-up" style="--delay: 0.1s">
-              Boutique Software House
+              {{ $t('hero.label') }}
             </div>
 
             <!-- Titolo principale -->
@@ -26,41 +26,37 @@
 
             <!-- Sottotitolo con slogan etico -->
             <h2 class="kiba-heading-md mt-10 kiba-animate-fade-up" style="--delay: 0.3s">
-              Software etico, fatto per durare
+              {{ $t('manifesto.title') }}
             </h2>
 
             <!-- Descrizione con valori -->
             <p class="kiba-subtitle mt-20 kiba-animate-fade-up" style="--delay: 0.4s">
-              Siamo una boutique tecnica che mette <strong>privacy</strong> e
-              <strong>qualità</strong> al primo posto. Il nostro codice è uno
-              strumento di <strong>libertà</strong>, non di dipendenza.
-              Come un Akita fedele, proteggiamo il tuo business digitale con
-              rigore e cura artigianale.
+              {{ $t('hero.subtitle') }}
             </p>
 
             <!-- Bullets con valori etici -->
             <ul class="kiba-hero-bullets kiba-animate-fade-up" style="--delay: 0.5s">
               <li>
-                <strong>Privacy first</strong> — I tuoi dati sono una responsabilità, non merce
+                <strong>{{ $t('manifesto.value_privacy') }}</strong> — {{ $t('manifesto.feature_privacy_description') }}
               </li>
               <li>
-                <strong>Codice artigianale</strong> — Laravel, Vue.js, Node, Python
+                <strong>{{ $t('manifesto.value_code') }}</strong> — Laravel, Vue.js, Node, Python
               </li>
               <li>
                 <strong>Infrastruttura sicura</strong> — Docker, DevOps, cloud su misura
               </li>
               <li>
-                <strong>Soluzioni durature</strong> — Scalabili, manutenibili, etiche
+                <strong>{{ $t('manifesto.value_solutions') }}</strong> — Scalabili, manutenibili, etiche
               </li>
             </ul>
 
             <!-- Call to Action - Senza animazioni bugganti -->
             <div class="kiba-hero-cta mt-30 kiba-animate-fade-up" style="--delay: 0.6s">
               <a href="#contatti" class="kiba-btn kiba-btn-primary me-3 mb-3">
-                Richiedi consulenza
+                {{ $t('hero.cta_primary') }}
               </a>
               <a href="#servizi" class="kiba-btn kiba-btn-secondary mb-3">
-                Scopri i servizi
+                {{ $t('hero.cta_secondary') }}
               </a>
             </div>
           </div>
@@ -77,7 +73,7 @@
 
     <!-- Indicatore scroll -->
     <div class="kiba-scroll-indicator">
-      <span>Scorri</span>
+      <span>{{ $t('hero.scroll_indicator') }}</span>
       <div class="kiba-scroll-arrow"></div>
     </div>
   </section>
