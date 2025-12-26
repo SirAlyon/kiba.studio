@@ -105,11 +105,11 @@ const currentYear = computed(() => new Date().getFullYear());
   width: 100%;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
   justify-content: center;
   background: var(--kiba-bg-dark, #1a1a1a);
   position: relative;
-  padding: 80px 0;
+  padding: 60px 0 60px;
 }
 
 .kiba-footer-spa::before {
@@ -160,6 +160,8 @@ const currentYear = computed(() => new Date().getFullYear());
   background-clip: text;
   color: transparent;
   margin-bottom: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-footer-payoff {
@@ -274,10 +276,30 @@ const currentYear = computed(() => new Date().getFullYear());
 }
 
 /* Responsive */
+@media (max-width: 991px) {
+  .kiba-footer-spa {
+    padding: 70px 0 60px;
+  }
+
+  .kiba-footer-name {
+    font-size: 1.75rem;
+  }
+
+  .kiba-footer-payoff {
+    font-size: 1.0625rem;
+  }
+}
+
 @media (max-width: 767px) {
   .kiba-footer-spa {
-    padding: 60px 0;
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    padding: 60px 0 40px;
     min-height: auto;
+  }
+
+  .kiba-footer-brand {
+    margin-bottom: 40px;
   }
 
   .kiba-footer-name {
@@ -286,18 +308,29 @@ const currentYear = computed(() => new Date().getFullYear());
 
   .kiba-footer-payoff {
     font-size: 1rem;
+    line-height: 1.6;
   }
 
   .kiba-footer-content {
     text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .kiba-footer-title {
+    margin-top: 20px;
+    font-size: 0.8125rem;
+  }
+
+  .kiba-footer-links a {
+    font-size: 0.875rem;
   }
 
   .kiba-footer-social {
     justify-content: center;
   }
 
-  .kiba-footer-title {
-    margin-top: 20px;
+  .kiba-footer-email {
+    font-size: 0.9375rem;
   }
 }
 </style>

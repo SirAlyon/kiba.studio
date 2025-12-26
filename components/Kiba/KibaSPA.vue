@@ -259,21 +259,41 @@ const handleNavigation = ({ index, sectionId }) => {
   const section = document.querySelector(`#${sectionId}`);
   if (!section) return;
 
+  currentSectionIndex.value = index;
+
+  // Check if mobile
+  const isMobile = window.innerWidth <= 767;
+
   if (!gsap) {
     // Fallback senza GSAP
-    section.scrollIntoView({ behavior: 'smooth' });
-    currentSectionIndex.value = index;
+    if (isMobile) {
+      // Su mobile scrolliamo la window
+      window.scrollTo({
+        top: section.offsetTop,
+        behavior: 'smooth'
+      });
+    } else {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
     return;
   }
 
-  // Scroll del container, non della window
-  gsap.to(containerRef.value, {
-    duration: 1,
-    scrollTo: { y: section, offsetY: 0 },
-    ease: 'power3.inOut'
-  });
-
-  currentSectionIndex.value = index;
+  if (isMobile) {
+    // Su mobile scrolliamo direttamente alla posizione della sezione
+    const sectionTop = section.offsetTop - 60; // 60px = altezza header mobile
+    gsap.to(containerRef.value, {
+      duration: 1,
+      scrollTop: sectionTop,
+      ease: 'power3.inOut'
+    });
+  } else {
+    // Su desktop usiamo scrollTo plugin
+    gsap.to(containerRef.value, {
+      duration: 1,
+      scrollTo: { y: section, offsetY: 0 },
+      ease: 'power3.inOut'
+    });
+  }
 };
 
 /**
@@ -320,21 +340,42 @@ const scrollToTop = () => {
 
 .kiba-spa-container {
   margin-left: 70px; /* Spazio per navbar laterale */
-  scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 100vh;
   scroll-behavior: smooth;
 }
 
+/* Scroll snap only on large desktop */
+@media (min-width: 992px) {
+  .kiba-spa-container {
+    scroll-snap-type: y mandatory;
+    height: 100vh;
+  }
+}
+
 .kiba-spa-section {
-  height: 100vh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* flex-start per evitare taglio contenuti */
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* Hero ha bisogno di center per il modello 3D */
+.kiba-spa-section#hero {
+  align-items: center;
+}
+
+/* Full viewport height and snap only on large desktop */
+@media (min-width: 992px) {
+  .kiba-spa-section {
+    height: 100vh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding: 40px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 /* Alternanza colori sfondo */
@@ -396,12 +437,53 @@ const scrollToTop = () => {
   .kiba-spa-container {
     margin-left: 60px;
   }
+
+  /* FIX per tablet - rimuovi flexbox centering e height fissa */
+  .kiba-spa-section {
+    display: block;
+    height: auto;
+    min-height: auto;
+    align-items: unset;
+    justify-content: unset;
+  }
+
+  /* Override per tutti i componenti interni delle sezioni - tablet */
+  .kiba-spa-section :deep([class*="-spa"]) {
+    display: block;
+    height: auto;
+    min-height: auto;
+    align-items: unset;
+    justify-content: unset;
+  }
 }
 
 @media (max-width: 767px) {
   .kiba-spa-container {
     margin-left: 0;
     padding-top: 60px; /* Spazio per header mobile */
+    height: auto; /* Allow natural scroll on mobile */
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .kiba-spa-section {
+    /* RESET COMPLETO per mobile - layout a blocchi naturale */
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 40px 16px;
+    overflow: visible !important;
+  }
+
+  /* Override per tutti i componenti interni delle sezioni */
+  .kiba-spa-section :deep([class*="-spa"]) {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    align-items: unset !important;
+    justify-content: unset !important;
   }
 
   .kiba-back-to-top {

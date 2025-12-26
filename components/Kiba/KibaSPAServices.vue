@@ -230,8 +230,8 @@ const toggleService = async (index) => {
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  padding: 60px 0;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
+  padding: 40px 0 40px;
   overflow-y: auto;
 }
 
@@ -248,9 +248,11 @@ const toggleService = async (index) => {
 .kiba-section-title {
   font-size: 2.75rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-text-gradient {
@@ -335,6 +337,8 @@ const toggleService = async (index) => {
   font-weight: 600;
   color: var(--kiba-text-main, #f0f0f0);
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-service-subtitle {
@@ -364,6 +368,7 @@ const toggleService = async (index) => {
 .kiba-service-content {
   height: 0;
   overflow: hidden;
+  will-change: height;
 }
 
 .kiba-service-content-inner {
@@ -429,13 +434,45 @@ const toggleService = async (index) => {
   color: var(--kiba-primary, #c94c4c);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
+  .kiba-services-spa {
+    padding: 60px 0 40px;
+  }
+
   .kiba-section-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .kiba-services-spa {
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    height: auto;
+    min-height: auto;
+    padding: 30px 0;
+    overflow: visible;
+  }
+
+  .kiba-section-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .kiba-section-subtitle {
+    font-size: 0.9375rem;
   }
 
   .kiba-service-header {
-    padding: 20px;
+    padding: 16px;
+  }
+
+  .kiba-service-header-content {
+    gap: 12px;
+  }
+
+  .kiba-service-content-inner {
+    padding: 0 16px 16px;
   }
 
   .kiba-service-features {
@@ -443,13 +480,26 @@ const toggleService = async (index) => {
   }
 
   .kiba-service-icon {
-    width: 44px;
-    height: 44px;
-    font-size: 1.125rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
   }
 
   .kiba-service-title {
-    font-size: 1.125rem;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .kiba-service-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .kiba-service-description {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-service-features li {
+    font-size: 0.875rem;
   }
 }
 </style>

@@ -41,14 +41,16 @@ useHead({
 </script>
 
 <style>
-/* Reset scroll behavior for SPA */
-html,
-body {
-  overflow: hidden;
-  height: 100%;
-}
+/* Reset scroll behavior for SPA - only on desktop */
+@media (min-width: 768px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100%;
+  }
 
-#__nuxt {
-  height: 100%;
+  #__nuxt {
+    height: 100%;
+  }
 }
 </style>

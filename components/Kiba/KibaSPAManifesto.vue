@@ -99,8 +99,8 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  padding: 60px 0;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
+  padding: 40px 0 40px;
 }
 
 .kiba-manifesto-visual {
@@ -205,9 +205,11 @@
 .kiba-section-title {
   font-size: 2.75rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-section-divider {
@@ -273,8 +275,16 @@
 }
 
 @media (max-width: 991px) {
+  .kiba-manifesto-spa {
+    padding: 60px 0 40px;
+  }
+
   .kiba-manifesto-content {
     text-align: center;
+  }
+
+  .kiba-section-title {
+    font-size: 2.25rem;
   }
 
   .kiba-section-divider {
@@ -292,12 +302,51 @@
 }
 
 @media (max-width: 767px) {
+  .kiba-manifesto-spa {
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    height: auto;
+    min-height: auto;
+    padding: 30px 0;
+  }
+
   .kiba-section-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    line-height: 1.3;
   }
 
   .kiba-manifesto-card {
-    padding: 30px;
+    padding: 24px;
+  }
+
+  .kiba-manifesto-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .kiba-manifesto-brand {
+    font-size: 1.5rem;
+  }
+
+  .kiba-manifesto-meaning {
+    font-size: 0.875rem;
+  }
+
+  .kiba-manifesto-text p {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-manifesto-feature {
+    padding: 20px;
+  }
+
+  .kiba-manifesto-feature h4 {
+    font-size: 1rem;
+  }
+
+  .kiba-manifesto-feature p {
+    font-size: 0.8125rem;
   }
 }
 </style>

@@ -407,18 +407,110 @@ onMounted(() => {
 
 /* Responsive */
 @media (max-width: 767px) {
+  .kiba-modal-overlay {
+    padding: 0;
+    align-items: flex-start;
+  }
+
   .kiba-modal-content {
     max-height: 100vh;
+    max-height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
     border-radius: 0;
   }
 
-  .kiba-modal-header,
+  .kiba-modal-close {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .kiba-modal-header {
+    padding: 24px 16px;
+    padding-top: 56px; /* Spazio per close button */
+  }
+
   .kiba-modal-body {
-    padding: 30px 20px;
+    padding: 24px 16px;
+  }
+
+  .kiba-modal-type {
+    font-size: 0.75rem;
+    margin-bottom: 8px;
   }
 
   .kiba-modal-title {
+    font-size: 1.375rem;
+    line-height: 1.3;
+  }
+
+  .kiba-modal-subtitle {
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .kiba-modal-privacy {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  .kiba-modal-section {
+    margin-bottom: 28px;
+  }
+
+  .kiba-modal-section h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 12px;
+  }
+
+  .kiba-modal-section p {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-modal-challenge {
+    gap: 12px;
+  }
+
+  .kiba-modal-challenge i {
+    font-size: 1rem;
+  }
+
+  .kiba-modal-challenge strong {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-modal-challenge p {
+    font-size: 0.875rem;
+  }
+
+  .kiba-modal-tag {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .kiba-modal-features li {
+    font-size: 0.875rem;
+    margin-bottom: 10px;
+  }
+
+  .kiba-modal-images {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .kiba-modal-image-placeholder {
+    aspect-ratio: 16/9;
+  }
+
+  .kiba-modal-image-placeholder i {
     font-size: 1.5rem;
+  }
+
+  .kiba-modal-image-placeholder span {
+    font-size: 0.75rem;
   }
 }
 </style>

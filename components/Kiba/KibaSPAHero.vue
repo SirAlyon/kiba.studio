@@ -303,7 +303,7 @@ const scrollToManifesto = () => {
   height: 100%;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: center; /* center per Hero - ha il modello 3D */
 }
 
 .kiba-hero-content {
@@ -519,18 +519,62 @@ const scrollToManifesto = () => {
 }
 
 @media (max-width: 767px) {
+  .kiba-hero-spa {
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    height: auto;
+    min-height: auto;
+    padding: 20px 0 40px;
+  }
+
+  .kiba-hero-content {
+    padding-right: 0;
+  }
+
+  .kiba-hero-label {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
   .kiba-hero-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+  }
+
+  .kiba-hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 24px;
   }
 
   .kiba-hero-cta {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .kiba-btn {
+    padding: 12px 20px;
+    font-size: 0.9375rem;
+    width: 100%;
+    text-align: center;
   }
 
   .kiba-hero-stats {
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .kiba-stat-value {
+    font-size: 1.25rem;
+  }
+
+  .kiba-stat-label {
+    font-size: 0.75rem;
+  }
+
+  .kiba-hero-scroll {
+    display: none; /* Nascondi indicatore scroll su mobile */
   }
 }
 

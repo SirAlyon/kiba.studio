@@ -8,7 +8,7 @@
     <div class="container-fluid h-100">
       <div class="row h-100 align-items-center">
         <!-- Colonna Sinistra: Contatore -->
-        <div class="col-lg-4 col-md-4">
+        <div class="col-lg-4 col-12">
           <div class="kiba-process-counter">
             <div class="kiba-process-counter-label">Step</div>
             <div class="kiba-process-counter-number" ref="counterRef">
@@ -32,7 +32,7 @@
         </div>
 
         <!-- Colonna Destra: Contenuto -->
-        <div class="col-lg-8 col-md-8">
+        <div class="col-lg-8 col-12">
           <div class="kiba-process-content" ref="contentRef">
             <div
               v-for="(step, index) in steps"
@@ -71,13 +71,36 @@
       </div>
     </div>
 
-    <!-- Indicatore scroll per prossimo step -->
-    <div
-      v-if="activeStepIndex < steps.length - 1"
-      class="kiba-process-scroll-hint"
-    >
-      <i class="fas fa-chevron-down"></i>
-      <span>{{ $t('process.scroll_hint') }}</span>
+    <!-- Controlli navigazione step -->
+    <div class="kiba-process-controls">
+      <button
+        class="kiba-process-control-btn kiba-process-prev"
+        @click="previousStep"
+        :disabled="activeStepIndex === 0"
+        aria-label="Step precedente"
+      >
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div class="kiba-process-control-dots">
+        <button
+          v-for="(step, index) in steps"
+          :key="step.id"
+          class="kiba-process-dot"
+          :class="{ active: index === activeStepIndex }"
+          @click="goToStep(index)"
+          :aria-label="`Vai allo step ${index + 1}`"
+        ></button>
+      </div>
+
+      <button
+        class="kiba-process-control-btn kiba-process-next"
+        @click="nextStep"
+        :disabled="activeStepIndex === steps.length - 1"
+        aria-label="Step successivo"
+      >
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -105,6 +128,10 @@ let currentStepTimeline = null;
 // Flag per gestione scroll
 let isAnimating = false;
 let canProceed = false;
+
+// Auto-play timer
+let autoPlayTimer = null;
+const AUTO_PLAY_DELAY = 5000; // 5 secondi
 
 // Steps del processo with i18n
 const steps = computed(() => [
@@ -199,6 +226,9 @@ onMounted(async () => {
 
   // Inizializza primo step
   initializeSteps();
+
+  // Avvia auto-play
+  startAutoPlay();
 });
 
 onBeforeUnmount(() => {
@@ -208,6 +238,7 @@ onBeforeUnmount(() => {
   if (currentStepTimeline) {
     currentStepTimeline.kill();
   }
+  stopAutoPlay();
 });
 
 /**
@@ -356,6 +387,56 @@ const changeStep = (newIndex) => {
 
   currentStepTimeline = tl;
 };
+
+/**
+ * Auto-play functions
+ */
+const startAutoPlay = () => {
+  stopAutoPlay(); // Pulisci timer esistente
+  autoPlayTimer = setInterval(() => {
+    if (activeStepIndex.value < steps.value.length - 1) {
+      nextStep();
+    } else {
+      // Ricomincia dal primo step
+      goToStep(0);
+    }
+  }, AUTO_PLAY_DELAY);
+};
+
+const stopAutoPlay = () => {
+  if (autoPlayTimer) {
+    clearInterval(autoPlayTimer);
+    autoPlayTimer = null;
+  }
+};
+
+const resetAutoPlay = () => {
+  startAutoPlay();
+};
+
+/**
+ * Navigation controls
+ */
+const nextStep = () => {
+  if (activeStepIndex.value < steps.value.length - 1) {
+    changeStep(activeStepIndex.value + 1);
+    resetAutoPlay();
+  }
+};
+
+const previousStep = () => {
+  if (activeStepIndex.value > 0) {
+    changeStep(activeStepIndex.value - 1);
+    resetAutoPlay();
+  }
+};
+
+const goToStep = (index) => {
+  if (index >= 0 && index < steps.value.length && index !== activeStepIndex.value) {
+    changeStep(index);
+    resetAutoPlay();
+  }
+};
 </script>
 
 <style scoped>
@@ -364,8 +445,9 @@ const changeStep = (newIndex) => {
   height: 100%;
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
   overflow: hidden;
+  padding-top: 20px;
 }
 
 .container-fluid {
@@ -471,7 +553,9 @@ const changeStep = (newIndex) => {
   font-weight: 700;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 20px;
-  line-height: 1.2;
+  line-height: 1.3;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-process-step-description {
@@ -521,36 +605,78 @@ const changeStep = (newIndex) => {
   font-size: 0.875rem;
 }
 
-/* Scroll Hint */
-.kiba-process-scroll-hint {
+/* Process Controls */
+.kiba-process-controls {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: var(--kiba-text-muted, #888);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  animation: bounceHint 2s infinite;
+  gap: 20px;
+  z-index: 10;
 }
 
-@keyframes bounceHint {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateX(-50%) translateY(5px);
-    opacity: 1;
-  }
+.kiba-process-control-btn {
+  width: 40px;
+  height: 40px;
+  background: rgba(201, 76, 76, 0.1);
+  border: 1px solid rgba(201, 76, 76, 0.3);
+  border-radius: 50%;
+  color: var(--kiba-primary, #c94c4c);
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.kiba-process-control-btn:hover:not(:disabled) {
+  background: var(--kiba-primary, #c94c4c);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.kiba-process-control-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.kiba-process-control-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kiba-process-dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.kiba-process-dot:hover {
+  background: rgba(201, 76, 76, 0.5);
+  transform: scale(1.2);
+}
+
+.kiba-process-dot.active {
+  background: var(--kiba-primary, #c94c4c);
+  width: 24px;
+  border-radius: 5px;
 }
 
 /* Responsive */
 @media (max-width: 991px) {
+  .kiba-process-spa {
+    padding-top: 40px;
+  }
+
   .container-fluid {
     padding: 0 30px;
   }
@@ -561,52 +687,113 @@ const changeStep = (newIndex) => {
 
   .kiba-process-counter-title {
     font-size: 1.25rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .kiba-process-step-title {
     font-size: 2rem;
+    line-height: 1.3;
   }
 
   .kiba-process-step-description {
     font-size: 1rem;
+  }
+
+  .kiba-process-content {
+    height: 450px;
   }
 }
 
 @media (max-width: 767px) {
+  .kiba-process-spa {
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    padding-top: 20px;
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .container-fluid {
+    padding: 0 16px;
+    height: auto;
+  }
+
+  .row.h-100 {
+    height: auto !important;
+  }
+
   .kiba-process-counter {
-    padding: 20px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 24px;
   }
 
   .kiba-process-counter-number {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .kiba-process-counter-title {
     font-size: 1rem;
+    line-height: 1.4;
+    padding: 0;
   }
 
   .kiba-process-counter-progress {
-    width: 150px;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .kiba-process-content {
+    height: auto;
+    min-height: 300px;
+    position: relative;
   }
 
   .kiba-process-step {
-    padding-right: 20px;
+    position: relative;
+    padding-right: 0;
+    padding-left: 0;
   }
 
   .kiba-process-step-icon {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    margin-bottom: 12px;
   }
 
   .kiba-process-step-title {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
   }
 
   .kiba-process-step-description {
     font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
   }
 
   .kiba-process-step-highlights {
-    display: none; /* Nascondi su mobile per spazio */
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .kiba-process-highlight {
+    margin-bottom: 8px;
+  }
+
+  .kiba-process-highlight span {
+    font-size: 0.875rem;
+  }
+
+  .kiba-process-controls {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 24px;
+    justify-content: center;
   }
 }
 </style>

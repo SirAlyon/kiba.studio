@@ -223,8 +223,8 @@ const submitForm = async () => {
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  padding: 60px 0;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
+  padding: 40px 0 40px;
   overflow-y: auto;
 }
 
@@ -241,9 +241,11 @@ const submitForm = async () => {
 .kiba-section-title {
   font-size: 2.75rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-text-gradient {
@@ -413,6 +415,8 @@ const submitForm = async () => {
   font-weight: 600;
   color: var(--kiba-text-main, #f0f0f0);
   margin: 0 0 4px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-contact-info-content a,
@@ -454,14 +458,85 @@ const submitForm = async () => {
   font-size: 1rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
+  .kiba-contact-spa {
+    padding: 60px 0 40px;
+  }
+
   .kiba-section-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .kiba-contact-spa {
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    height: auto;
+    min-height: auto;
+    padding: 30px 0;
+    overflow: visible;
+  }
+
+  .kiba-section-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .kiba-section-subtitle {
+    font-size: 0.9375rem;
   }
 
   .kiba-contact-form-wrapper,
   .kiba-contact-info {
-    padding: 24px;
+    padding: 20px;
+  }
+
+  .kiba-form-label {
+    font-size: 0.8125rem;
+  }
+
+  .kiba-form-input,
+  .kiba-form-select,
+  .kiba-form-textarea {
+    padding: 10px 14px;
+    font-size: 0.875rem;
+  }
+
+  .kiba-form-textarea {
+    min-height: 100px;
+  }
+
+  .kiba-form-privacy {
+    font-size: 0.8125rem;
+  }
+
+  .kiba-btn {
+    padding: 12px 20px;
+    font-size: 0.9375rem;
+  }
+
+  .kiba-contact-info-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .kiba-contact-info-content h4 {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-contact-info-content a,
+  .kiba-contact-info-content p {
+    font-size: 0.875rem;
+  }
+
+  .kiba-contact-values h4 {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-contact-value {
+    font-size: 0.8125rem;
   }
 }
 </style>

@@ -133,8 +133,8 @@ const additionalSkills = [
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
-  padding: 60px 0;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
+  padding: 40px 0 40px;
   overflow-y: auto;
 }
 
@@ -151,9 +151,11 @@ const additionalSkills = [
 .kiba-section-title {
   font-size: 2.75rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-text-gradient {
@@ -202,6 +204,8 @@ const additionalSkills = [
   font-weight: 600;
   color: var(--kiba-text-main, #f0f0f0);
   margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-stack-tech-list {
@@ -287,13 +291,86 @@ const additionalSkills = [
   color: var(--kiba-primary, #c94c4c);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
+  .kiba-stack-spa {
+    padding: 60px 0 40px;
+  }
+
   .kiba-section-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .kiba-stack-spa {
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    height: auto;
+    min-height: auto;
+    padding: 30px 0;
+    overflow: visible;
+  }
+
+  .kiba-section-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .kiba-section-subtitle {
+    font-size: 0.9375rem;
   }
 
   .kiba-stack-category {
-    padding: 24px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .kiba-stack-category-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .kiba-stack-category-header i {
+    font-size: 1.25rem;
+  }
+
+  .kiba-stack-category-header h3 {
+    font-size: 1rem;
+  }
+
+  .kiba-stack-tech-list {
+    gap: 12px;
+  }
+
+  .kiba-stack-tech-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .kiba-stack-tech-name {
+    font-size: 0.875rem;
+  }
+
+  .kiba-stack-tech-level {
+    font-size: 0.6875rem;
+  }
+
+  .kiba-stack-additional {
+    margin-top: 24px;
+  }
+
+  .kiba-stack-additional-title {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-stack-tags {
+    gap: 8px;
+  }
+
+  .kiba-stack-tag {
+    padding: 6px 12px;
+    font-size: 0.75rem;
   }
 }
 </style>

@@ -295,8 +295,8 @@ const closeModal = () => {
   width: 100%;
   min-height: 100%;
   display: flex;
-  align-items: center;
-  padding: 60px 0;
+  align-items: flex-start; /* flex-start per evitare taglio titoli */
+  padding: 40px 0 40px;
 }
 
 .container {
@@ -325,9 +325,11 @@ const closeModal = () => {
 .kiba-section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-text-gradient {
@@ -419,7 +421,9 @@ const closeModal = () => {
   font-weight: 600;
   color: var(--kiba-text-main, #f0f0f0);
   margin-bottom: 12px;
-  line-height: 1.3;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .kiba-portfolio-card-description {
@@ -492,6 +496,14 @@ const closeModal = () => {
 
 /* Responsive */
 @media (max-width: 991px) {
+  .kiba-portfolio-spa {
+    padding: 60px 0 40px;
+  }
+
+  .kiba-section-title {
+    font-size: 2.25rem;
+  }
+
   .kiba-portfolio-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
@@ -499,20 +511,84 @@ const closeModal = () => {
 
 @media (max-width: 767px) {
   .kiba-portfolio-spa {
-    padding: 40px 0;
+    /* RESET mobile - no flexbox centering */
+    display: block;
+    height: auto;
+    min-height: auto;
+    padding: 30px 0;
+  }
+
+  .container {
+    padding: 0 16px;
   }
 
   .kiba-section-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .kiba-section-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-portfolio-header {
+    margin-bottom: 30px;
   }
 
   .kiba-portfolio-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 
   .kiba-portfolio-card {
-    padding: 24px;
+    padding: 20px;
+  }
+
+  .kiba-portfolio-card-header {
+    margin-bottom: 16px;
+  }
+
+  .kiba-portfolio-card-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .kiba-portfolio-card-title {
+    font-size: 1.0625rem;
+    line-height: 1.3;
+  }
+
+  .kiba-portfolio-card-description {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .kiba-portfolio-card-tags {
+    margin-bottom: 16px;
+  }
+
+  .kiba-portfolio-card-tag {
+    font-size: 0.6875rem;
+  }
+
+  .kiba-portfolio-card-action {
+    font-size: 0.8125rem;
+  }
+
+  .kiba-portfolio-note {
+    padding: 16px;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .kiba-portfolio-note i {
+    font-size: 1.25rem;
+  }
+
+  .kiba-portfolio-note p {
+    font-size: 0.875rem;
   }
 }
 </style>
