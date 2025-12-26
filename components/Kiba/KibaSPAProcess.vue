@@ -125,13 +125,16 @@ const { loadGSAP } = useGSAP();
 let gsap = null;
 let currentStepTimeline = null;
 
-// Flag per gestione scroll
+// Flag per animazione
 let isAnimating = false;
-let canProceed = false;
 
 // Auto-play timer
 let autoPlayTimer = null;
 const AUTO_PLAY_DELAY = 5000; // 5 secondi
+
+// Intersection Observer per visibilità
+let intersectionObserver = null;
+let isVisible = false;
 
 // Steps del processo with i18n
 const steps = computed(() => [
@@ -219,21 +222,31 @@ onMounted(async () => {
     gsap = gsapModules.gsap;
   }
 
-  // Setup scroll handler
-  if (sectionRef.value) {
-    sectionRef.value.addEventListener('wheel', handleWheel, { passive: false });
-  }
-
   // Inizializza primo step
   initializeSteps();
 
-  // Avvia auto-play
-  startAutoPlay();
+  // Setup Intersection Observer per auto-play solo quando visibile
+  if (sectionRef.value) {
+    intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            startAutoPlay();
+          } else {
+            stopAutoPlay();
+          }
+        });
+      },
+      { threshold: 0.3 } // Almeno 30% visibile
+    );
+    intersectionObserver.observe(sectionRef.value);
+  }
 });
 
 onBeforeUnmount(() => {
-  if (sectionRef.value) {
-    sectionRef.value.removeEventListener('wheel', handleWheel);
+  if (intersectionObserver) {
+    intersectionObserver.disconnect();
   }
   if (currentStepTimeline) {
     currentStepTimeline.kill();
@@ -264,37 +277,6 @@ const initializeSteps = () => {
       });
     }
   });
-};
-
-/**
- * Gestisce lo scroll per cambiare step
- */
-const handleWheel = (e) => {
-  if (isAnimating) {
-    e.preventDefault();
-    return;
-  }
-
-  const isScrollingDown = e.deltaY > 0;
-  const isScrollingUp = e.deltaY < 0;
-
-  if (isScrollingDown) {
-    if (activeStepIndex.value < steps.length - 1) {
-      e.preventDefault();
-      changeStep(activeStepIndex.value + 1);
-    } else {
-      // Ultimo step raggiunto, permetti scroll alla sezione successiva
-      canProceed = true;
-    }
-  } else if (isScrollingUp) {
-    if (activeStepIndex.value > 0) {
-      e.preventDefault();
-      changeStep(activeStepIndex.value - 1);
-    } else {
-      // Primo step, permetti scroll alla sezione precedente
-      canProceed = true;
-    }
-  }
 };
 
 /**
