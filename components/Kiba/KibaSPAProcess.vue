@@ -5,8 +5,8 @@
     Contatore a sinistra, contenuto a destra, animazioni GSAP
   -->
   <div class="kiba-process-spa" ref="sectionRef">
-    <div class="container-fluid h-100">
-      <div class="row h-100 align-items-center">
+    <div class="container-fluid">
+      <div class="row align-items-center">
         <!-- Colonna Sinistra: Contatore -->
         <div class="col-lg-4 col-12">
           <div class="kiba-process-counter">
@@ -425,9 +425,9 @@ const goToStep = (index) => {
 .kiba-process-spa {
   width: 100%;
   position: relative;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 20px;
+  min-height: 600px;
+  padding-top: 40px;
+  padding-bottom: 80px; /* Space for controls */
 }
 
 .container-fluid {
@@ -690,6 +690,7 @@ const goToStep = (index) => {
     /* RESET mobile - no flexbox centering */
     display: block;
     padding-top: 20px;
+    padding-bottom: 20px;
     height: auto;
     min-height: auto;
     overflow: visible;
@@ -697,11 +698,6 @@ const goToStep = (index) => {
 
   .container-fluid {
     padding: 0 16px;
-    height: auto;
-  }
-
-  .row.h-100 {
-    height: auto !important;
   }
 
   .kiba-process-counter {
