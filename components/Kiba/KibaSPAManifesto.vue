@@ -60,16 +60,16 @@
             </div>
 
             <!-- Feature boxes -->
-            <div class="row mt-4">
-              <div class="col-md-6 gsap-animate">
-                <div class="kiba-manifesto-feature">
+            <div class="row mt-4 kiba-feature-row">
+              <div class="col-md-6 gsap-animate d-flex">
+                <div class="kiba-manifesto-feature flex-fill">
                   <i class="fas fa-user-shield"></i>
                   <h4>{{ $t('manifesto.feature_privacy_title') }}</h4>
                   <p>{{ $t('manifesto.feature_privacy_description') }}</p>
                 </div>
               </div>
-              <div class="col-md-6 gsap-animate">
-                <div class="kiba-manifesto-feature">
+              <div class="col-md-6 gsap-animate d-flex">
+                <div class="kiba-manifesto-feature flex-fill">
                   <i class="fas fa-hand-holding-heart"></i>
                   <h4>{{ $t('manifesto.feature_tech_title') }}</h4>
                   <p>{{ $t('manifesto.feature_tech_description') }}</p>

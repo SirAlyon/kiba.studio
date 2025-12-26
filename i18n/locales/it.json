@@ -1,8 +1,8 @@
 {
   "hero": {
-    "label": "Web Agency Etica",
-    "title": "Software che protegge il tuo business",
-    "subtitle": "Sviluppiamo soluzioni digitali con la serietà giapponese e la protezione di un Akita. Privacy first, codice etico, qualità senza compromessi.",
+    "label": "Software House Boutique",
+    "title": "Codice pulito. Zero compromessi.",
+    "subtitle": "Sviluppiamo software che funziona, che dura, che rispetta i tuoi utenti. Niente tracker nascosti. Niente dark patterns. Mai.",
     "cta_primary": "Inizia il progetto",
     "cta_secondary": "Scopri di più",
     "scroll_indicator": "Scorri",
@@ -16,19 +16,19 @@
   "manifesto": {
     "label": "Il Nostro Manifesto",
     "title": "Software etico, fatto per durare",
-    "kiba_meaning": "\"Kiba\" in giapponese significa zanna. Come l'Akita, razza nota per lealtà e protezione incrollabile, noi proteggiamo i tuoi dati e il tuo business digitale.",
+    "kiba_meaning": "Kiba in giapponese significa zanna. Come l'Akita difende il branco, noi difendiamo ciò che conta: i tuoi dati, la tua autonomia, il tuo business.",
     "value_privacy": "Privacy First",
     "value_code": "Codice Etico",
     "value_solutions": "Soluzioni Durature",
     "stat_years": "6+",
     "stat_years_label": "Anni di esperienza",
-    "paragraph_1": "Kiba.Studio nasce come laboratorio etico di software. Fondata da un fullstack developer con oltre 6 anni di esperienza su Laravel, Vue.js, Node e Python, l'agenzia mette al centro i valori che altri trascurano: privacy, trasparenza e qualità senza compromessi.",
-    "paragraph_2": "Non siamo una factory che produce siti in serie. Siamo una boutique tecnica che crede nel codice come strumento di libertà, non di dipendenza. I tuoi dati sono una responsabilità che prendiamo sul serio, non merce da monetizzare. Ogni soluzione che costruiamo è pensata per emancipare il tuo business, non per vincolarlo.",
-    "paragraph_3": "Lavoriamo con la serietà giapponese: ordine, pulizia, struttura, rigore. Il nostro codice parla per noi: testato, documentato, manutenibile. Niente scorciatoie, niente debito tecnico nascosto. Solo soluzioni scalabili, sicure e durature.",
+    "paragraph_1": "Kiba.Studio nasce da una convinzione: il software si può costruire in modo diverso. Siamo una software house boutique con oltre 6 anni di esperienza su Laravel, Vue.js e tecnologie moderne. Piccoli per scelta, strutturati per necessità.",
+    "paragraph_2": "Crediamo che il codice sia uno strumento di libertà, non di dipendenza. I dati dei tuoi utenti non sono merce da monetizzare. Ogni riga che scriviamo ha uno scopo: funzionare, proteggere, durare.",
+    "paragraph_3": "Lavoriamo con chi cerca qualità, non chi cerca il prezzo più basso. Pochi clienti, progetti seguiti da vicino, risposte in giornata. È il vantaggio di essere piccoli.",
     "feature_privacy_title": "Privacy First",
-    "feature_privacy_description": "I dati dei tuoi utenti sono una responsabilità sacra. Zero tracking invasivo, zero vendita dati.",
+    "feature_privacy_description": "I dati dei tuoi utenti restano tuoi. Zero tracking invasivo, zero cessione a terzi. GDPR non come checkbox, ma come standard.",
     "feature_tech_title": "Tecnologia Etica",
-    "feature_tech_description": "Software come strumento di emancipazione. Niente dark patterns, niente dipendenza forzata."
+    "feature_tech_description": "Software che emancipa, non che vincola. Niente dark patterns, niente meccanismi di dipendenza forzata. Codice che puoi capire, modificare, portare altrove."
   },
   "services": {
     "label": "I Nostri Servizi",
