@@ -442,11 +442,9 @@ const goToStep = (index) => {
 <style scoped>
 .kiba-process-spa {
   width: 100%;
-  height: 100%;
   position: relative;
   display: flex;
-  align-items: flex-start; /* flex-start per evitare taglio titoli */
-  overflow: hidden;
+  align-items: flex-start;
   padding-top: 20px;
 }
 

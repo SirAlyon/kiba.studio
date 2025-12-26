@@ -103,13 +103,12 @@ const currentYear = computed(() => new Date().getFullYear());
 <style scoped>
 .kiba-footer-spa {
   width: 100%;
-  min-height: 100vh;
   display: flex;
-  align-items: flex-start; /* flex-start per evitare taglio titoli */
+  align-items: flex-start;
   justify-content: center;
   background: var(--kiba-bg-dark, #1a1a1a);
   position: relative;
-  padding: 60px 0 60px;
+  padding: 60px 0;
 }
 
 .kiba-footer-spa::before {

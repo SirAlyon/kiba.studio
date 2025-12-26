@@ -131,11 +131,9 @@ const additionalSkills = [
 <style scoped>
 .kiba-stack-spa {
   width: 100%;
-  height: 100%;
   display: flex;
-  align-items: flex-start; /* flex-start per evitare taglio titoli */
-  padding: 40px 0 40px;
-  overflow-y: auto;
+  align-items: flex-start;
+  padding: 40px 0;
 }
 
 .kiba-section-label {
