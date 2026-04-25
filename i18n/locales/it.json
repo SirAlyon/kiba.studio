@@ -1,11 +1,21 @@
 {
   "hero": {
+    "status_label": "Disponibili per nuovi progetti",
+    "eyebrow": "Software house boutique · Milano",
+    "headline_1": "Costruiamo software che dura.",
+    "headline_highlight": "E che resta vostro.",
+    "lede": "Sviluppiamo prodotti web e sistemi su misura per chi cerca qualità tecnica reale, codice di proprietà e privacy by design. Pochi clienti per anno, attentamente.",
+    "proofs_label": "Le nostre promesse",
+    "proof_1": "Codice tuo, sempre",
+    "proof_2": "Hosting in EU",
+    "proof_3": "Risposta in 24h",
+    "cta_primary": "Iniziamo a parlare",
+    "cta_secondary": "Cosa facciamo",
+    "signature": "Una call iniziale di 30 minuti, gratuita e senza impegno.",
+    "scroll_indicator": "Scorri",
     "label": "Software House Boutique",
     "title": "Codice pulito. Zero compromessi.",
     "subtitle": "Sviluppiamo software che funziona, che dura, che rispetta i tuoi utenti. Niente tracker nascosti. Niente dark patterns. Mai.",
-    "cta_primary": "Inizia il progetto",
-    "cta_secondary": "Scopri di più",
-    "scroll_indicator": "Scorri",
     "stat_years": "6+",
     "stat_years_label": "Anni esperienza",
     "stat_privacy": "100%",
@@ -14,21 +24,36 @@
     "stat_patterns_label": "Dark Patterns"
   },
   "manifesto": {
-    "label": "Il Nostro Manifesto",
-    "title": "Software etico, fatto per durare",
-    "kiba_meaning": "Kiba in giapponese significa zanna. Come l'Akita difende il branco, noi difendiamo ciò che conta: i tuoi dati, la tua autonomia, il tuo business.",
-    "value_privacy": "Privacy First",
-    "value_code": "Codice Etico",
-    "value_solutions": "Soluzioni Durature",
-    "stat_years": "6+",
-    "stat_years_label": "Anni di esperienza",
-    "paragraph_1": "Kiba.Studio nasce da una convinzione: il software si può costruire in modo diverso. Siamo una software house boutique con oltre 6 anni di esperienza su Laravel, Vue.js e tecnologie moderne. Piccoli per scelta, strutturati per necessità.",
-    "paragraph_2": "Crediamo che il codice sia uno strumento di libertà, non di dipendenza. I dati dei tuoi utenti non sono merce da monetizzare. Ogni riga che scriviamo ha uno scopo: funzionare, proteggere, durare.",
-    "paragraph_3": "Lavoriamo con chi cerca qualità, non chi cerca il prezzo più basso. Pochi clienti, progetti seguiti da vicino, risposte in giornata. È il vantaggio di essere piccoli.",
-    "feature_privacy_title": "Privacy First",
-    "feature_privacy_description": "I dati dei tuoi utenti restano tuoi. Zero tracking invasivo, zero cessione a terzi. GDPR non come checkbox, ma come standard.",
-    "feature_tech_title": "Tecnologia Etica",
-    "feature_tech_description": "Software che emancipa, non che vincola. Niente dark patterns, niente meccanismi di dipendenza forzata. Codice che puoi capire, modificare, portare altrove."
+    "label": "Manifesto",
+    "title": "Il software si può fare diversamente.",
+    "lede": "Crediamo nel codice come strumento di libertà. Pochi clienti, attenzione massima, decisioni motivate. Niente formule magiche, niente promesse che non vogliamo mantenere.",
+    "statement_1": "Kiba.Studio è una software house boutique con sede a Milano, fatta di persone vere e di un network selezionato. Lavoriamo con start-up, PMI e professionisti che cercano qualità tecnica reale, non slogan.",
+    "statement_2": "Crediamo che il software vada costruito perché funzioni, perché duri, perché rispetti chi lo usa. Quando una scelta etica costa di più o richiede più tempo, la facciamo lo stesso. È quello che ci differenzia, e lo manteniamo per scritto.",
+    "principles_label": "I nostri principi non negoziabili",
+    "principles": {
+      "ownership": {
+        "title": "Il codice è tuo.",
+        "description": "Repository, accessi, documentazione, infrastruttura: a fine progetto consegniamo tutto. Puoi proseguire con noi, internamente o con un altro fornitore. Senza barriere, senza ritorsioni.",
+        "proof": "Niente lock-in proprietari, niente componenti chiusi che non puoi modificare."
+      },
+      "privacy": {
+        "title": "Privacy come default.",
+        "description": "Ogni decisione tecnica considera prima il rispetto del dato. Hosting in EU, zero analytics di terze parti, alternative privacy-friendly al posto di strumenti invasivi.",
+        "proof": "GDPR implementato a livello tecnico, non come checkbox legale."
+      },
+      "honesty": {
+        "title": "Tempi e costi onesti.",
+        "description": "Preventivi dettagliati, non forfait approssimativi. Se un'attività richiede più tempo del previsto te lo diciamo prima, non a fattura emessa. Se non sappiamo fare qualcosa, lo diciamo invece di improvvisare.",
+        "proof": "Cambi di scope discussi e approvati prima di essere eseguiti."
+      },
+      "transparency": {
+        "title": "Decisioni tecniche spiegate.",
+        "description": "Le scelte di stack, architettura e provider sono motivate, non imposte. Vuoi sapere perché abbiamo scelto Laravel invece di Node? Te lo raccontiamo. Il tuo investimento resta comprensibile.",
+        "proof": "Ogni decisione importante è documentata e riapribile in qualsiasi momento."
+      }
+    },
+    "quote": "L'Akita non protegge perché glielo hanno chiesto. Lo fa perché è quello che è.",
+    "quote_attribution": "Kiba.Studio"
   },
   "services": {
     "label": "I Nostri Servizi",
@@ -116,7 +141,22 @@
     "quick_links_title": "Azienda",
     "contact_title": "Contatti",
     "copyright": "© {year} Kiba.Studio. Tutti i diritti riservati.",
-    "made_with": "Sviluppato con"
+    "made_with": "Sviluppato con",
+    "services_all": "Tutti i servizi",
+    "services_frontend": "Frontend Development",
+    "services_backend": "Backend & API",
+    "services_consulting": "Consulenza Tecnica",
+    "company_about": "Chi siamo",
+    "company_case_study": "Case study",
+    "company_journal": "Journal",
+    "legal_title": "Legale",
+    "legal_privacy": "Privacy Policy",
+    "legal_cookie": "Cookie Policy",
+    "legal_terms": "Termini di servizio",
+    "legal_transparency": "Trasparenza",
+    "legal_line": "Kiba.Studio — Alessio Sada · P.IVA IT14548540963 · Milano (MI), 20155, Italia",
+    "address_line_1": "Milano (MI), 20155",
+    "address_line_2": "Italia"
   },
   "nav": {
     "home": "Home",
@@ -134,5 +174,305 @@
     "send_message": "Invia Messaggio",
     "scroll": "Scorri",
     "loading": "Caricamento..."
-  }
+  },
+  "page_nav": {
+    "services": "Servizi",
+    "case_study": "Case study",
+    "about": "Chi siamo",
+    "journal": "Journal",
+    "cta": "Parliamo",
+    "open_menu": "Apri menu",
+    "primary_label": "Navigazione principale",
+    "home_aria": "Kiba.Studio — homepage"
+  },
+  "pages": {
+    "servizi": {
+      "hero_eyebrow": "Servizi",
+      "hero_title": "Quello che facciamo, in concreto.",
+      "hero_subtitle": "Sviluppiamo prodotti web e software custom per chi cerca qualità tecnica, sicurezza e responsabilità nei dati. Niente buzzword, solo lavoro fatto bene.",
+      "frontend": {
+        "title": "Frontend Development",
+        "description": "Interfacce reattive, accessibili e performanti. Vue 3, Nuxt, React. Design system coerenti, animazioni con un perché, performance misurate (Lighthouse, Core Web Vitals).",
+        "items": [
+          "Single Page Application e siti statici (SSG)",
+          "Progressive Web App e app mobile (Capacitor / Ionic)",
+          "Design system riusabili in TypeScript"
+        ]
+      },
+      "backend": {
+        "title": "Backend & API",
+        "description": "Backend scalabili, sicuri, testati. Laravel, Node.js, architettura pulita, code review ad ogni PR. Documentazione OpenAPI, autenticazione robusta, gestione del dato pensata.",
+        "items": [
+          "API REST e GraphQL",
+          "Integrazioni con sistemi terzi (ERP, CRM, payment)",
+          "Migrazioni e refactoring di backend legacy"
+        ]
+      },
+      "devops": {
+        "title": "Infrastruttura & DevOps",
+        "description": "Server Linux, container, CI/CD, monitoring. Scegliamo provider in EU per default. Backup verificati, disaster recovery documentato, niente magia: tutto è riproducibile.",
+        "items": [
+          "Docker, Kubernetes, deploy continuo (GitHub Actions)",
+          "Hosting in EU (Hetzner, Scaleway, OVH)",
+          "Hardening e security audit"
+        ]
+      },
+      "automation": {
+        "title": "Automazione & Integrazione",
+        "description": "Script Python e Node che fanno il lavoro noioso al posto tuo. Data pipeline, scraping etico, integrazioni tra strumenti che non si parlano. Il tempo del tuo team va speso meglio.",
+        "items": [
+          "ETL e orchestrazione di task ricorrenti",
+          "Integrazioni API custom",
+          "OCR e document processing"
+        ]
+      },
+      "consulting": {
+        "title": "Consulenza Tecnica",
+        "description": "Code review, due diligence tecnica, scelta dello stack, valutazione di vendor esterni. Quando una decisione tecnica vale parecchio, una seconda opinione costa poco.",
+        "items": [
+          "Audit di codebase esistenti",
+          "Definizione di architettura per nuovi progetti",
+          "Affiancamento ai team interni"
+        ]
+      },
+      "privacy": {
+        "title": "Privacy & Compliance tecnica",
+        "description": "Implementazione GDPR-compliant a livello tecnico, non solo legale. Cookie banner che funzionano, registri dei trattamenti, data minimization, alternative a Google Analytics e simili.",
+        "items": [
+          "Audit privacy di applicazioni esistenti",
+          "Setup analytics privacy-friendly (Plausible, Umami)",
+          "Self-hosting di strumenti che altrimenti farebbero leak di dati"
+        ]
+      },
+      "cta_title": "Vuoi parlare di un progetto?",
+      "cta_subtitle": "Una prima call di 30 minuti, senza impegno, per capire se è il caso di lavorare insieme.",
+      "cta_button": "Scrivici",
+      "meta_description": "Frontend, backend, infrastruttura, automazione e consulenza tecnica. Stack moderno, codice testato, hosting in EU. Privacy by design."
+    },
+    "case_study": {
+      "hero_eyebrow": "Case study",
+      "hero_title": "Progetti reali, risultati misurabili.",
+      "hero_subtitle": "Una selezione di lavori che possiamo raccontare. Per i clienti sotto NDA, dettagli su richiesta in chiamata.",
+      "discover": "Scopri il caso",
+      "meta_description": "Una selezione di progetti realizzati: piattaforme web, prodotti privacy-first, automazione e document processing.",
+      "cases": {
+        "autoimporta": {
+          "tag": "Web platform",
+          "year": "2024",
+          "title": "Autoimporta",
+          "summary": "Piattaforma B2B per la gestione e l'importazione di veicoli. Backend Laravel + frontend Vue, pipeline integrate con sistemi del cliente."
+        },
+        "kiba_finance": {
+          "tag": "Product",
+          "year": "2025",
+          "title": "Kiba.Finance",
+          "summary": "Strumento personale per la gestione finanziaria privacy-first. Tutti i dati restano locali al dispositivo, nessuna integrazione bancaria forzata."
+        },
+        "sample_ocr": {
+          "tag": "Automation",
+          "year": "2024",
+          "title": "Sample OCR",
+          "summary": "Pipeline di document processing con OCR per estrazione dati da documenti strutturati. Integrazione con flussi di approvazione esistenti."
+        }
+      }
+    },
+    "case_study_detail": {
+      "back_label": "Tutti i case study",
+      "meta_year": "Anno",
+      "meta_category": "Categoria",
+      "meta_stack": "Stack",
+      "meta_status": "Stato",
+      "section_context": "Il contesto",
+      "section_work": "Cosa abbiamo fatto",
+      "section_results": "Risultati",
+      "cta_title": "Hai un progetto simile in mente?",
+      "cta_subtitle": "Una call iniziale, gratuita, per capire se possiamo aiutarti.",
+      "cta_button": "Parliamone",
+      "status": {
+        "in_production": "In produzione",
+        "in_development": "In sviluppo attivo",
+        "delivered": "Consegnato"
+      },
+      "cases": {
+        "autoimporta": {
+          "summary": "Piattaforma B2B per la gestione operativa dell'importazione veicoli.",
+          "context": "Il cliente gestiva manualmente la maggior parte del flusso di importazione, con dati sparsi tra fogli di calcolo e PDF. L'obiettivo era unificare il processo in un'unica piattaforma, ridurre il tempo di gestione per pratica e tracciare in modo affidabile lo stato di ciascun veicolo.",
+          "work": "Backend Laravel con dominio modellato sui processi reali del cliente, frontend Vue 3 single page application, integrazione con i provider esterni necessari. Hosting in EU su Hetzner, backup giornalieri verificati, monitoring attivo.",
+          "results": [
+            "Tempo medio per pratica ridotto significativamente rispetto al processo manuale",
+            "Tracciamento end-to-end dello stato di ogni veicolo",
+            "Storico completo delle operazioni per audit interni"
+          ],
+          "note": "I dettagli numerici e di business specifici sono coperti da NDA. Disponibili in chiamata su richiesta."
+        },
+        "kiba_finance": {
+          "summary": "Strumento personale per la gestione finanziaria. Privacy-first, dati locali, nessun account richiesto.",
+          "context": "Le app di personal finance mainstream richiedono accesso bancario, account cloud e profilazione comportamentale. Volevamo dimostrare che si può fare anche diversamente: uno strumento utile, locale, di cui non ti devi fidare perché non vede mai i tuoi dati.",
+          "work": "Single page application Nuxt con storage locale (IndexedDB) e sincronizzazione opzionale tramite file cifrati lato client. Niente backend obbligatorio, niente analytics, niente account. PWA installabile.",
+          "results": [
+            "Zero dati trasmessi a terzi per design",
+            "Funzionalità complete anche offline",
+            "Esportazione e portabilità dei dati garantita (open format)"
+          ],
+          "note": "Progetto interno, anche showcase tecnico del nostro approccio al privacy-by-design."
+        },
+        "sample_ocr": {
+          "summary": "Pipeline di OCR per estrazione dati da documenti strutturati ricorrenti.",
+          "context": "Un volume crescente di documenti cartacei o PDF non strutturati doveva confluire in un sistema di approvazione esistente. La trascrizione manuale era il collo di bottiglia.",
+          "work": "Pipeline Python con pre-processing immagini, OCR Tesseract, post-processing con regole specifiche per il dominio. API FastAPI per integrazione con il sistema del cliente. Tutto containerizzato, deploy on-premise.",
+          "results": [
+            "Riduzione drastica del tempo di data entry manuale",
+            "Tasso di accuratezza misurato e monitorato",
+            "Pipeline modulare riutilizzabile per nuove tipologie di documenti"
+          ],
+          "note": null
+        }
+      }
+    },
+    "about": {
+      "hero_eyebrow": "Chi siamo",
+      "hero_title": "Una software house piccola, fatta di persone vere.",
+      "hero_subtitle": "Niente piramide, niente livelli. Solo professionisti che si occupano direttamente dei progetti che firmano. La struttura segue il lavoro, non il contrario.",
+      "intro_title": "Come lavoriamo",
+      "intro_p1": "Kiba.Studio è una boutique di sviluppo software con sede a Milano. Lavoriamo con un nucleo stabile e un network di collaboratori specializzati che entrano nei progetti quando servono davvero. Ogni progetto ha un referente unico che lo segue dall'inizio alla fine.",
+      "intro_p2": "Selezioniamo pochi clienti per anno per garantire qualità e attenzione. Non vendiamo ore, vendiamo risultati che restano tuoi: codice, documentazione, infrastruttura. Tutto quello che scriviamo per te è tuo, portabile, modificabile.",
+      "team_title": "Il team",
+      "team_intro": "Persone reali con competenze reali. Niente nomi inventati o foto stock.",
+      "team_note": "Per progetti che richiedono competenze specifiche (UX research, design dedicato, sysadmin, security audit) attiviamo collaboratori esterni dichiarati esplicitamente nel preventivo. Nessun \"team fantasma\".",
+      "team_photo_alt": "Foto di {name}",
+      "team_member_link": "{name} su {platform}",
+      "team": {
+        "alessio": {
+          "name": "Alessio Sada",
+          "role": "Founder · Lead developer",
+          "bio": "6+ anni di sviluppo full-stack. Si occupa di architettura, backend e relazione diretta con il cliente."
+        },
+        "placeholder_name": "In conferma",
+        "placeholder_role": "Extended network",
+        "placeholder_1_bio": "Stiamo confermando con i collaboratori la presenza pubblica nel team. Aggiorneremo questa pagina solo con persone realmente coinvolte e con il loro consenso.",
+        "placeholder_2_bio": "Posto riservato per il prossimo collaboratore confermato."
+      },
+      "principles_title": "I nostri principi non negoziabili",
+      "principles": {
+        "privacy_title": "Privacy by design",
+        "privacy_description": "Ogni decisione tecnica considera prima il rispetto del dato. Hosting in EU di default, zero tracking di terze parti senza necessità reale, alternative privacy-friendly al posto di strumenti invasivi.",
+        "code_title": "Codice che ti appartiene",
+        "code_description": "Tutto il codice è tuo. Repository, documentazione, configurazioni: alla fine del progetto consegniamo accesso completo. Niente lock-in, niente dipendenze nascoste.",
+        "honesty_title": "Onestà nei tempi e nei costi",
+        "honesty_description": "Preventivi dettagliati, non forfait approssimativi. Se un'attività richiede più tempo del previsto te lo diciamo prima, non dopo. Se non sappiamo fare qualcosa, lo diciamo invece di improvvisare.",
+        "transparency_title": "Trasparenza tecnica",
+        "transparency_description": "Le scelte di stack e architettura sono spiegate, non imposte. Vuoi sapere perché abbiamo scelto Laravel invece di Node? Te lo raccontiamo. Le decisioni tecniche restano comprensibili da chi le finanzia."
+      },
+      "cta_title": "Vuoi sapere se è il caso di lavorare insieme?",
+      "cta_subtitle": "Una mezz'ora in chiamata, senza impegno. Ti diciamo francamente se siamo le persone giuste per il tuo progetto.",
+      "cta_button": "Scrivici",
+      "meta_description": "Software house boutique con sede a Milano. Persone reali, lavoro diretto, principi non negoziabili: privacy, codice tuo, onestà."
+    },
+    "contatti": {
+      "hero_eyebrow": "Contatti",
+      "hero_title": "Parliamone.",
+      "hero_subtitle": "Una prima conversazione, senza impegno. Capiamo insieme se siamo le persone giuste per il tuo progetto — e se non lo siamo, lo diciamo.",
+      "write_title": "Scrivici",
+      "write_intro": "Il modo più diretto. Rispondiamo entro 24 ore lavorative.",
+      "label_office": "Sede",
+      "label_vat": "Partita IVA",
+      "label_response": "Tempo di risposta",
+      "label_languages": "Lingue",
+      "value_office": "Milano (MI), 20155, Italia",
+      "value_response": "Entro 24h lavorative",
+      "value_languages": "Italiano, Inglese",
+      "form_placeholder_title": "Form contatti in arrivo",
+      "form_placeholder_p1": "Stiamo finalizzando il flusso di invio sicuro (validazione lato server, anti-spam, rate limit). Nel frattempo scrivici direttamente: ",
+      "form_placeholder_p2": "Una decisione voluta: preferiamo dirti che non c'è ancora, piuttosto che mostrarti un form che simula l'invio senza recapitare nulla. Sarebbe esattamente il tipo di dark pattern di cui ci facciamo carico di non commettere.",
+      "faq_title": "Domande frequenti prima del primo contatto",
+      "faqs": [
+        {
+          "q": "Lavorate solo in Italia?",
+          "a": "Lavoriamo prevalentemente in Italia (italiano e inglese), ma seguiamo progetti per clienti europei. Tutto in remoto di default; in presenza solo se davvero necessario per il progetto."
+        },
+        {
+          "q": "Qual è il budget minimo per iniziare?",
+          "a": "Non lavoriamo a budget orari sotto certe soglie, ma il progetto deve avere senso per entrambi. Per consulenza singola partiamo da pochi giorni di engagement, per progetti completi tipicamente da qualche settimana di sviluppo in su. In chiamata orientiamo prima di preventivare."
+        },
+        {
+          "q": "Il codice resta nostro?",
+          "a": "Sì, sempre. Repository tuoi, accessi tuoi, documentazione tua. A fine progetto puoi prendere tutto e portarlo dove vuoi, anche da un altro fornitore."
+        },
+        {
+          "q": "Fate manutenzione dopo il rilascio?",
+          "a": "Sì, ma su contratto separato e solo se ha senso per il progetto. Non ti agganciamo a un retainer obbligatorio per \"tenerti la chiave\" del codice. Se preferisci gestire internamente, ti formiamo per farlo."
+        },
+        {
+          "q": "Possiamo vedere altri progetti vostri?",
+          "a_prefix": "Su ",
+          "a_link": "questa pagina",
+          "a_suffix": " trovi quelli pubblicabili. Per quelli sotto NDA ti raccontiamo struttura e approccio in chiamata, senza dettagli sensibili."
+        }
+      ],
+      "meta_description": "Scrivici a hello{'@'}kiba.studio per parlare del tuo progetto. Risposta entro 24 ore lavorative. Software house con sede a Milano."
+    },
+    "journal": {
+      "hero_eyebrow": "Journal",
+      "hero_title": "Note dal nostro lavoro.",
+      "hero_subtitle": "Brevi articoli tecnici e operativi: scelte di stack, setup privacy-first, lezioni dai progetti reali. Pubblichiamo solo quando abbiamo qualcosa da dire.",
+      "empty_title": "Stiamo preparando i primi articoli",
+      "empty_intro": "I primi pezzi in lavorazione raccontano:",
+      "topics": [
+        "Perché su questo sito non c'è Google Analytics, e cosa usiamo invece",
+        "Setup di un'infrastruttura web in EU con Hetzner: passo per passo",
+        "Refactoring di un backend Laravel ereditato: una checklist concreta",
+        "OCR self-hosted con Tesseract: quando ha senso, quando no"
+      ],
+      "empty_note_prefix": "Vuoi essere avvisato quando pubblichiamo? Per ora, scrivici a ",
+      "empty_note_suffix": ". Niente newsletter, niente tracking: ti scriviamo manualmente.",
+      "meta_description": "Note tecniche e operative dal lavoro quotidiano di Kiba.Studio. Articoli su privacy, infrastruttura, sviluppo e scelte di stack."
+    },
+    "transparency": {
+      "hero_eyebrow": "Trasparenza",
+      "hero_title": "Cosa fa davvero questo sito.",
+      "hero_subtitle": "Privacy first, dimostrato. Qui dichiariamo apertamente cosa carichiamo, dove gira il sito, e cosa non facciamo. Verificabile con un qualsiasi network monitor.",
+      "last_update": "Ultimo aggiornamento: 25 aprile 2026",
+      "section_not_title": "Cosa NON fa questo sito",
+      "section_not_items": [
+        "<strong>Nessun Google Analytics</strong>, Facebook Pixel, TikTok Pixel, hotjar o strumenti analoghi.",
+        "<strong>Nessun cookie di profilazione</strong> o di terze parti per marketing.",
+        "<strong>Nessuna sincronizzazione</strong> della tua identità con piattaforme pubblicitarie.",
+        "<strong>Nessun fingerprinting</strong> del tuo dispositivo.",
+        "<strong>Nessun banner cookie invasivo</strong>, perché non c'è niente da chiederti il consenso per fare."
+      ],
+      "section_not_outro": "Se hai uBlock Origin o un altro blocker installato, questo sito funziona esattamente uguale: non c'è nulla da bloccare.",
+      "section_what_title": "Cosa fa questo sito",
+      "section_cookie_title": "Cookie",
+      "section_cookie_p_prefix": "Un solo cookie tecnico, ",
+      "section_cookie_p_code": "kiba_locale",
+      "section_cookie_p_suffix": ", che memorizza la lingua scelta. Dettagli nella ",
+      "section_cookie_p_link": "Cookie Policy",
+      "section_cookie_p_end": ".",
+      "section_resources_title": "Risorse esterne caricate",
+      "section_resources_intro": "Il browser carica risorse statiche (font e icone) da CDN pubbliche per ridurre il tempo di caricamento. Queste risorse non installano cookie ma il loro provider può registrare l'IP della richiesta:",
+      "section_resources_items": [
+        "<strong>fonts.googleapis.com</strong> + <strong>fonts.gstatic.com</strong> — Google Fonts (Manrope, Poppins, Montserrat Alternates)",
+        "<strong>cdnjs.cloudflare.com</strong> — Cloudflare CDN per Font Awesome (icone)"
+      ],
+      "section_resources_outro": "Stiamo lavorando per self-hostare anche queste risorse ed eliminare ogni richiesta a terze parti. Quando sarà fatto, troverai la modifica annotata qui.",
+      "section_logs_title": "Log lato server",
+      "section_logs_p": "Il provider di hosting registra log tecnici minimi (IP, user agent, URL richiesto, codice di risposta) per finalità di sicurezza e diagnostica. Conservazione massima 30 giorni, nessun utilizzo per profilazione.",
+      "section_hosting_title": "Dove è ospitato",
+      "section_hosting_items": [
+        "<strong>Hosting</strong>: provider in EU (server fisicamente in Germania o Francia, a seconda del provider scelto al momento del deploy).",
+        "<strong>Dominio</strong>: gestito tramite registrar che permette WHOIS privacy.",
+        "<strong>Email</strong>: l'indirizzo <code>hello{'@'}kiba.studio</code> usa un provider email professionale con server in EU."
+      ],
+      "section_stack_title": "Stack tecnologico del sito",
+      "section_stack_p": "Per pura trasparenza: questo sito è costruito con <strong>Nuxt 4</strong> (framework Vue.js), generato come applicazione full-stack JavaScript, animazioni con <strong>GSAP</strong>. Nessuna dipendenza tracking-oriented.",
+      "section_verify_title": "Verifica tu stesso",
+      "section_verify_p1": "Apri gli strumenti per sviluppatori del browser (F12), tab \"Network\" o \"Rete\", e ricarica la pagina. Vedrai esattamente tutte le richieste fatte e potrai confrontare con quanto dichiarato qui sopra.",
+      "section_verify_p2_prefix": "Se trovi una discrepanza, scrivici a ",
+      "section_verify_p2_suffix": " e correggeremo: o questa pagina, o il sito.",
+      "section_why_title": "Perché lo facciamo",
+      "section_why_p": "Vendere \"privacy first\" come slogan è facile. Renderlo verificabile è il punto. Questa pagina esiste perché crediamo che la trasparenza tecnica sia il modo più onesto di dimostrare ciò che dichiariamo.",
+      "meta_description": "Cosa fa e cosa non fa il sito Kiba.Studio. Privacy verificabile, hosting in EU, zero tracking."
+    }
+  },
+  "legal_pages_notice": null
 }

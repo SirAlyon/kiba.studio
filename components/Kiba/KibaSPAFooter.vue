@@ -23,10 +23,10 @@
           <div class="col-md-3 col-6 mb-4 mb-md-0">
             <h4 class="kiba-footer-title">{{ $t('nav.services') }}</h4>
             <ul class="kiba-footer-links">
-              <li><a href="#servizi">Web Development</a></li>
-              <li><a href="#servizi">App Mobile</a></li>
-              <li><a href="#servizi">API & Backend</a></li>
-              <li><a href="#servizi">{{ $t('services.consulting_title') }}</a></li>
+              <li><NuxtLink to="/servizi">{{ $t('footer.services_all') }}</NuxtLink></li>
+              <li><NuxtLink to="/servizi#frontend">{{ $t('footer.services_frontend') }}</NuxtLink></li>
+              <li><NuxtLink to="/servizi#backend">{{ $t('footer.services_backend') }}</NuxtLink></li>
+              <li><NuxtLink to="/servizi#consulting">{{ $t('footer.services_consulting') }}</NuxtLink></li>
             </ul>
           </div>
 
@@ -34,21 +34,21 @@
           <div class="col-md-3 col-6 mb-4 mb-md-0">
             <h4 class="kiba-footer-title">{{ $t('footer.quick_links_title') }}</h4>
             <ul class="kiba-footer-links">
-              <li><a href="#manifesto">{{ $t('nav.about') }}</a></li>
-              <li><a href="#processo">{{ $t('nav.process') }}</a></li>
-              <li><a href="#stack">{{ $t('nav.stack') }}</a></li>
-              <li><a href="#portfolio">{{ $t('nav.portfolio') }}</a></li>
+              <li><NuxtLink to="/about">{{ $t('footer.company_about') }}</NuxtLink></li>
+              <li><NuxtLink to="/case-study">{{ $t('footer.company_case_study') }}</NuxtLink></li>
+              <li><NuxtLink to="/journal">{{ $t('footer.company_journal') }}</NuxtLink></li>
+              <li><NuxtLink to="/contatti">{{ $t('nav.contact') }}</NuxtLink></li>
             </ul>
           </div>
 
-          <!-- Colonna Privacy -->
+          <!-- Colonna Legale -->
           <div class="col-md-3 col-6">
-            <h4 class="kiba-footer-title">Privacy First</h4>
+            <h4 class="kiba-footer-title">{{ $t('footer.legal_title') }}</h4>
             <ul class="kiba-footer-links">
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Cookie Policy</a></li>
-              <li><a href="#">GDPR Compliance</a></li>
-              <li><a href="#">Security</a></li>
+              <li><NuxtLink to="/privacy">{{ $t('footer.legal_privacy') }}</NuxtLink></li>
+              <li><NuxtLink to="/cookie">{{ $t('footer.legal_cookie') }}</NuxtLink></li>
+              <li><NuxtLink to="/termini">{{ $t('footer.legal_terms') }}</NuxtLink></li>
+              <li><NuxtLink to="/transparency">{{ $t('footer.legal_transparency') }}</NuxtLink></li>
             </ul>
           </div>
 
@@ -56,19 +56,20 @@
           <div class="col-md-3 col-6">
             <h4 class="kiba-footer-title">{{ $t('footer.contact_title') }}</h4>
             <div class="kiba-footer-contact">
-              <a href="mailto:info@kiba.studio" class="kiba-footer-email">
+              <a href="mailto:hello@kiba.studio" class="kiba-footer-email">
                 <i class="fas fa-envelope"></i>
-                info@kiba.studio
+                hello@kiba.studio
               </a>
+              <address class="kiba-footer-address">
+                {{ $t('footer.address_line_1') }}<br />
+                {{ $t('footer.address_line_2') }}
+              </address>
               <div class="kiba-footer-social">
-                <a href="#" aria-label="GitHub">
+                <a href="https://github.com/SirAlyon/" target="_blank" rel="noopener" aria-label="GitHub">
                   <i class="fab fa-github"></i>
                 </a>
-                <a href="#" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/alessio-sada-a380a822a/" target="_blank" rel="noopener" aria-label="LinkedIn">
                   <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#" aria-label="Twitter">
-                  <i class="fab fa-twitter"></i>
                 </a>
               </div>
             </div>
@@ -84,10 +85,7 @@
         <p class="kiba-footer-copyright">
           {{ $t('footer.copyright', { year: currentYear }) }}
         </p>
-        <p class="kiba-footer-legal">
-          P.IVA 00000000000 | {{ $t('footer.made_with') }}
-          <span class="kiba-footer-heart">♥</span> e rispetto per la privacy
-        </p>
+        <p class="kiba-footer-legal">{{ $t('footer.legal_line') }}</p>
       </div>
     </div>
   </div>
@@ -219,6 +217,14 @@ const currentYear = computed(() => new Date().getFullYear());
 
 .kiba-footer-email:hover {
   color: var(--kiba-primary, #c94c4c);
+}
+
+.kiba-footer-address {
+  font-style: normal;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--kiba-text-secondary, #b0b0b0);
+  margin: 0 0 8px;
 }
 
 .kiba-footer-social {

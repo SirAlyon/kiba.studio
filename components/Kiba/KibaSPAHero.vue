@@ -1,58 +1,66 @@
 <template>
-  <!--
-    KibaSPAHero.vue
-    Hero section per SPA con Three.js integrato
-    Animazioni GSAP per testo e integrazione scroll-linked per modello 3D
-  -->
   <div class="kiba-hero-spa">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
-        <!-- Colonna Testo -->
-        <div class="col-lg-6">
+        <!-- Colonna Sinistra: contenuto editoriale -->
+        <div class="col-lg-7">
           <div class="kiba-hero-content">
-            <div class="kiba-hero-label gsap-animate">{{ $t('hero.label') }}</div>
+            <!-- Status pill: indicatore disponibilità -->
+            <div class="kiba-hero-status gsap-animate">
+              <span class="kiba-hero-status-dot" aria-hidden="true"></span>
+              {{ $t('hero.status_label') }}
+            </div>
+
+            <!-- Eyebrow: posizionamento + sede -->
+            <div class="kiba-hero-eyebrow gsap-animate">
+              <span class="kiba-hero-eyebrow-line" aria-hidden="true"></span>
+              <span>{{ $t('hero.eyebrow') }}</span>
+            </div>
+
+            <!-- Headline principale con highlight gradient -->
             <h1 class="kiba-hero-title gsap-animate">
-              {{ $t('hero.title') }}
+              {{ $t('hero.headline_1') }}
+              <span class="kiba-hero-highlight">{{ $t('hero.headline_highlight') }}</span>
             </h1>
-            <p class="kiba-hero-subtitle gsap-animate">
-              {{ $t('hero.subtitle') }}
+
+            <!-- Lede / subtitle -->
+            <p class="kiba-hero-lede gsap-animate">
+              {{ $t('hero.lede') }}
             </p>
 
+            <!-- 3 promesse verificabili -->
+            <ul class="kiba-hero-proofs gsap-animate" aria-label="$t('hero.proofs_label')">
+              <li v-for="proof in proofs" :key="proof.key">
+                <span class="kiba-hero-proof-icon" aria-hidden="true">
+                  <i :class="proof.icon"></i>
+                </span>
+                <span>{{ $t(`hero.${proof.key}`) }}</span>
+              </li>
+            </ul>
+
+            <!-- CTA dual -->
             <div class="kiba-hero-cta gsap-animate">
               <button class="kiba-btn kiba-btn-primary" @click="scrollToContact">
                 {{ $t('hero.cta_primary') }}
                 <i class="fas fa-arrow-right ms-2"></i>
               </button>
-              <button class="kiba-btn kiba-btn-outline" @click="scrollToManifesto">
+              <button class="kiba-btn kiba-btn-ghost" @click="scrollToServices">
                 {{ $t('hero.cta_secondary') }}
               </button>
             </div>
 
-            <!-- Stats rapide -->
-            <div class="kiba-hero-stats gsap-animate">
-              <div class="kiba-stat">
-                <span class="kiba-stat-value">{{ $t('hero.stat_years') }}</span>
-                <span class="kiba-stat-label">{{ $t('hero.stat_years_label') }}</span>
-              </div>
-              <div class="kiba-stat">
-                <span class="kiba-stat-value">{{ $t('hero.stat_privacy') }}</span>
-                <span class="kiba-stat-label">{{ $t('hero.stat_privacy_label') }}</span>
-              </div>
-              <div class="kiba-stat">
-                <span class="kiba-stat-value">{{ $t('hero.stat_patterns') }}</span>
-                <span class="kiba-stat-label">{{ $t('hero.stat_patterns_label') }}</span>
-              </div>
-            </div>
+            <!-- Signature line (sotto i CTA, tono confidenziale) -->
+            <p class="kiba-hero-signature gsap-animate">
+              <i class="fas fa-circle-info"></i>
+              {{ $t('hero.signature') }}
+            </p>
           </div>
         </div>
 
-        <!-- Colonna 3D Model -->
-        <div class="col-lg-6 d-none d-lg-block">
-          <div ref="modelContainerRef" class="kiba-hero-model">
-            <!-- Three.js canvas montato qui -->
-            <div v-if="isModelLoading" class="kiba-model-loader">
-              <div class="kiba-model-spinner"></div>
-            </div>
+        <!-- Colonna Destra: visual sigillo -->
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="kiba-hero-visual">
+            <KibaHeroSigil />
           </div>
         </div>
       </div>
@@ -67,233 +75,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { useGSAP } from '@/composables/useGSAP';
+import KibaHeroSigil from './KibaHeroSigil.vue';
 
 const emit = defineEmits(['navigate']);
 
-// Refs
-const modelContainerRef = ref(null);
-const isModelLoading = ref(true);
+const proofs = [
+  { key: 'proof_1', icon: 'fas fa-key' },
+  { key: 'proof_2', icon: 'fas fa-globe' },
+  { key: 'proof_3', icon: 'fas fa-clock' }
+];
 
-// Three.js instances
-let scene, camera, renderer, model, animationId;
-let gsapInstance = null;
-let ScrollTriggerInstance = null;
-
-// GSAP composable
-const { loadGSAP } = useGSAP();
-
-onMounted(async () => {
-  // Carica GSAP
-  const gsapModules = await loadGSAP();
-  if (gsapModules) {
-    gsapInstance = gsapModules.gsap;
-    ScrollTriggerInstance = gsapModules.ScrollTrigger;
-  }
-
-  // Carica Three.js solo su desktop
-  if (window.innerWidth >= 992) {
-    await initThreeJS();
-  } else {
-    isModelLoading.value = false;
-  }
-});
-
-onBeforeUnmount(() => {
-  cleanupThreeJS();
-});
-
-/**
- * Inizializza Three.js con GSAP scroll integration
- */
-const initThreeJS = async () => {
-  try {
-    const THREE = await import('three');
-    const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
-
-    if (!modelContainerRef.value) return;
-
-    const container = modelContainerRef.value;
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-
-    // Scene
-    scene = new THREE.Scene();
-    scene.background = null;
-
-    // Camera
-    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 5);
-
-    // Renderer
-    renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance'
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    container.appendChild(renderer.domElement);
-
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
-    directionalLight.position.set(5, 5, 5);
-    directionalLight.castShadow = true;
-    scene.add(directionalLight);
-
-    const accentLight = new THREE.DirectionalLight(0xc94c4c, 0.4);
-    accentLight.position.set(-3, 2, -3);
-    scene.add(accentLight);
-
-    // Load model
-    const loader = new GLTFLoader();
-    loader.load(
-      '/models/model.glb',
-      (gltf) => {
-        model = gltf.scene;
-
-        // Center and scale
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
-
-        model.position.sub(center);
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2.5 / maxDim;
-        model.scale.setScalar(scale);
-
-        // Enable shadows
-        model.traverse((child) => {
-          if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-
-        scene.add(model);
-        isModelLoading.value = false;
-
-        // Setup GSAP scroll animation
-        if (gsapInstance && ScrollTriggerInstance) {
-          setupScrollAnimation();
-        }
-
-        // Start render loop
-        animate();
-      },
-      undefined,
-      (error) => {
-        console.error('Errore caricamento modello:', error);
-        isModelLoading.value = false;
-      }
-    );
-
-    // Resize handler
-    window.addEventListener('resize', onResize, { passive: true });
-  } catch (error) {
-    console.error('Errore inizializzazione Three.js:', error);
-    isModelLoading.value = false;
-  }
-};
-
-/**
- * Setup GSAP ScrollTrigger per animazioni 3D
- */
-const setupScrollAnimation = () => {
-  if (!model || !gsapInstance) return;
-
-  // Rotazione modello basata su scroll
-  ScrollTriggerInstance.create({
-    trigger: '.kiba-hero-spa',
-    start: 'top top',
-    end: 'bottom top',
-    scrub: 1.5,
-    onUpdate: (self) => {
-      if (model) {
-        // Max 25° rotation (0.436 rad)
-        model.rotation.y = self.progress * 0.436;
-        model.rotation.x = self.progress * 0.174;
-      }
-      if (camera) {
-        // Camera zoom out
-        camera.position.z = 5 + self.progress * 1.5;
-      }
-    }
-  });
-};
-
-/**
- * Animation loop
- */
-const animate = () => {
-  animationId = requestAnimationFrame(animate);
-
-  if (model) {
-    // Rotazione automatica leggera
-    model.rotation.y += 0.002;
-  }
-
-  renderer.render(scene, camera);
-};
-
-/**
- * Resize handler
- */
-const onResize = () => {
-  if (!modelContainerRef.value || !camera || !renderer) return;
-
-  const width = modelContainerRef.value.clientWidth;
-  const height = modelContainerRef.value.clientHeight;
-
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(width, height);
-};
-
-/**
- * Cleanup Three.js
- */
-const cleanupThreeJS = () => {
-  if (animationId) cancelAnimationFrame(animationId);
-
-  window.removeEventListener('resize', onResize);
-
-  if (renderer) {
-    renderer.dispose();
-    renderer.forceContextLoss();
-  }
-
-  if (scene) {
-    scene.traverse((object) => {
-      if (object.geometry) object.geometry.dispose();
-      if (object.material) {
-        if (Array.isArray(object.material)) {
-          object.material.forEach((mat) => mat.dispose());
-        } else {
-          object.material.dispose();
-        }
-      }
-    });
-  }
-};
-
-/**
- * Navigation helpers
- */
 const scrollToContact = () => {
   emit('navigate', { index: 6, sectionId: 'contatti' });
 };
 
-const scrollToManifesto = () => {
-  emit('navigate', { index: 1, sectionId: 'manifesto' });
+const scrollToServices = () => {
+  emit('navigate', { index: 2, sectionId: 'servizi' });
 };
 </script>
 
@@ -303,68 +100,156 @@ const scrollToManifesto = () => {
   height: 100%;
   position: relative;
   display: flex;
-  align-items: center; /* center per Hero - ha il modello 3D */
+  align-items: center;
 }
 
 .kiba-hero-content {
   padding-right: 40px;
+  max-width: 720px;
 }
 
-.kiba-hero-label {
-  display: inline-block;
-  padding: 8px 16px;
-  background: rgba(201, 76, 76, 0.15);
-  border-radius: 30px;
-  font-size: 0.875rem;
+/* Status pill -------------------------------------------------------- */
+.kiba-hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 12px;
+  background: rgba(46, 160, 92, 0.1);
+  border: 1px solid rgba(46, 160, 92, 0.25);
+  border-radius: 999px;
+  font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--kiba-primary, #c94c4c);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 20px;
+  color: #5dc78a;
+  letter-spacing: 0.01em;
+  margin-bottom: 28px;
 }
 
-.kiba-hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--kiba-text-main, #f0f0f0);
+.kiba-hero-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5dc78a;
+  position: relative;
+}
+
+.kiba-hero-status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: #5dc78a;
+  opacity: 0.4;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(0.8); opacity: 0.4; }
+  50% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Eyebrow ------------------------------------------------------------ */
+.kiba-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--kiba-primary, #c94c4c);
   margin-bottom: 24px;
 }
 
-.kiba-text-gradient {
-  background: var(--kiba-gradient, linear-gradient(135deg, #c94c4c 0%, #e06666 100%));
+.kiba-hero-eyebrow-line {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--kiba-primary, #c94c4c);
+}
+
+/* Headline ----------------------------------------------------------- */
+.kiba-hero-title {
+  font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--kiba-text-main, #f0f0f0);
+  margin: 0 0 24px;
+}
+
+.kiba-hero-highlight {
+  background: linear-gradient(135deg, #e06666 0%, #c94c4c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  position: relative;
+  display: inline;
 }
 
-.kiba-hero-subtitle {
-  font-size: 1.125rem;
-  line-height: 1.7;
+/* Lede --------------------------------------------------------------- */
+.kiba-hero-lede {
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.65;
   color: var(--kiba-text-secondary, #b0b0b0);
-  margin-bottom: 32px;
-  max-width: 500px;
+  margin: 0 0 32px;
+  max-width: 580px;
 }
 
+/* Proof points ------------------------------------------------------- */
+.kiba-hero-proofs {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+}
+
+.kiba-hero-proofs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  color: var(--kiba-text-main, #e8e8e8);
+  font-weight: 500;
+}
+
+.kiba-hero-proof-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(201, 76, 76, 0.12);
+  color: var(--kiba-primary, #c94c4c);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* CTA --------------------------------------------------------------- */
 .kiba-hero-cta {
   display: flex;
-  gap: 16px;
-  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
 }
 
 .kiba-btn {
-  padding: 14px 28px;
+  padding: 15px 30px;
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Focus state for accessibility - no white flash */
 .kiba-btn:focus-visible {
   box-shadow: 0 0 0 3px rgba(201, 76, 76, 0.4);
 }
@@ -372,12 +257,27 @@ const scrollToManifesto = () => {
 .kiba-btn-primary {
   background: var(--kiba-gradient, linear-gradient(135deg, #c94c4c 0%, #e06666 100%));
   color: #ffffff;
-  box-shadow: 0 4px 20px rgba(201, 76, 76, 0.3);
+  box-shadow: 0 6px 24px rgba(201, 76, 76, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.kiba-btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .kiba-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(201, 76, 76, 0.4);
+  box-shadow: 0 10px 32px rgba(201, 76, 76, 0.42);
+}
+
+.kiba-btn-primary:hover::after {
+  opacity: 1;
 }
 
 .kiba-btn-primary:active {
@@ -385,80 +285,58 @@ const scrollToManifesto = () => {
   box-shadow: 0 2px 10px rgba(201, 76, 76, 0.3);
 }
 
-.kiba-btn-outline {
+.kiba-btn-ghost {
   background: transparent;
   color: var(--kiba-text-main, #f0f0f0);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.kiba-btn-outline:hover {
+.kiba-btn-ghost:hover {
   border-color: var(--kiba-primary, #c94c4c);
   color: var(--kiba-primary, #c94c4c);
+  background: rgba(201, 76, 76, 0.05);
 }
 
-.kiba-btn-outline:active {
-  background: rgba(201, 76, 76, 0.1);
+.kiba-btn-ghost:active {
+  background: rgba(201, 76, 76, 0.12);
 }
 
-.kiba-btn-outline:focus-visible {
+.kiba-btn-ghost:focus-visible {
   border-color: var(--kiba-primary, #c94c4c);
   box-shadow: 0 0 0 3px rgba(201, 76, 76, 0.2);
 }
 
-.kiba-hero-stats {
-  display: flex;
-  gap: 40px;
-}
-
-.kiba-stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.kiba-stat-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--kiba-primary, #c94c4c);
-}
-
-.kiba-stat-label {
-  font-size: 0.8125rem;
+/* Signature --------------------------------------------------------- */
+.kiba-hero-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
   color: var(--kiba-text-muted, #888);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  margin: 0;
+  font-style: italic;
 }
 
-.kiba-hero-model {
+.kiba-hero-signature i {
+  color: var(--kiba-primary, #c94c4c);
+  font-size: 0.875rem;
+  font-style: normal;
+}
+
+/* Visual ------------------------------------------------------------ */
+.kiba-hero-visual {
   width: 100%;
-  height: 500px;
+  height: 540px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.kiba-model-loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.kiba-model-spinner {
-  width: 50px;
-  height: 50px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: var(--kiba-primary, #c94c4c);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Scroll indicator -------------------------------------------------- */
 .kiba-hero-scroll {
   position: absolute;
-  bottom: 10px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -473,24 +351,15 @@ const scrollToManifesto = () => {
 }
 
 @keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  40% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-  60% {
-    transform: translateX(-50%) translateY(-5px);
-  }
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
 }
 
+/* Responsive -------------------------------------------------------- */
 @media (max-width: 1199px) {
   .kiba-hero-title {
-    font-size: 3rem;
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
   }
 }
 
@@ -498,83 +367,96 @@ const scrollToManifesto = () => {
   .kiba-hero-content {
     text-align: center;
     padding-right: 0;
+    margin: 0 auto;
   }
 
-  .kiba-hero-title {
-    font-size: 2.5rem;
-  }
-
-  .kiba-hero-subtitle {
+  .kiba-hero-eyebrow,
+  .kiba-hero-status {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .kiba-hero-eyebrow {
+    justify-content: center;
+  }
+
+  .kiba-hero-lede {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .kiba-hero-proofs {
+    justify-content: center;
   }
 
   .kiba-hero-cta {
     justify-content: center;
   }
 
-  .kiba-hero-stats {
+  .kiba-hero-signature {
     justify-content: center;
   }
 }
 
 @media (max-width: 767px) {
   .kiba-hero-spa {
-    /* RESET mobile - no flexbox centering */
     display: block;
     height: auto;
     min-height: auto;
-    padding: 20px 0 40px;
+    padding: 30px 0 40px;
   }
 
   .kiba-hero-content {
     padding-right: 0;
   }
 
-  .kiba-hero-label {
+  .kiba-hero-status {
     font-size: 0.75rem;
-    padding: 6px 12px;
+    margin-bottom: 22px;
+  }
+
+  .kiba-hero-eyebrow {
+    font-size: 0.75rem;
+    margin-bottom: 18px;
   }
 
   .kiba-hero-title {
-    font-size: 1.75rem;
-    margin-bottom: 16px;
+    font-size: clamp(1.875rem, 8vw, 2.5rem);
+    margin-bottom: 18px;
   }
 
-  .kiba-hero-subtitle {
+  .kiba-hero-lede {
     font-size: 1rem;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
+  }
+
+  .kiba-hero-proofs {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
   }
 
   .kiba-hero-cta {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+    margin-bottom: 18px;
   }
 
   .kiba-btn {
-    padding: 12px 20px;
+    padding: 13px 22px;
     font-size: 0.9375rem;
     width: 100%;
+  }
+
+  .kiba-hero-signature {
+    font-size: 0.8125rem;
     text-align: center;
   }
 
-  .kiba-hero-stats {
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-
-  .kiba-stat-value {
-    font-size: 1.25rem;
-  }
-
-  .kiba-stat-label {
-    font-size: 0.75rem;
-  }
-
   .kiba-hero-scroll {
-    display: none; /* Nascondi indicatore scroll su mobile */
+    display: none;
   }
 }
 
@@ -582,10 +464,8 @@ const scrollToManifesto = () => {
   .kiba-hero-scroll {
     animation: none;
   }
-
-  .kiba-model-spinner {
+  .kiba-hero-status-dot::after {
     animation: none;
-    border-top-color: var(--kiba-primary, #c94c4c);
   }
 }
 </style>

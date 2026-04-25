@@ -1,69 +1,51 @@
 <template>
-  <!--
-    KibaSPA.vue
-    Componente principale Single Page Application
-    Scroll naturale con animazioni GSAP ScrollTrigger
-  -->
   <div class="kiba-spa-wrapper">
-    <!-- Loader -->
     <KibaLoaderGSAP v-if="!isLoaded" @complete="onLoaderComplete" />
 
-    <!-- Side Navigation - Desktop -->
     <KibaSideNav
       :current-section="currentSectionIndex"
       @navigate="handleNavigation"
     />
 
-    <!-- Mobile Navigation -->
     <KibaMobileNav
       :current-section="currentSectionIndex"
       @navigate="handleNavigation"
     />
 
-    <!-- Main Content Container -->
     <main class="kiba-spa-container" ref="containerRef">
-      <!-- Section 1: Hero -->
       <section id="hero" class="kiba-spa-section">
         <KibaSPAHero ref="heroRef" @navigate="handleNavigation" />
       </section>
 
-      <!-- Section 2: Manifesto -->
       <section id="manifesto" class="kiba-spa-section">
         <KibaSPAManifesto />
       </section>
 
-      <!-- Section 3: Servizi -->
       <section id="servizi" class="kiba-spa-section">
         <KibaSPAServices />
       </section>
 
-      <!-- Section 4: Processo -->
       <section id="processo" class="kiba-spa-section">
         <KibaSPAProcess @navigate="handleNavigation" />
       </section>
 
-      <!-- Section 5: Stack -->
       <section id="stack" class="kiba-spa-section">
         <KibaSPAStack />
       </section>
 
-      <!-- Section 6: Portfolio -->
       <section id="portfolio" class="kiba-spa-section">
         <KibaSPAPortfolio />
       </section>
 
-      <!-- Section 7: Contatti -->
       <section id="contatti" class="kiba-spa-section">
         <KibaSPAContact />
       </section>
 
-      <!-- Section 8: Footer -->
       <section id="footer" class="kiba-spa-section kiba-spa-section--footer">
         <KibaSPAFooter />
       </section>
     </main>
 
-    <!-- Back to Top -->
     <button
       v-show="showBackToTop"
       class="kiba-back-to-top"
@@ -79,7 +61,6 @@
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import { useGSAP } from '@/composables/useGSAP';
 
-// Componenti
 import KibaLoaderGSAP from './KibaLoaderGSAP.vue';
 import KibaSideNav from './KibaSideNav.vue';
 import KibaMobileNav from './KibaMobileNav.vue';
@@ -92,86 +73,73 @@ import KibaSPAPortfolio from './KibaSPAPortfolio.vue';
 import KibaSPAContact from './KibaSPAContact.vue';
 import KibaSPAFooter from './KibaSPAFooter.vue';
 
-// Refs
 const containerRef = ref(null);
 const heroRef = ref(null);
 const isLoaded = ref(false);
 const currentSectionIndex = ref(0);
 const showBackToTop = ref(false);
 
-// GSAP composable
 const { loadGSAP } = useGSAP();
 
-// Sezioni IDs
-const sectionIds = [
+// Le sezioni "trackable" dal sidenav. Footer escluso: quando il footer entra in vista
+// `contatti` resta attivo (è la voce 7 del sidenav).
+const trackedSectionIds = [
   'hero',
   'manifesto',
   'servizi',
   'processo',
   'stack',
   'portfolio',
-  'contatti',
-  'footer'
+  'contatti'
 ];
 
 let gsap = null;
 let ScrollTrigger = null;
+let scrollTriggers = [];
+// Quando l'utente clicca sulla nav, lo smooth scroll attraversa più sezioni:
+// blocchiamo gli aggiornamenti del trigger per evitare che il bottone "salti"
+// di sezione mentre lo scroll è in corso.
+let navigationLockTimer = null;
+let isNavigating = false;
 
 onMounted(async () => {
-  // Carica GSAP
   const gsapModules = await loadGSAP();
   if (gsapModules) {
     gsap = gsapModules.gsap;
     ScrollTrigger = gsapModules.ScrollTrigger;
   }
-
-  // Setup scroll listener
   window.addEventListener('scroll', handleScroll, { passive: true });
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', handleScroll);
-  if (ScrollTrigger) {
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-  }
+  if (navigationLockTimer) clearTimeout(navigationLockTimer);
+  scrollTriggers.forEach((t) => t.kill());
+  scrollTriggers = [];
 });
 
-/**
- * Loader completato - inizializza animazioni
- */
 const onLoaderComplete = async () => {
   isLoaded.value = true;
   await nextTick();
-
   if (gsap && ScrollTrigger) {
     initAnimations();
+    initSectionTracking();
   }
 };
 
-/**
- * Inizializza tutte le animazioni GSAP con ScrollTrigger
- */
 const initAnimations = () => {
-  // Animazione Hero (immediata al caricamento)
   animateHero();
 
-  // Animazioni per le altre sezioni (al scroll)
-  sectionIds.forEach((id, index) => {
-    if (id === 'hero') return; // Hero già animata
-
+  trackedSectionIds.forEach((id) => {
+    if (id === 'hero') return;
     const section = document.querySelector(`#${id}`);
     if (!section) return;
-
     const elements = section.querySelectorAll('.gsap-animate');
     if (elements.length === 0) return;
 
-    // Animazione fade-in + slide-up quando la sezione entra in view
     gsap.fromTo(
       elements,
-      {
-        y: 40,
-        opacity: 0
-      },
+      { y: 40, opacity: 0 },
       {
         y: 0,
         opacity: 1,
@@ -181,88 +149,89 @@ const initAnimations = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top 80%',
-          end: 'top 50%',
-          toggleActions: 'play none none none',
-          onEnter: () => {
-            currentSectionIndex.value = index;
-          }
+          toggleActions: 'play none none none'
         }
       }
     );
-
-    // ScrollTrigger per aggiornare l'indice della sezione corrente
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => {
-        currentSectionIndex.value = index;
-      },
-      onEnterBack: () => {
-        currentSectionIndex.value = index;
-      }
-    });
   });
 };
 
 /**
- * Animazione Hero al caricamento
+ * Tracking della sezione attiva per il sidenav.
+ * Trigger separati dalle animazioni (più stabili e includono anche la hero,
+ * altrimenti tornando indietro alla home l'indice resta sulla sezione precedente).
+ *
+ * Strategia: usiamo il punto medio del viewport. Una sezione è "attiva"
+ * quando il suo bordo superiore passa il 50% del viewport, e resta attiva
+ * finché il suo bordo inferiore non supera anch'esso il 50%.
  */
+const initSectionTracking = () => {
+  trackedSectionIds.forEach((id, index) => {
+    const section = document.querySelector(`#${id}`);
+    if (!section) return;
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: 'top 50%',
+      end: 'bottom 50%',
+      onEnter: () => setActiveIndex(index),
+      onEnterBack: () => setActiveIndex(index)
+    });
+    scrollTriggers.push(trigger);
+  });
+};
+
+const setActiveIndex = (index) => {
+  if (isNavigating) return;
+  currentSectionIndex.value = index;
+};
+
 const animateHero = () => {
   const heroSection = document.querySelector('#hero');
   if (!heroSection) return;
-
   const elements = heroSection.querySelectorAll('.gsap-animate');
   if (elements.length === 0) return;
-
   gsap.fromTo(
     elements,
-    {
-      y: 50,
-      opacity: 0
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.9,
-      stagger: 0.12,
-      ease: 'power3.out',
-      delay: 0.2
-    }
+    { y: 50, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: 'power3.out', delay: 0.2 }
   );
 };
 
 /**
- * Navigazione smooth scroll
+ * Navigazione: aggiorna immediatamente l'indice e blocca il tracking
+ * per il tempo necessario allo smooth scroll. Senza questo lock, lo
+ * scroll attraversa altre sezioni e i loro trigger sovrascrivono l'indice
+ * corretto.
  */
-const handleNavigation = ({ sectionId }) => {
+const handleNavigation = ({ index, sectionId }) => {
   const section = document.querySelector(`#${sectionId}`);
   if (!section) return;
 
+  if (typeof index === 'number') {
+    currentSectionIndex.value = index;
+  }
+
+  isNavigating = true;
+  if (navigationLockTimer) clearTimeout(navigationLockTimer);
+
   const offsetTop = section.offsetTop - (window.innerWidth <= 767 ? 60 : 0);
 
-  window.scrollTo({
-    top: offsetTop,
-    behavior: 'smooth'
-  });
+  window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+
+  // Sblocchiamo dopo che lo smooth scroll dovrebbe essersi assestato.
+  // Il valore è generoso per coprire scroll lunghi (hero ↔ contatti).
+  navigationLockTimer = setTimeout(() => {
+    isNavigating = false;
+  }, 900);
 };
 
-/**
- * Gestisce scroll per back-to-top e sezione corrente
- */
 const handleScroll = () => {
   showBackToTop.value = window.scrollY > window.innerHeight * 0.5;
 };
 
-/**
- * Torna in alto
- */
 const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-  currentSectionIndex.value = 0;
+  handleNavigation({ index: 0, sectionId: 'hero' });
 };
 </script>
 
@@ -280,14 +249,12 @@ const scrollToTop = () => {
   padding: 60px 20px;
 }
 
-/* Hero centrata verticalmente */
 .kiba-spa-section#hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
 }
 
-/* Alternanza colori sfondo */
 .kiba-spa-section:nth-child(odd) {
   background: var(--kiba-bg-dark, #1a1a1a);
 }
@@ -296,17 +263,14 @@ const scrollToTop = () => {
   background: var(--kiba-bg-surface, #2d2d2d);
 }
 
-/* Footer senza min-height */
 .kiba-spa-section--footer {
   min-height: auto;
 }
 
-/* Elementi GSAP nascosti inizialmente solo nella Hero */
 .kiba-spa-section#hero :deep(.gsap-animate) {
   opacity: 0;
 }
 
-/* Back to Top Button */
 .kiba-back-to-top {
   position: fixed;
   bottom: 30px;
@@ -332,32 +296,26 @@ const scrollToTop = () => {
   box-shadow: 0 8px 30px rgba(201, 76, 76, 0.5);
 }
 
-/* Responsive - Tablet */
 @media (max-width: 991px) {
   .kiba-spa-container {
     margin-left: 60px;
   }
-
   .kiba-spa-section {
     padding: 50px 20px;
   }
 }
 
-/* Responsive - Mobile */
 @media (max-width: 767px) {
   .kiba-spa-container {
     margin-left: 0;
     padding-top: 60px;
   }
-
   .kiba-spa-section {
     padding: 40px 16px;
   }
-
   .kiba-spa-section#hero {
     min-height: calc(100vh - 60px);
   }
-
   .kiba-back-to-top {
     bottom: 20px;
     right: 20px;
