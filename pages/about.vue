@@ -24,8 +24,16 @@
             v-for="member in team"
             :key="member.slug"
             class="team-card"
-            :class="{ 'is-placeholder': member.isPlaceholder }"
+            :class="{
+              'is-placeholder': member.isPlaceholder,
+              'is-mascot': member.isMascot
+            }"
           >
+            <span v-if="member.isMascot" class="team-card-badge">
+              <i class="fas fa-paw"></i>
+              {{ $t('pages.about.mascot_badge') }}
+            </span>
+
             <div class="team-card-photo">
               <img
                 v-if="member.photo"
@@ -48,6 +56,9 @@
 
               <ul v-if="member.skills && member.skills.length" class="team-card-skills">
                 <li v-for="skill in member.skills" :key="skill">{{ skill }}</li>
+              </ul>
+              <ul v-else-if="member.skillsI18n && member.skillsI18n.length" class="team-card-skills">
+                <li v-for="skillKey in member.skillsI18n" :key="skillKey">{{ $t(skillKey) }}</li>
               </ul>
 
               <div v-if="member.links && member.links.length" class="team-card-links">
@@ -140,13 +151,18 @@ const team = [
     isPlaceholder: true
   },
   {
-    slug: 'placeholder-2',
-    nameKey: 'pages.about.team.placeholder_name',
-    roleKey: 'pages.about.team.placeholder_role',
-    bioKey: 'pages.about.team.placeholder_2_bio',
-    photo: null,
-    placeholderIcon: 'fas fa-user-plus',
-    isPlaceholder: true
+    slug: 'kiba',
+    nameKey: 'pages.about.team.kiba.name',
+    roleKey: 'pages.about.team.kiba.role',
+    bioKey: 'pages.about.team.kiba.bio',
+    photo: '/team/kiba.jpg',
+    skillsI18n: [
+      'pages.about.team.kiba.skill_1',
+      'pages.about.team.kiba.skill_2',
+      'pages.about.team.kiba.skill_3',
+      'pages.about.team.kiba.skill_4'
+    ],
+    isMascot: true
   }
 ];
 
@@ -219,6 +235,49 @@ useHead(() => ({
   border-style: dashed;
   border-color: rgba(255, 255, 255, 0.1);
   background: transparent;
+}
+
+/* Mascotte: card con vibrazione "calda", badge in alto a destra */
+.team-card.is-mascot {
+  position: relative;
+  background:
+    radial-gradient(ellipse at top, rgba(245, 230, 211, 0.04), transparent 60%),
+    rgba(255, 255, 255, 0.03);
+  border-color: rgba(245, 230, 211, 0.15);
+}
+
+.team-card.is-mascot:hover {
+  border-color: rgba(245, 230, 211, 0.35);
+}
+
+.team-card.is-mascot .team-card-photo {
+  background: linear-gradient(135deg, rgba(245, 230, 211, 0.4), rgba(201, 76, 76, 0.2));
+}
+
+.team-card.is-mascot .team-card-role {
+  color: var(--kiba-secondary, #f5e6d3);
+}
+
+.team-card-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(245, 230, 211, 0.12);
+  border: 1px solid rgba(245, 230, 211, 0.25);
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--kiba-secondary, #f5e6d3);
+}
+
+.team-card-badge i {
+  font-size: 0.625rem;
 }
 
 /* Standard foto Kiba.Studio: cerchio con ring brand-color */

@@ -350,8 +350,18 @@
         "placeholder_name": "To be confirmed",
         "placeholder_role": "Extended network",
         "placeholder_1_bio": "We're confirming with collaborators their public presence on the team. We'll only update this page with people actually involved and with their consent.",
-        "placeholder_2_bio": "Slot reserved for the next confirmed collaborator."
+        "placeholder_2_bio": "Slot reserved for the next confirmed collaborator.",
+        "kiba": {
+          "name": "Kiba",
+          "role": "Chief Calm Officer",
+          "bio": "Akita, eponym of this studio. Sleeps a lot, decides little — and when he decides, it's because he's already thought it through. Taught us that 'calm' isn't inaction: it's picking the right moment. Stays seated through our most important meetings.",
+          "skill_1": "Patience",
+          "skill_2": "Strategy",
+          "skill_3": "PR sniff-tests",
+          "skill_4": "Digital detox"
+        }
       },
+      "mascot_badge": "Mascot",
       "principles_title": "Our non-negotiable principles",
       "principles": {
         "privacy_title": "Privacy by design",
