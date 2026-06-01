@@ -60,7 +60,7 @@
           <div class="kiba-mobile-menu-footer">
             <p class="kiba-mobile-tagline">{{ t('footer.description') }}</p>
             <div class="kiba-mobile-contact">
-              <a href="mailto:info@kiba.studio">info@kiba.studio</a>
+              <a href="mailto:hello@kiba.studio">hello@kiba.studio</a>
             </div>
           </div>
         </div>

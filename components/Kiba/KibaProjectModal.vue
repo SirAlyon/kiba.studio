@@ -22,10 +22,19 @@
             <h2 class="kiba-modal-title">{{ project.title }}</h2>
             <p class="kiba-modal-subtitle">{{ project.subtitle }}</p>
 
-            <!-- Privacy notice -->
-            <div class="kiba-modal-privacy">
+            <!-- Status badge -->
+            <span
+              v-if="project.status"
+              class="kiba-modal-status"
+              :class="`is-${project.status.tone}`"
+            >
+              <span class="status-dot"></span>{{ project.status.label }}
+            </span>
+
+            <!-- NDA notice (solo progetti cliente) -->
+            <div v-if="project.isClient" class="kiba-modal-privacy">
               <i class="fas fa-shield-alt"></i>
-              <span>Dettagli anonimizzati per tutelare la privacy del cliente</span>
+              <span>Nome e dettagli di business coperti da NDA</span>
             </div>
           </div>
 
@@ -70,29 +79,17 @@
             </div>
 
             <!-- Privacy features -->
-            <div class="kiba-modal-section">
-              <h3>Focus su Privacy & Sicurezza</h3>
+            <div
+              v-if="project.privacyFeatures && project.privacyFeatures.length"
+              class="kiba-modal-section"
+            >
+              <h3>Privacy &amp; proprietà</h3>
               <ul class="kiba-modal-features">
                 <li v-for="feature in project.privacyFeatures" :key="feature">
                   <i class="fas fa-lock"></i>
                   {{ feature }}
                 </li>
               </ul>
-            </div>
-
-            <!-- Placeholder images -->
-            <div class="kiba-modal-section">
-              <h3>Preview</h3>
-              <div class="kiba-modal-images">
-                <div class="kiba-modal-image-placeholder">
-                  <i class="fas fa-image"></i>
-                  <span>Screenshot anonimizzato</span>
-                </div>
-                <div class="kiba-modal-image-placeholder">
-                  <i class="fas fa-mobile-alt"></i>
-                  <span>Vista mobile</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -265,6 +262,47 @@ onMounted(() => {
   margin-bottom: 20px;
 }
 
+.kiba-modal-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-right: 10px;
+  margin-bottom: 16px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--kiba-text-secondary, #b0b0b0);
+  background: rgba(255, 255, 255, 0.03);
+  vertical-align: middle;
+}
+
+.kiba-modal-status .status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.kiba-modal-status.is-live {
+  color: #4caf6e;
+  border-color: rgba(76, 175, 110, 0.35);
+  background: rgba(76, 175, 110, 0.1);
+}
+
+.kiba-modal-status.is-dev {
+  color: #d6a04c;
+  border-color: rgba(214, 160, 76, 0.35);
+  background: rgba(214, 160, 76, 0.1);
+}
+
+.kiba-modal-status.is-early {
+  color: #8a8fa3;
+  border-color: rgba(138, 143, 163, 0.3);
+  background: rgba(138, 143, 163, 0.1);
+}
+
 .kiba-modal-privacy {
   display: inline-flex;
   align-items: center;
@@ -274,6 +312,7 @@ onMounted(() => {
   border-radius: 30px;
   font-size: 0.875rem;
   color: var(--kiba-primary, #c94c4c);
+  vertical-align: middle;
 }
 
 .kiba-modal-body {

@@ -40,9 +40,9 @@ import KibaPageSection from '~/components/Kiba/KibaPageSection.vue';
 const { t } = useI18n();
 
 const caseStudies = [
-  { slug: 'autoimporta', key: 'autoimporta', stack: ['Laravel', 'Vue 3', 'MySQL', 'Hetzner'] },
-  { slug: 'kiba-finance', key: 'kiba_finance', stack: ['Nuxt', 'TypeScript', 'IndexedDB'] },
-  { slug: 'sample-ocr', key: 'sample_ocr', stack: ['Python', 'Tesseract', 'FastAPI'] }
+  { slug: 'autoimporta', key: 'autoimporta', stack: ['PHP 8.3', 'Laravel 12', 'Filament', 'PostgreSQL'] },
+  { slug: 'kiba-finance', key: 'kiba_finance', stack: ['Laravel 12', 'Filament 4', 'SQLite'] },
+  { slug: 'kiba-fetch', key: 'fetch', stack: ['Laravel', 'Python', 'FastAPI', 'PostgreSQL'] }
 ];
 
 const config = useRuntimeConfig();

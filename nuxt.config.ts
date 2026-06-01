@@ -7,6 +7,14 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-11-24',
   modules: ['@nuxtjs/i18n'],
   runtimeConfig: {
+    // Segreti server-side (valorizzati dalle env, es. dashboard Vercel).
+    smtpHost: process.env.SMTP_HOST,
+    smtpPort: process.env.SMTP_PORT,
+    smtpUser: process.env.SMTP_USER,
+    smtpPass: process.env.SMTP_PASS,
+    smtpSecure: process.env.SMTP_SECURE,
+    contactTo: process.env.CONTACT_TO || 'alessiosada04@gmail.com',
+    contactFrom: process.env.CONTACT_FROM,
     public: {
       siteUrl: SITE_URL
     }

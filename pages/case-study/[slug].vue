@@ -80,21 +80,21 @@ const { t, tm, rt } = useI18n();
 const cases = {
   autoimporta: {
     i18nKey: 'autoimporta',
-    stack: ['Laravel 11', 'Vue 3', 'MySQL', 'Hetzner'],
+    stack: ['PHP 8.3', 'Laravel 12', 'Filament v5', 'Horizon', 'MySQL', 'PostgreSQL'],
     statusKey: 'in_production',
     hasNote: true
   },
   'kiba-finance': {
     i18nKey: 'kiba_finance',
-    stack: ['Nuxt', 'TypeScript', 'IndexedDB', 'PWA'],
+    stack: ['Laravel 12', 'Filament 4', 'Livewire', 'SQLite'],
     statusKey: 'in_development',
     hasNote: true
   },
-  'sample-ocr': {
-    i18nKey: 'sample_ocr',
-    stack: ['Python', 'Tesseract', 'FastAPI', 'Docker'],
-    statusKey: 'delivered',
-    hasNote: false
+  'kiba-fetch': {
+    i18nKey: 'fetch',
+    stack: ['Laravel', 'Filament', 'Python', 'FastAPI', 'PostgreSQL'],
+    statusKey: 'in_development',
+    hasNote: true
   }
 };
 

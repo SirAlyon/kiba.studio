@@ -10,7 +10,6 @@
         <NuxtLink to="/servizi" class="kiba-page-nav-link" active-class="is-active">{{ $t('page_nav.services') }}</NuxtLink>
         <NuxtLink to="/case-study" class="kiba-page-nav-link" active-class="is-active">{{ $t('page_nav.case_study') }}</NuxtLink>
         <NuxtLink to="/about" class="kiba-page-nav-link" active-class="is-active">{{ $t('page_nav.about') }}</NuxtLink>
-        <NuxtLink to="/journal" class="kiba-page-nav-link" active-class="is-active">{{ $t('page_nav.journal') }}</NuxtLink>
       </nav>
 
       <div class="kiba-page-nav-cta">
@@ -39,7 +38,6 @@
       <NuxtLink to="/servizi" class="kiba-page-nav-mobile-link" @click="mobileOpen = false">{{ $t('page_nav.services') }}</NuxtLink>
       <NuxtLink to="/case-study" class="kiba-page-nav-mobile-link" @click="mobileOpen = false">{{ $t('page_nav.case_study') }}</NuxtLink>
       <NuxtLink to="/about" class="kiba-page-nav-mobile-link" @click="mobileOpen = false">{{ $t('page_nav.about') }}</NuxtLink>
-      <NuxtLink to="/journal" class="kiba-page-nav-mobile-link" @click="mobileOpen = false">{{ $t('page_nav.journal') }}</NuxtLink>
       <NuxtLink to="/contatti" class="kiba-page-nav-mobile-link is-cta" @click="mobileOpen = false">
         {{ $t('page_nav.cta') }}
         <i class="fas fa-arrow-right ms-2"></i>

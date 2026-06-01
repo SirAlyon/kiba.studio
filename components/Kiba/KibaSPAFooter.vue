@@ -36,7 +36,6 @@
             <ul class="kiba-footer-links">
               <li><NuxtLink to="/about">{{ $t('footer.company_about') }}</NuxtLink></li>
               <li><NuxtLink to="/case-study">{{ $t('footer.company_case_study') }}</NuxtLink></li>
-              <li><NuxtLink to="/journal">{{ $t('footer.company_journal') }}</NuxtLink></li>
               <li><NuxtLink to="/contatti">{{ $t('nav.contact') }}</NuxtLink></li>
             </ul>
           </div>

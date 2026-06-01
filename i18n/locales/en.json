@@ -108,11 +108,184 @@
   },
   "portfolio": {
     "label": "Portfolio",
-    "title": "Examples of our work",
-    "subtitle": "Client privacy always respected",
-    "privacy_note": "Privacy First: All sensitive details have been removed. Projects are described while fully preserving client anonymity.",
+    "title": "Real projects",
+    "subtitle": "client work, in-house products and open source",
+    "privacy_note": "For client projects, names and business details are covered by an NDA. Our in-house and open-source work is shown without filters.",
     "discover_more": "Learn More",
-    "cta_button": "Let's discuss your project"
+    "cta_button": "Let's discuss your project",
+    "projects": {
+      "autoimporta": {
+        "type": "Web Platform · Fintech",
+        "status": "In production",
+        "title": "Autoimporta",
+        "subtitle": "Financial-data automation and normalization platform",
+        "description": "A platform that ingests financial documents from email, FTP and the web, converts and normalizes them against business rules, and delivers them to production systems — automatically, monitored and reliably.",
+        "fullDescription": "A financial-services company received quotes, time series and KIID documents from dozens of heterogeneous sources (Excel/CSV/PDF/XML email attachments, FTP servers, web portals), in inconsistent formats handled manually. Autoimporta removes the manual work: it intercepts the files, recognizes sender and content, converts and normalizes them against business rules, and delivers them downstream with no human intervention. An ongoing consulting engagement, including the migration of the codebase to PHP 8.3 / Laravel 12. The system spans 51 data models, around 71 Artisan commands and 19 queued asynchronous jobs.",
+        "technologies": [
+          "PHP 8.3",
+          "Laravel 12",
+          "Filament v5",
+          "Livewire v4",
+          "Horizon + Redis",
+          "Laravel Pulse",
+          "MySQL",
+          "PostgreSQL",
+          "Symfony Panther",
+          "Browsershot"
+        ],
+        "challenges": [
+          {
+            "title": "Multi-channel ingestion",
+            "solution": "Automatic acquisition from email (IMAP), FTP and automated web downloads with headless scraping, routed via pattern matching on sender, subject and body."
+          },
+          {
+            "title": "Conversion pipeline with failover",
+            "solution": "A chain of 10 specialized Excel/CSV/PDF/XML converters: if one fails, another automatically takes over without losing the data."
+          },
+          {
+            "title": "Financial normalization",
+            "solution": "A rules engine over ISIN codes, dates and values, with CRC-32 hash deduplication to avoid re-importing already processed files."
+          },
+          {
+            "title": "Monitoring and alerting",
+            "solution": "13 processes under continuous monitoring with heartbeats, health checks, stuck-process detection and multi-level alerts with Microsoft Teams notifications."
+          }
+        ],
+        "privacyFeatures": [
+          "Code and infrastructure owned by the client",
+          "Database-driven dynamic scheduling: new sources and rules via configuration, not deployment",
+          "Client name and business details covered by an NDA"
+        ]
+      },
+      "finance": {
+        "type": "Product · Fintech",
+        "status": "In active development",
+        "title": "Kiba.Finance",
+        "subtitle": "Personal finance with double-entry accounting",
+        "description": "A personal-finance tool built on double-entry accounting: transactions, assets, budgets and reports. Laravel 12 + Filament 4, local data, privacy-first.",
+        "fullDescription": "A complete rewrite in Laravel 12 and Filament 4 of a previous Django application for personal financial management. At its core is a double-entry accounting engine: every transaction must balance (debit = credit), with a hierarchical chart of accounts, asset management (stocks, real estate, crypto), monthly budgets and financial reports (balance sheet, income statement, cash flow, savings, portfolio). Designed privacy-first: data stays local, with no mandatory account or bank integration.",
+        "technologies": [
+          "Laravel 12",
+          "Filament 4",
+          "Livewire 3",
+          "TailwindCSS",
+          "SQLite",
+          "Chart.js"
+        ],
+        "challenges": [
+          {
+            "title": "Double-entry accounting",
+            "solution": "An engine that enforces debit/credit balancing and the correct normal balance for each account type at the model level."
+          },
+          {
+            "title": "Django-to-Laravel rewrite",
+            "solution": "A full migration of the domain and data from the previous Python application to a modern PHP stack."
+          },
+          {
+            "title": "Dynamic financial reports",
+            "solution": "Reports whose calculations respect each account's normal balance, with charts updated in real time via Livewire."
+          }
+        ],
+        "privacyFeatures": [
+          "Local data, no mandatory cloud",
+          "No account or bank access required",
+          "No behavioral profiling",
+          "Data export and portability"
+        ]
+      },
+      "fetch": {
+        "type": "Product · SaaS",
+        "status": "Early stage",
+        "title": "Kiba.Fetch",
+        "subtitle": "Scraping and document intelligence for financial data",
+        "description": "A multi-tenant platform to extract structured data from sites and financial documents (KIID/PRIIP). Three-service architecture: a Laravel/Filament control plane plus Python scraper and AI services. In development.",
+        "fullDescription": "A platform — in active development — for automatically extracting structured data from websites and financial documents. The architecture separates three services communicating through PostgreSQL: a Laravel/Filament control plane for UI, scheduling and template management; a Python (asyncio) scraper with anti-detection failover; a Python/FastAPI AI service for OCR and PDF extraction. Designed multi-tenant from day one. The foundation and scraping job execution are operational; template auto-repair and billing are on the roadmap.",
+        "technologies": [
+          "Laravel",
+          "Filament",
+          "Python / asyncio",
+          "FastAPI",
+          "PostgreSQL",
+          "Docker",
+          "S3 / MinIO"
+        ],
+        "challenges": [
+          {
+            "title": "Decoupled service architecture",
+            "solution": "Three independent services sharing only the PostgreSQL database, with a job queue handled via SKIP LOCKED polling."
+          },
+          {
+            "title": "Multi-tenancy from the start",
+            "solution": "Tenant isolation at the application and database level, designed for SaaS from day one."
+          },
+          {
+            "title": "Resilient scraping",
+            "solution": "A headless browser engine with automatic failover between engines when bot detection triggers."
+          }
+        ],
+        "privacyFeatures": [
+          "Multi-tenant isolation at application and DB level",
+          "Self-hosted storage (S3 / MinIO), EU hosting",
+          "Ethical scraping, respecting rate limits and site rules"
+        ]
+      },
+      "invoicing": {
+        "type": "Enterprise · Under NDA",
+        "status": "In production",
+        "title": "International invoicing",
+        "subtitle": "Laravel integrations for a luxury multinational",
+        "description": "For a luxury-sector multinational: Laravel integrations for international invoicing, wired into a legacy database with no performance cost. Refactoring of the legacy system toward Laravel in progress.",
+        "fullDescription": "Work carried out as a developer for a luxury-sector multinational; name and business details are covered by an NDA. Development of Laravel integrations for international invoicing: reliable, error-free and connected directly to a legacy database with no performance cost. In parallel, analysis and refactoring to progressively migrate the legacy platform toward Laravel.",
+        "technologies": [
+          "Laravel",
+          "PHP",
+          "Legacy database",
+          "Linux",
+          "Docker"
+        ],
+        "challenges": [
+          {
+            "title": "Integration with a legacy system",
+            "solution": "Integrations wired into the existing legacy database without degrading the performance of the live system."
+          },
+          {
+            "title": "Migration toward Laravel",
+            "solution": "Analysis and refactoring to move the legacy platform onto Laravel incrementally and at low risk."
+          }
+        ],
+        "privacyFeatures": [
+          "Technical and business details covered by an NDA"
+        ]
+      },
+      "arkvel": {
+        "type": "Open source",
+        "status": "Open source · early",
+        "title": "ArkVel",
+        "subtitle": "Open-source platform for animal adoption",
+        "description": "An open-source initiative to bring shelters, volunteers and adopters closer together across Europe. Laravel 11 + Filament 3. A personal project in its early stage.",
+        "fullDescription": "A personal, open-source project meant to modernize the animal-adoption process across Europe by connecting shelters, volunteers and adopters. Built with Laravel 11 and Filament 3 for administrative management. Currently in its early stage: defining the data model (animals, shelters, users) and core features, with the goal of a platform adaptable to multiple European countries.",
+        "technologies": [
+          "Laravel 11",
+          "Filament 3",
+          "TailwindCSS",
+          "Docker"
+        ],
+        "challenges": [
+          {
+            "title": "Domain modeled on the real process",
+            "solution": "A data structure for animals, shelters and profiles designed to adapt to the rules and contexts of several countries."
+          },
+          {
+            "title": "Open and inspectable code",
+            "solution": "Open-source development: anyone can read, verify and contribute to the project."
+          }
+        ],
+        "privacyFeatures": [
+          "Open-source, inspectable code",
+          "No third-party tracking"
+        ]
+      }
+    }
   },
   "contact": {
     "label": "Contact",
@@ -134,7 +307,13 @@
     "info_location": "Italy - We work remotely",
     "value_privacy": "Your data privacy guaranteed",
     "value_transparent": "Detailed and transparent quote",
-    "values_title": "Our Values"
+    "values_title": "Our Values",
+    "form_error_validation": "Please check the fields: name, a valid email, a message (min. 10 characters) and privacy consent are required.",
+    "form_error_rate": "Too many attempts in a row. Please try again in a minute.",
+    "form_error_generic": "Sending failed. Please try again later or email us at hello{'@'}kiba.studio.",
+    "form_budget_label": "Indicative budget",
+    "form_budget_default": "Select a range",
+    "form_budget_discuss": "To discuss"
   },
   "footer": {
     "description": "Ethical, secure software built to last.",
@@ -257,22 +436,22 @@
       "meta_description": "A selection of projects delivered: web platforms, privacy-first products, automation and document processing.",
       "cases": {
         "autoimporta": {
-          "tag": "Web platform",
+          "tag": "Fintech · Automation",
           "year": "2024",
           "title": "Autoimporta",
-          "summary": "B2B platform for managing and importing vehicles. Laravel backend + Vue frontend, pipelines integrated with the client's systems."
+          "summary": "Financial-data automation and normalization: ingests documents from email, FTP and the web, converts them against business rules and delivers them to production systems. PHP 8.3 / Laravel 12."
         },
         "kiba_finance": {
-          "tag": "Product",
+          "tag": "Product · Fintech",
           "year": "2025",
           "title": "Kiba.Finance",
-          "summary": "Personal finance tool that's privacy-first by design. All data stays local on the device, no forced bank integration."
+          "summary": "Personal finance with double-entry accounting. Laravel 12 + Filament 4, local data, privacy-first. A complete rewrite from a previous Django app."
         },
-        "sample_ocr": {
-          "tag": "Automation",
-          "year": "2024",
-          "title": "Sample OCR",
-          "summary": "Document processing pipeline with OCR for data extraction from structured documents. Integrated with existing approval flows."
+        "fetch": {
+          "tag": "Product · SaaS",
+          "year": "2025",
+          "title": "Kiba.Fetch",
+          "summary": "Multi-tenant scraping and document-intelligence platform for financial data (KIID/PRIIP). Laravel/Filament control plane + Python scraper and AI services. In development."
         }
       }
     },
@@ -295,37 +474,37 @@
       },
       "cases": {
         "autoimporta": {
-          "summary": "B2B platform for the operational management of vehicle imports.",
-          "context": "The client manually handled most of the import flow, with data scattered across spreadsheets and PDFs. The goal was to unify the process into a single platform, reduce per-case handling time and reliably track the status of each vehicle.",
-          "work": "Laravel backend with a domain modelled on the client's real processes, Vue 3 single page application frontend, integration with the necessary external providers. EU hosting on Hetzner, verified daily backups, active monitoring.",
+          "summary": "Financial-data automation and normalization, from ingestion to delivery.",
+          "context": "A financial-services company received quotes, time series and KIID documents from dozens of heterogeneous sources (Excel/CSV/PDF/XML attachments, FTP servers, web portals), in inconsistent formats handled by hand. The goal: remove manual data entry and errors, with a reliable, end-to-end monitored flow.",
+          "work": "A PHP 8.3 / Laravel 12 platform with a Filament v5 panel. Multi-channel ingestion (IMAP, FTP, headless scraping), email pattern matching, a chain of 10 converters with automatic failover, a financial rules engine (ISIN normalization, CRC-32 deduplication) and delivery to multiple FTP destinations. Async queues with Horizon + Redis, observability with Pulse, database-driven dynamic scheduling. Migration of the codebase to the modern stack.",
           "results": [
-            "Significantly reduced average handling time per case compared to the manual process",
-            "End-to-end tracking of every vehicle's status",
-            "Complete operations history for internal audits"
+            "Eliminated manual data entry and human errors on financial data",
+            "13 processes under continuous monitoring with proactive alerts (Microsoft Teams) before a failure hits production",
+            "New sources, rules and scheduling added via configuration, not deployment"
           ],
-          "note": "Specific business and numerical details are covered by NDA. Available on request during a call."
+          "note": "Client name and business details are covered by an NDA. Available on request during a call."
         },
         "kiba_finance": {
-          "summary": "Personal finance tool. Privacy-first, local data, no account required.",
-          "context": "Mainstream personal finance apps require bank access, cloud accounts and behavioural profiling. We wanted to show another way is possible: a useful, local tool you don't need to trust because it never sees your data.",
-          "work": "Nuxt single page application with local storage (IndexedDB) and optional sync via client-side encrypted files. No mandatory backend, no analytics, no account. Installable PWA.",
+          "summary": "Personal finance with double-entry accounting, privacy-first.",
+          "context": "Mainstream personal finance apps require bank access, cloud accounts and behavioural profiling. We wanted to show another way is possible: a useful, local tool you don't need to trust because your data never leaves your control.",
+          "work": "A complete rewrite in Laravel 12 and Filament 4 of a previous Django application. At its core: a double-entry accounting engine (every transaction balances debit/credit) with a hierarchical chart of accounts, asset management (stocks, real estate, crypto), monthly budgets and five financial reports. Local data (SQLite), no mandatory account or bank integration.",
           "results": [
-            "Zero data transmitted to third parties by design",
-            "Full functionality even offline",
-            "Data export and portability guaranteed (open format)"
+            "Double-entry accounting enforced at the model level",
+            "Five financial reports with charts updated in real time (Livewire)",
+            "Local, portable data: no transmission to third parties by design"
           ],
           "note": "Internal project, also a technical showcase of our approach to privacy by design."
         },
-        "sample_ocr": {
-          "summary": "OCR pipeline for data extraction from recurring structured documents.",
-          "context": "A growing volume of paper or unstructured PDF documents had to flow into an existing approval system. Manual transcription was the bottleneck.",
-          "work": "Python pipeline with image pre-processing, Tesseract OCR, post-processing with domain-specific rules. FastAPI for integration with the client's system. All containerised, on-premise deployment.",
+        "fetch": {
+          "summary": "Multi-tenant scraping and document intelligence for financial data.",
+          "context": "Extracting structured data from sites and financial documents (KIID/PRIIP) is repetitive, fragile and costly when done by hand or with throwaway scripts. The goal is a reusable, multi-tenant platform that's resilient to site changes.",
+          "work": "A three-service architecture communicating through PostgreSQL: a Laravel/Filament control plane (UI, scheduling, template management), a Python (asyncio) scraper with anti-detection failover, and a Python/FastAPI AI service for OCR and PDF extraction. Job queue via SKIP LOCKED polling, S3/MinIO storage, multi-tenant isolation at the application and database level.",
           "results": [
-            "Drastic reduction in manual data entry time",
-            "Measured and monitored accuracy rate",
-            "Modular pipeline reusable for new document types"
+            "Foundation and scraping job execution operational end-to-end",
+            "Multi-tenant isolation designed from day one",
+            "Pipeline designed to cut LLM costs with incremental document versioning (on the roadmap)"
           ],
-          "note": null
+          "note": "Internal product in active development: template auto-repair and billing are on the roadmap."
         }
       }
     },

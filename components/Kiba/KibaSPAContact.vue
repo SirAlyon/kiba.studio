@@ -20,6 +20,18 @@
         <div class="col-lg-7 mb-4 mb-lg-0">
           <div class="kiba-contact-form-wrapper gsap-animate">
             <form @submit.prevent="submitForm" class="kiba-contact-form">
+              <!-- Honeypot anti-bot: invisibile agli umani, non compilare -->
+              <div class="kiba-hp" aria-hidden="true">
+                <label for="website">Non compilare questo campo</label>
+                <input
+                  id="website"
+                  v-model="form.website"
+                  type="text"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name" class="kiba-form-label">{{ $t('contact.form_name_label') }}</label>
@@ -57,14 +69,14 @@
               </div>
 
               <div class="mb-3">
-                <label for="budget" class="kiba-form-label">Budget indicativo</label>
+                <label for="budget" class="kiba-form-label">{{ $t('contact.form_budget_label') }}</label>
                 <select id="budget" v-model="form.budget" class="kiba-form-select">
-                  <option value="">Seleziona un range</option>
+                  <option value="">{{ $t('contact.form_budget_default') }}</option>
                   <option value="5k-10k">€5.000 - €10.000</option>
                   <option value="10k-25k">€10.000 - €25.000</option>
                   <option value="25k-50k">€25.000 - €50.000</option>
                   <option value="50k+">€50.000+</option>
-                  <option value="discuss">Da discutere</option>
+                  <option value="discuss">{{ $t('contact.form_budget_discuss') }}</option>
                 </select>
               </div>
 
@@ -90,7 +102,7 @@
                 />
                 <label for="privacy">
                   Acconsento al trattamento dei dati personali secondo la
-                  <a href="#" class="kiba-link">Privacy Policy</a>
+                  <NuxtLink to="/privacy" class="kiba-link">Privacy Policy</NuxtLink>
                 </label>
               </div>
 
@@ -114,6 +126,12 @@
                 <i class="fas fa-check-circle"></i>
                 {{ $t('contact.form_success') }}
               </div>
+
+              <!-- Error message -->
+              <div v-if="submitError" class="kiba-form-error" role="alert">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ submitError }}
+              </div>
             </form>
           </div>
         </div>
@@ -127,7 +145,7 @@
               </div>
               <div class="kiba-contact-info-content">
                 <h4>Email</h4>
-                <a href="mailto:info@kiba.studio">info@kiba.studio</a>
+                <a href="mailto:hello@kiba.studio">hello@kiba.studio</a>
               </div>
             </div>
 
@@ -175,8 +193,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { ref, reactive, onMounted } from 'vue';
 
 const { t } = useI18n();
 
@@ -186,35 +203,81 @@ const form = reactive({
   company: '',
   budget: '',
   message: '',
-  privacy: false
+  privacy: false,
+  website: '' // honeypot
 });
 
 const isSubmitting = ref(false);
 const submitSuccess = ref(false);
+const submitError = ref('');
+const renderedAt = ref(0);
 
-const submitForm = async () => {
-  isSubmitting.value = true;
+onMounted(() => {
+  renderedAt.value = Date.now();
+});
 
-  // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Reset form
+const resetForm = () => {
   Object.assign(form, {
     name: '',
     email: '',
     company: '',
     budget: '',
     message: '',
-    privacy: false
+    privacy: false,
+    website: ''
   });
+};
 
-  isSubmitting.value = false;
-  submitSuccess.value = true;
+const submitForm = async () => {
+  submitError.value = '';
 
-  // Hide success message after 5s
-  setTimeout(() => {
-    submitSuccess.value = false;
-  }, 5000);
+  // Validazione lato client (il server resta l'autorità).
+  if (
+    form.name.trim().length < 2 ||
+    !EMAIL_RE.test(form.email.trim()) ||
+    form.message.trim().length < 10 ||
+    !form.privacy
+  ) {
+    submitError.value = t('contact.form_error_validation');
+    return;
+  }
+
+  isSubmitting.value = true;
+  try {
+    await $fetch('/api/contact', {
+      method: 'POST',
+      body: {
+        name: form.name,
+        email: form.email,
+        company: form.company,
+        budget: form.budget,
+        message: form.message,
+        privacy: form.privacy,
+        website: form.website,
+        _ts: renderedAt.value
+      }
+    });
+
+    resetForm();
+    renderedAt.value = Date.now();
+    submitSuccess.value = true;
+    setTimeout(() => {
+      submitSuccess.value = false;
+    }, 6000);
+  } catch (err) {
+    const status = err?.response?.status || err?.statusCode || err?.status;
+    if (status === 422) {
+      submitError.value = t('contact.form_error_validation');
+    } else if (status === 429) {
+      submitError.value = t('contact.form_error_rate');
+    } else {
+      submitError.value = t('contact.form_error_generic');
+    }
+  } finally {
+    isSubmitting.value = false;
+  }
 };
 </script>
 
@@ -378,6 +441,27 @@ const submitForm = async () => {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.kiba-form-error {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(201, 76, 76, 0.12);
+  border-radius: 8px;
+  color: #e07a7a;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Honeypot: fuori dallo schermo, non focusabile, escluso dagli screen reader */
+.kiba-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .kiba-contact-info {

@@ -142,15 +142,6 @@ const team = [
     ]
   },
   {
-    slug: 'placeholder-1',
-    nameKey: 'pages.about.team.placeholder_name',
-    roleKey: 'pages.about.team.placeholder_role',
-    bioKey: 'pages.about.team.placeholder_1_bio',
-    photo: null,
-    placeholderIcon: 'fas fa-user-plus',
-    isPlaceholder: true
-  },
-  {
     slug: 'kiba',
     nameKey: 'pages.about.team.kiba.name',
     roleKey: 'pages.about.team.kiba.role',

@@ -34,6 +34,15 @@
             </div>
           </div>
 
+          <!-- Status badge -->
+          <span
+            v-if="project.status"
+            class="kiba-portfolio-card-status"
+            :class="`is-${project.status.tone}`"
+          >
+            <span class="status-dot"></span>{{ project.status.label }}
+          </span>
+
           <!-- Card body -->
           <h3 class="kiba-portfolio-card-title">{{ project.title }}</h3>
           <p class="kiba-portfolio-card-description">{{ project.description }}</p>
@@ -74,207 +83,56 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import KibaProjectModal from './KibaProjectModal.vue';
+
+// Stesso pattern i18n usato nelle altre pagine (useI18n auto-importato da Nuxt).
+const { t, tm, rt } = useI18n();
 
 const isModalOpen = ref(false);
 const selectedProject = ref(null);
 
-// Progetti anonimizzati di esempio
-const projects = ref([
-  {
-    id: 1,
-    type: 'Web Application',
-    icon: 'fas fa-globe',
-    title: 'Pannello di controllo per marketplace B2B',
-    description: 'Sistema completo di gestione ordini, inventario e logistica per un marketplace europeo con oltre 500 venditori attivi.',
-    subtitle: 'Soluzione enterprise per e-commerce B2B',
-    fullDescription: 'Abbiamo sviluppato un pannello di controllo completo per un marketplace B2B europeo che gestisce transazioni per oltre 10M€/anno. Il sistema permette la gestione completa di ordini, inventario, logistica e fatturazione, con particolare attenzione alla sicurezza dei dati e alla conformità GDPR. Ogni transazione è crittografata end-to-end e i dati sensibili sono segregati con accessi basati su ruoli granulari.',
-    mainTech: ['Laravel', 'Vue.js', 'PostgreSQL', 'Redis', 'Docker'],
-    technologies: ['Laravel', 'Vue.js', 'PostgreSQL', 'Redis', 'Docker', 'Elasticsearch', 'RabbitMQ', 'Kubernetes'],
-    challenges: [
-      {
-        title: 'Gestione di alto volume',
-        solution: 'Architettura microservizi con caching distribuito per gestire oltre 10.000 richieste/minuto'
-      },
-      {
-        title: 'Multi-tenancy sicuro',
-        solution: 'Segregazione dati per tenant con crittografia a livello di database e audit log completo'
-      },
-      {
-        title: 'Conformità GDPR',
-        solution: 'Sistema di anonimizzazione dati, export GDPR automatico e diritto all\'oblio implementato'
-      }
-    ],
-    privacyFeatures: [
-      'Crittografia end-to-end per tutte le transazioni',
-      'Audit log immutabile con blockchain privata',
-      'Sistema di ruoli e permessi granulare',
-      'Anonimizzazione automatica dati personali',
-      'Export GDPR compliance in un click'
-    ]
-  },
-  {
-    id: 2,
-    type: 'Intranet',
-    icon: 'fas fa-building',
-    title: 'Portale interno per studio legale',
-    description: 'Sistema di gestione documentale e pratiche per uno studio legale con sedi multiple e requisiti di massima riservatezza.',
-    subtitle: 'Gestione documentale sicura e conforme',
-    fullDescription: 'Portale interno sviluppato per uno studio legale internazionale con 200+ professionisti. Il sistema gestisce documenti sensibili, pratiche legali, timesheet e fatturazione. Particolare focus sulla sicurezza: tutti i documenti sono crittografati a riposo e in transito, con sistema di versioning e audit trail completo. Accesso con autenticazione a due fattori e VPN dedicata.',
-    mainTech: ['Next.js', 'Node.js', 'MongoDB', 'AWS S3'],
-    technologies: ['Next.js', 'Node.js', 'MongoDB', 'AWS S3', 'Nginx', 'OpenVPN', 'Elastic Stack'],
-    challenges: [
-      {
-        title: 'Sicurezza documentale',
-        solution: 'Crittografia AES-256 per storage, firma digitale per integrità documenti'
-      },
-      {
-        title: 'Ricerca full-text sicura',
-        solution: 'Elasticsearch con indici crittografati e ricerca su dati sensibili mascherati'
-      },
-      {
-        title: 'Compliance normativa',
-        solution: 'Sistema conforme a normative professionali e conservazione a norma'
-      }
-    ],
-    privacyFeatures: [
-      'Crittografia AES-256 per tutti i documenti',
-      'Autenticazione multi-fattore obbligatoria',
-      'VPN dedicata per accesso remoto',
-      'Watermark dinamici sui documenti',
-      'Distruzione sicura documenti scaduti'
-    ]
-  },
-  {
-    id: 3,
-    type: 'Dashboard SaaS',
-    icon: 'fas fa-chart-line',
-    title: 'Dashboard analytics privacy-first',
-    description: 'Piattaforma di analytics che non traccia utenti individuali, completamente GDPR-compliant by design.',
-    subtitle: 'Analytics etico senza cookie di tracciamento',
-    fullDescription: 'Dashboard di analytics sviluppata per una startup SaaS che voleva un\'alternativa etica a Google Analytics. Il sistema raccoglie metriche aggregate senza mai tracciare singoli utenti. Non utilizza cookie, fingerprinting o altre tecniche invasive. Tutti i dati sono aggregati in tempo reale e le informazioni personali vengono automaticamente rimosse.',
-    mainTech: ['React', 'Go', 'ClickHouse', 'TimescaleDB'],
-    technologies: ['React', 'Go', 'ClickHouse', 'TimescaleDB', 'Kafka', 'Grafana', 'Prometheus'],
-    challenges: [
-      {
-        title: 'Analytics senza tracking',
-        solution: 'Aggregazione in tempo reale con hash one-way per sessioni anonime'
-      },
-      {
-        title: 'Performance real-time',
-        solution: 'Pipeline di streaming con Kafka e database time-series ottimizzati'
-      },
-      {
-        title: 'Privacy by design',
-        solution: 'Nessun dato personale salvato, solo metriche aggregate'
-      }
-    ],
-    privacyFeatures: [
-      'Zero cookie di tracciamento',
-      'Nessun fingerprinting o tracking cross-site',
-      'Dati aggregati in tempo reale',
-      'IP anonimizzati automaticamente',
-      'Conformità GDPR by design'
-    ]
-  },
-  {
-    id: 4,
-    type: 'Mobile App',
-    icon: 'fas fa-mobile-alt',
-    title: 'App sanitaria con crittografia E2E',
-    description: 'Applicazione mobile per gestione dati sanitari con crittografia end-to-end e zero-knowledge architecture.',
-    subtitle: 'Telemedicina sicura e privata',
-    fullDescription: 'App mobile sviluppata per una clinica privata che gestisce consultazioni remote e cartelle cliniche digitali. Implementa una zero-knowledge architecture dove nemmeno noi sviluppatori possiamo accedere ai dati dei pazienti. Ogni informazione è crittografata lato client prima di essere trasmessa. Sistema di backup sicuro con recovery key gestite dal paziente.',
-    mainTech: ['React Native', 'Node.js', 'PostgreSQL', 'WebRTC'],
-    technologies: ['React Native', 'Node.js', 'PostgreSQL', 'WebRTC', 'Signal Protocol', 'Jitsi Meet', 'MinIO'],
-    challenges: [
-      {
-        title: 'Crittografia end-to-end',
-        solution: 'Implementazione Signal Protocol per messaggistica e file sharing sicuri'
-      },
-      {
-        title: 'Videochiamate sicure',
-        solution: 'WebRTC con server STUN/TURN self-hosted e crittografia DTLS-SRTP'
-      },
-      {
-        title: 'Compliance sanitaria',
-        solution: 'Conformità HIPAA/GDPR con audit log e data retention policies'
-      }
-    ],
-    privacyFeatures: [
-      'Zero-knowledge architecture',
-      'Crittografia E2E per tutti i dati',
-      'Videochiamate P2P crittografate',
-      'Backup con client-side encryption',
-      'Cancellazione sicura dei dati'
-    ]
-  },
-  {
-    id: 5,
-    type: 'E-commerce',
-    icon: 'fas fa-shopping-cart',
-    title: 'Piattaforma e-commerce privacy-conscious',
-    description: 'Shop online che minimizza la raccolta dati e offre checkout anonimo con criptovalute.',
-    subtitle: 'E-commerce che rispetta la privacy',
-    fullDescription: 'Piattaforma e-commerce sviluppata per un brand che voleva offrire un\'esperienza di acquisto rispettosa della privacy. Il sistema permette acquisti anonimi, supporta pagamenti in criptovaluta, e minimizza la raccolta di dati personali. Analytics interno senza tracciamento, sistema di recensioni anonime verificate, e opzione di cancellazione completa account con un click.',
-    mainTech: ['Nuxt.js', 'Strapi', 'PostgreSQL', 'BTCPay'],
-    technologies: ['Nuxt.js', 'Strapi', 'PostgreSQL', 'BTCPay Server', 'IPFS', 'Tor', 'Monero'],
-    challenges: [
-      {
-        title: 'Pagamenti anonimi',
-        solution: 'Integrazione BTCPay Server per crypto e gift card anonime'
-      },
-      {
-        title: 'Spedizioni private',
-        solution: 'Sistema di drop-shipping con dati segregati e cancellati post-consegna'
-      },
-      {
-        title: 'Anti-fraud senza tracking',
-        solution: 'Sistema di reputazione basato su proof-of-purchase crittografici'
-      }
-    ],
-    privacyFeatures: [
-      'Checkout ospite senza registrazione',
-      'Pagamenti in criptovaluta',
-      'Dati di spedizione cancellati automaticamente',
-      'No tracking o remarketing',
-      'Accesso via Tor supportato'
-    ]
-  },
-  {
-    id: 6,
-    type: 'API Platform',
-    icon: 'fas fa-plug',
-    title: 'Piattaforma API con data governance',
-    description: 'Sistema di API management con controllo granulare su data access e privacy compliance automatica.',
-    subtitle: 'API Gateway con privacy controls integrati',
-    fullDescription: 'Piattaforma API sviluppata per un\'azienda che gestisce dati sensibili di terze parti. Il sistema implementa un API gateway intelligente con data masking automatico, rate limiting per prevenire data scraping, e audit log completo. Ogni richiesta API viene validata contro policy di privacy configurabili e i dati sensibili vengono automaticamente oscurati basandosi sul livello di autorizzazione del chiamante.',
-    mainTech: ['Kong', 'FastAPI', 'Cassandra', 'Vault'],
-    technologies: ['Kong Gateway', 'FastAPI', 'Cassandra', 'HashiCorp Vault', 'OPA', 'Jaeger', 'Prometheus'],
-    challenges: [
-      {
-        title: 'Data masking dinamico',
-        solution: 'Policy engine con OPA per mascheramento real-time basato su contesto'
-      },
-      {
-        title: 'Secret management',
-        solution: 'Vault per rotazione automatica credenziali e encryption keys'
-      },
-      {
-        title: 'Compliance multi-tenant',
-        solution: 'Policy di privacy per tenant con inheritance e override rules'
-      }
-    ],
-    privacyFeatures: [
-      'Data masking automatico per PII',
-      'Audit log immutabile di tutti gli accessi',
-      'Encryption at rest e in transit',
-      'API key rotation automatica',
-      'Rate limiting anti-scraping'
-    ]
-  }
-]);
+// Metadati dei progetti reali. I testi vivono in i18n (portfolio.projects.<key>),
+// così il portfolio funziona sia in italiano che in inglese.
+const projectMeta = [
+  { key: 'autoimporta', icon: 'fas fa-arrows-rotate', tone: 'live', isClient: true },
+  { key: 'finance', icon: 'fas fa-chart-pie', tone: 'dev', isClient: false },
+  { key: 'fetch', icon: 'fas fa-magnifying-glass-chart', tone: 'early', isClient: false },
+  { key: 'invoicing', icon: 'fas fa-file-invoice', tone: 'live', isClient: true },
+  { key: 'arkvel', icon: 'fas fa-hand-holding-heart', tone: 'early', isClient: false }
+];
+
+const toList = (key) => {
+  const raw = tm(key);
+  return Array.isArray(raw) ? raw : [];
+};
+
+const projects = computed(() =>
+  projectMeta.map((m) => {
+    const base = `portfolio.projects.${m.key}`;
+    const tech = toList(`${base}.technologies`).map((x) => rt(x));
+    const challenges = toList(`${base}.challenges`).map((c) => ({
+      title: rt(c.title),
+      solution: rt(c.solution)
+    }));
+    const privacyFeatures = toList(`${base}.privacyFeatures`).map((x) => rt(x));
+    return {
+      id: m.key,
+      icon: m.icon,
+      isClient: m.isClient,
+      status: { label: t(`${base}.status`), tone: m.tone },
+      type: t(`${base}.type`),
+      title: t(`${base}.title`),
+      subtitle: t(`${base}.subtitle`),
+      description: t(`${base}.description`),
+      fullDescription: t(`${base}.fullDescription`),
+      mainTech: tech.slice(0, 3),
+      technologies: tech,
+      challenges,
+      privacyFeatures
+    };
+  })
+);
 
 const openModal = (project) => {
   selectedProject.value = project;
@@ -413,6 +271,46 @@ const closeModal = () => {
   background: rgba(201, 76, 76, 0.1);
   border-radius: 8px;
   color: var(--kiba-primary, #c94c4c);
+}
+
+.kiba-portfolio-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--kiba-text-secondary, #b0b0b0);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.kiba-portfolio-card-status .status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.kiba-portfolio-card-status.is-live {
+  color: #4caf6e;
+  border-color: rgba(76, 175, 110, 0.35);
+  background: rgba(76, 175, 110, 0.1);
+}
+
+.kiba-portfolio-card-status.is-dev {
+  color: #d6a04c;
+  border-color: rgba(214, 160, 76, 0.35);
+  background: rgba(214, 160, 76, 0.1);
+}
+
+.kiba-portfolio-card-status.is-early {
+  color: #8a8fa3;
+  border-color: rgba(138, 143, 163, 0.3);
+  background: rgba(138, 143, 163, 0.1);
 }
 
 .kiba-portfolio-card-title {
