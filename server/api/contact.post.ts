@@ -125,9 +125,23 @@ export default defineEventHandler(async (event) => {
   const from = (config.contactFrom as string) || env.CONTACT_FROM || smtpUser;
 
   if (!smtpHost || !smtpUser || !smtpPass) {
-    console.error(
-      '[contact] SMTP non configurato: imposta SMTP_HOST, SMTP_USER, SMTP_PASS nelle env.'
-    );
+    // Diagnostica: stampiamo SOLO la presenza (true/false) e i nomi delle chiavi
+    // env che contengono SMTP/CONTACT/NUXT. Nessun valore segreto viene loggato.
+    console.error('[contact] SMTP non configurato. Diagnostica env:', {
+      runtimeConfig: {
+        smtpHost: !!config.smtpHost,
+        smtpUser: !!config.smtpUser,
+        smtpPass: !!config.smtpPass
+      },
+      processEnv: {
+        SMTP_HOST: !!env.SMTP_HOST,
+        SMTP_USER: !!env.SMTP_USER,
+        SMTP_PASS: !!env.SMTP_PASS
+      },
+      chiaviEnvRilevanti: Object.keys(env).filter((k) =>
+        /SMTP|CONTACT|NUXT|MAIL/i.test(k)
+      )
+    });
     throw createError({ statusCode: 503, statusMessage: 'Email service not configured' });
   }
 
