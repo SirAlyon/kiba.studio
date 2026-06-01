@@ -112,13 +112,17 @@ export default defineEventHandler(async (event) => {
   }
 
   // 5) Trasporto SMTP.
-  const smtpHost = config.smtpHost as string;
-  const smtpUser = config.smtpUser as string;
-  const smtpPass = config.smtpPass as string;
-  const smtpPort = Number(config.smtpPort) || 587;
-  const secure = String(config.smtpSecure) === 'true' || smtpPort === 465;
-  const to = (config.contactTo as string) || smtpUser;
-  const from = (config.contactFrom as string) || smtpUser;
+  // Leggiamo da runtimeConfig (build-time) con fallback su process.env (runtime
+  // Vercel): così le env funzionano anche se impostate dopo il build.
+  const env = process.env;
+  const smtpHost = (config.smtpHost as string) || env.SMTP_HOST || '';
+  const smtpUser = (config.smtpUser as string) || env.SMTP_USER || '';
+  const smtpPass = (config.smtpPass as string) || env.SMTP_PASS || '';
+  const smtpPort = Number(config.smtpPort || env.SMTP_PORT) || 587;
+  const secure =
+    String(config.smtpSecure || env.SMTP_SECURE) === 'true' || smtpPort === 465;
+  const to = (config.contactTo as string) || env.CONTACT_TO || smtpUser;
+  const from = (config.contactFrom as string) || env.CONTACT_FROM || smtpUser;
 
   if (!smtpHost || !smtpUser || !smtpPass) {
     console.error(
