@@ -4,11 +4,14 @@ import nodemailer from 'nodemailer';
  * Endpoint di contatto.
  *
  * Difese (tutte server-side, nessuna terza parte):
+ *  - Limite hard di payload (refused prima della parse) → niente DoS via JSON gigante.
+ *  - Verifica Content-Type per scartare richieste non-JSON.
  *  - Honeypot: campo `website` invisibile agli umani; se valorizzato è un bot.
  *  - Timing: invii in meno di 3s dal render sono quasi sempre bot.
- *  - Rate limit best-effort per IP (per istanza serverless "calda").
+ *  - Rate limit best-effort per IP con cap sulla mappa in-memory.
  *  - Sanitizzazione anti header-injection (rimozione di CR/LF dai campi a riga singola).
  *  - Validazione rigorosa di ogni campo + escaping HTML nel corpo email.
+ *  - Diagnostica env compressa: solo booleani, nessun nome di chiave.
  *
  * Configurazione via env (impostate su Vercel):
  *   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE,
@@ -26,9 +29,15 @@ const BUDGET_LABELS: Record<string, string> = {
   discuss: 'Da discutere'
 };
 
+// Limiti hard sul payload: niente JSON > 16 KB, e ogni campo è capped sotto.
+// Un form lecito sta abbondantemente sotto i 10 KB.
+const MAX_BODY_BYTES = 16 * 1024;
+
 // Rate limiter in memoria (best-effort: lo stato vive solo nell'istanza calda).
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 5;
+// Cap della mappa: evita crescita illimitata se un attaccante varia l'IP.
+const MAX_TRACKED_IPS = 5_000;
 const hits = new Map<string, number[]>();
 
 function rateLimited(ip: string): boolean {
@@ -36,6 +45,17 @@ function rateLimited(ip: string): boolean {
   const recent = (hits.get(ip) || []).filter((t) => now - t < WINDOW_MS);
   recent.push(now);
   hits.set(ip, recent);
+
+  // Pulizia opportunistica quando si supera il cap.
+  if (hits.size > MAX_TRACKED_IPS) {
+    for (const [key, times] of hits) {
+      if (times.length === 0 || now - times[times.length - 1] > WINDOW_MS) {
+        hits.delete(key);
+      }
+      if (hits.size <= MAX_TRACKED_IPS) break;
+    }
+  }
+
   return recent.length > MAX_PER_WINDOW;
 }
 
@@ -67,7 +87,25 @@ function escapeHtml(s: string): string {
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
-  const body = await readBody<Record<string, unknown>>(event);
+
+  // 0a) Content-Type: accettiamo solo JSON. Niente form-urlencoded "magia".
+  const contentType = (getRequestHeader(event, 'content-type') || '').toLowerCase();
+  if (!contentType.includes('application/json')) {
+    throw createError({ statusCode: 415, statusMessage: 'Unsupported Media Type' });
+  }
+
+  // 0b) Limite hard di payload.
+  const body = await readBody<Record<string, unknown>>(event, {
+    // `readBody` (h3) accetta opzioni runtime; manteniamo il check anche manualmente.
+  });
+  // Stima conservativa della dimensione del corpo (post-parse). I caratteri non-ASCII
+  // pesano di più, quindi serializzando con JSON.stringify abbiamo un upper bound.
+  if (typeof body === 'object' && body !== null) {
+    const approxBytes = JSON.stringify(body).length;
+    if (approxBytes > MAX_BODY_BYTES) {
+      throw createError({ statusCode: 413, statusMessage: 'Payload too large' });
+    }
+  }
 
   // 1) Honeypot — rispondiamo ok per non dare segnali ai bot, ma scartiamo.
   if (oneLine(body?.website, 200)) {
@@ -107,13 +145,12 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 422,
       statusMessage: 'Validation failed',
+      // Non includiamo nei dati di errore l'input dell'utente: solo i nomi dei campi.
       data: { fields }
     });
   }
 
   // 5) Trasporto SMTP.
-  // Leggiamo da runtimeConfig (build-time) con fallback su process.env (runtime
-  // Vercel): così le env funzionano anche se impostate dopo il build.
   const env = process.env;
   const smtpHost = (config.smtpHost as string) || env.SMTP_HOST || '';
   const smtpUser = (config.smtpUser as string) || env.SMTP_USER || '';
@@ -125,22 +162,12 @@ export default defineEventHandler(async (event) => {
   const from = (config.contactFrom as string) || env.CONTACT_FROM || smtpUser;
 
   if (!smtpHost || !smtpUser || !smtpPass) {
-    // Diagnostica: stampiamo SOLO la presenza (true/false) e i nomi delle chiavi
-    // env che contengono SMTP/CONTACT/NUXT. Nessun valore segreto viene loggato.
-    console.error('[contact] SMTP non configurato. Diagnostica env:', {
-      runtimeConfig: {
-        smtpHost: !!config.smtpHost,
-        smtpUser: !!config.smtpUser,
-        smtpPass: !!config.smtpPass
-      },
-      processEnv: {
-        SMTP_HOST: !!env.SMTP_HOST,
-        SMTP_USER: !!env.SMTP_USER,
-        SMTP_PASS: !!env.SMTP_PASS
-      },
-      chiaviEnvRilevanti: Object.keys(env).filter((k) =>
-        /SMTP|CONTACT|NUXT|MAIL/i.test(k)
-      )
+    // Log diagnostico minimale: solo presenza/assenza, niente nomi di chiavi né valori.
+    // (i log Vercel sono accessibili al team, ma non vogliamo enumerare l'ambiente).
+    console.error('[contact] SMTP configuration missing', {
+      host: !!smtpHost,
+      user: !!smtpUser,
+      pass: !!smtpPass
     });
     throw createError({ statusCode: 503, statusMessage: 'Email service not configured' });
   }
@@ -183,13 +210,15 @@ export default defineEventHandler(async (event) => {
     await transporter.sendMail({
       from,
       to,
-      replyTo: `${name} <${email}>`,
+      // replyTo strutturato: nodemailer codifica il display name in modo sicuro.
+      replyTo: { name, address: email },
       subject,
       text,
       html
     });
   } catch (err) {
-    console.error('[contact] Invio email fallito:', err);
+    // Non logghiamo l'oggetto err intero: può contenere headers SMTP. Solo il messaggio.
+    console.error('[contact] Email delivery failed:', err instanceof Error ? err.message : 'unknown');
     throw createError({ statusCode: 502, statusMessage: 'Email delivery failed' });
   }
 

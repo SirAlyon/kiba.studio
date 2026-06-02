@@ -119,11 +119,26 @@ onBeforeUnmount(() => {
 });
 
 const onLoaderComplete = async () => {
+  // Garantiamo che GSAP sia pronto prima di rivelare la pagina: l'hero ha
+  // .gsap-animate con opacity:0 hard via CSS, senza animazione resta invisibile.
+  if (!gsap || !ScrollTrigger) {
+    const gsapModules = await loadGSAP();
+    if (gsapModules) {
+      gsap = gsapModules.gsap;
+      ScrollTrigger = gsapModules.ScrollTrigger;
+    }
+  }
   isLoaded.value = true;
   await nextTick();
   if (gsap && ScrollTrigger) {
     initAnimations();
     initSectionTracking();
+  } else {
+    // Fallback offline / GSAP CDN bloccato: forziamo la visibilit
+    // così il sito resta leggibile anche senza animazioni.
+    document.querySelectorAll('#hero .gsap-animate').forEach((el) => {
+      el.style.opacity = '1';
+    });
   }
 };
 

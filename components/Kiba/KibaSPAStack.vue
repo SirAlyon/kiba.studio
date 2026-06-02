@@ -1,12 +1,12 @@
 <template>
   <!--
     KibaSPAStack.vue
-    Sezione Tech Stack - Tecnologie utilizzate
-    Grid di tech con hover effects
+    Sezione Stack — niente badge "expert/advanced", niente buzzword cloud.
+    Per ogni tech: come la usiamo (use case), non quanto siamo bravi.
   -->
   <div class="kiba-stack-spa">
     <div class="container">
-      <div class="text-center mb-5">
+      <div class="kiba-stack-intro">
         <div class="kiba-section-label gsap-animate">{{ $t('stack.label') }}</div>
         <h2 class="kiba-section-title gsap-animate">
           {{ $t('stack.title') }}
@@ -16,50 +16,59 @@
         </p>
       </div>
 
-      <!-- Tech Categories -->
-      <div class="row">
-        <div
+      <!-- Categorie stack -->
+      <div class="kiba-stack-groups">
+        <article
           v-for="category in techStack"
-          :key="category.name"
-          class="col-lg-4 col-md-6 mb-4"
+          :key="category.id"
+          class="kiba-stack-group gsap-animate"
         >
-          <div class="kiba-stack-category gsap-animate">
-            <div class="kiba-stack-category-header">
+          <header class="kiba-stack-group-header">
+            <div class="kiba-stack-group-icon">
               <i :class="category.icon"></i>
-              <h3>{{ category.name }}</h3>
             </div>
-            <div class="kiba-stack-tech-list">
-              <div
-                v-for="tech in category.technologies"
-                :key="tech.name"
-                class="kiba-stack-tech-item"
-              >
-                <div class="kiba-stack-tech-icon">
-                  <i :class="tech.icon"></i>
-                </div>
-                <div class="kiba-stack-tech-info">
-                  <span class="kiba-stack-tech-name">{{ tech.name }}</span>
-                  <span class="kiba-stack-tech-level">{{ tech.level }}</span>
-                </div>
-              </div>
+            <div>
+              <h3 class="kiba-stack-group-title">{{ category.title }}</h3>
+              <p class="kiba-stack-group-intro">{{ category.intro }}</p>
             </div>
-          </div>
-        </div>
+          </header>
+
+          <ul class="kiba-stack-tech-list">
+            <li
+              v-for="tech in category.technologies"
+              :key="tech.name"
+              class="kiba-stack-tech-item"
+            >
+              <span class="kiba-stack-tech-icon" aria-hidden="true">
+                <i :class="tech.icon"></i>
+              </span>
+              <span class="kiba-stack-tech-body">
+                <span class="kiba-stack-tech-name">{{ tech.name }}</span>
+                <span class="kiba-stack-tech-use">{{ tech.use }}</span>
+              </span>
+            </li>
+          </ul>
+        </article>
       </div>
 
-      <!-- Additional Skills -->
-      <div class="kiba-stack-additional gsap-animate">
-        <h4 class="kiba-stack-additional-title">{{ t('stack.additional_skills_title') || 'Competenze aggiuntive' }}</h4>
-        <div class="kiba-stack-tags">
-          <span
-            v-for="skill in additionalSkills"
-            :key="skill"
-            class="kiba-stack-tag"
+      <!-- Principi: come scegliamo lo stack -->
+      <section class="kiba-stack-principles gsap-animate" aria-labelledby="stack-principles-title">
+        <h3 id="stack-principles-title" class="kiba-stack-principles-title">
+          {{ $t('stack.principles_title') }}
+        </h3>
+        <div class="kiba-stack-principles-grid">
+          <div
+            v-for="principle in principles"
+            :key="principle.key"
+            class="kiba-stack-principle"
           >
-            {{ skill }}
-          </span>
+            <h4 class="kiba-stack-principle-title">{{ principle.title }}</h4>
+            <p class="kiba-stack-principle-description">{{ principle.description }}</p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <p class="kiba-stack-footnote gsap-animate">{{ $t('stack.footnote') }}</p>
     </div>
   </div>
 </template>
@@ -72,68 +81,73 @@ const { t } = useI18n();
 
 const techStack = computed(() => [
   {
-    name: t('stack.category_frontend'),
-    icon: 'fas fa-desktop',
+    id: 'frontend',
+    icon: 'fas fa-display',
+    title: t('stack.category_frontend_title'),
+    intro: t('stack.category_frontend_intro'),
     technologies: [
-      { name: 'Vue.js 3', icon: 'fab fa-vuejs', level: t('stack.level_expert') },
-      { name: 'Nuxt 3', icon: 'fas fa-n', level: t('stack.level_expert') },
-      { name: 'React', icon: 'fab fa-react', level: t('stack.level_advanced') },
-      { name: 'TailwindCSS', icon: 'fas fa-wind', level: t('stack.level_expert') },
-      { name: 'GSAP', icon: 'fas fa-magic', level: t('stack.level_advanced') }
+      { name: 'Vue 3 / Nuxt 3', icon: 'fab fa-vuejs', use: t('stack.tech.nuxt_use') },
+      { name: 'React', icon: 'fab fa-react', use: t('stack.tech.react_use') },
+      { name: 'TailwindCSS', icon: 'fas fa-wind', use: t('stack.tech.tailwind_use') },
+      { name: 'GSAP', icon: 'fas fa-wand-magic-sparkles', use: t('stack.tech.gsap_use') }
     ]
   },
   {
-    name: t('stack.category_backend'),
+    id: 'backend',
     icon: 'fas fa-server',
+    title: t('stack.category_backend_title'),
+    intro: t('stack.category_backend_intro'),
     technologies: [
-      { name: 'Laravel', icon: 'fab fa-laravel', level: t('stack.level_expert') },
-      { name: 'Node.js', icon: 'fab fa-node-js', level: t('stack.level_advanced') },
-      { name: 'Python', icon: 'fab fa-python', level: t('stack.level_advanced') },
-      { name: 'PHP', icon: 'fab fa-php', level: t('stack.level_expert') },
-      { name: 'REST APIs', icon: 'fas fa-plug', level: t('stack.level_expert') }
+      { name: 'Laravel + Filament', icon: 'fab fa-laravel', use: t('stack.tech.laravel_use') },
+      { name: 'Node.js', icon: 'fab fa-node-js', use: t('stack.tech.node_use') },
+      { name: 'Python', icon: 'fab fa-python', use: t('stack.tech.python_use') },
+      { name: 'REST APIs', icon: 'fas fa-code-branch', use: t('stack.tech.rest_use') }
     ]
   },
   {
-    name: t('stack.category_database'),
+    id: 'infra',
     icon: 'fas fa-database',
+    title: t('stack.category_infra_title'),
+    intro: t('stack.category_infra_intro'),
     technologies: [
-      { name: 'PostgreSQL', icon: 'fas fa-database', level: t('stack.level_expert') },
-      { name: 'MySQL', icon: 'fas fa-database', level: t('stack.level_expert') },
-      { name: 'Redis', icon: 'fas fa-memory', level: t('stack.level_advanced') },
-      { name: 'Docker', icon: 'fab fa-docker', level: t('stack.level_advanced') },
-      { name: 'Linux/Ubuntu', icon: 'fab fa-ubuntu', level: t('stack.level_expert') }
+      { name: 'PostgreSQL', icon: 'fas fa-database', use: t('stack.tech.postgres_use') },
+      { name: 'MySQL', icon: 'fas fa-database', use: t('stack.tech.mysql_use') },
+      { name: 'Redis', icon: 'fas fa-memory', use: t('stack.tech.redis_use') },
+      { name: 'Docker', icon: 'fab fa-docker', use: t('stack.tech.docker_use') },
+      { name: 'Linux (EU)', icon: 'fab fa-ubuntu', use: t('stack.tech.linux_use') }
     ]
   }
 ]);
 
-const additionalSkills = [
-  'Git/GitHub',
-  'CI/CD',
-  'Nginx',
-  'Apache',
-  'SSL/TLS',
-  'OAuth',
-  'JWT',
-  'WebSocket',
-  'Three.js',
-  'PWA',
-  'SEO',
-  'WCAG',
-  'Agile',
-  'Clean Code',
-  'SOLID',
-  'Design Patterns',
-  'Security Best Practices',
-  'Performance Optimization'
-];
+const principles = computed(() => [
+  {
+    key: 'maturity',
+    title: t('stack.principles.maturity_title'),
+    description: t('stack.principles.maturity_description')
+  },
+  {
+    key: 'ecosystem',
+    title: t('stack.principles.ecosystem_title'),
+    description: t('stack.principles.ecosystem_description')
+  },
+  {
+    key: 'portable',
+    title: t('stack.principles.portable_title'),
+    description: t('stack.principles.portable_description')
+  }
+]);
 </script>
 
 <style scoped>
 .kiba-stack-spa {
   width: 100%;
-  display: flex;
-  align-items: flex-start;
   padding: 40px 0;
+}
+
+.kiba-stack-intro {
+  max-width: 760px;
+  margin: 0 auto 56px;
+  text-align: center;
 }
 
 .kiba-section-label {
@@ -149,144 +163,211 @@ const additionalSkills = [
 .kiba-section-title {
   font-size: 2.75rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   color: var(--kiba-text-main, #f0f0f0);
-  margin-bottom: 16px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-.kiba-text-gradient {
-  background: var(--kiba-gradient, linear-gradient(135deg, #c94c4c 0%, #e06666 100%));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin-bottom: 18px;
 }
 
 .kiba-section-subtitle {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
   color: var(--kiba-text-secondary, #b0b0b0);
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
-.kiba-stack-category {
+/* Categorie */
+.kiba-stack-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 64px;
+}
+
+.kiba-stack-group {
   background: var(--kiba-bg-dark, #1a1a1a);
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 28px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  height: 100%;
   transition: border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.kiba-stack-category:hover {
-  border-color: rgba(201, 76, 76, 0.3);
+.kiba-stack-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(201, 76, 76, 0.4) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.kiba-stack-category-header {
+.kiba-stack-group:hover {
+  border-color: rgba(201, 76, 76, 0.25);
+}
+
+.kiba-stack-group:hover::before {
+  opacity: 1;
+}
+
+.kiba-stack-group-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
+  gap: 16px;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.kiba-stack-category-header i {
-  font-size: 1.5rem;
+.kiba-stack-group-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(201, 76, 76, 0.12);
   color: var(--kiba-primary, #c94c4c);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  flex-shrink: 0;
 }
 
-.kiba-stack-category-header h3 {
-  font-size: 1.25rem;
+.kiba-stack-group-title {
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--kiba-text-main, #f0f0f0);
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.kiba-stack-group-intro {
+  font-size: 0.875rem;
+  color: var(--kiba-text-muted, #999);
   margin: 0;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
+  line-height: 1.55;
 }
 
 .kiba-stack-tech-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .kiba-stack-tech-item {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 14px;
+  align-items: flex-start;
 }
 
 .kiba-stack-tech-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  font-size: 1.125rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9px;
+  font-size: 1rem;
   color: var(--kiba-text-secondary, #b0b0b0);
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .kiba-stack-tech-item:hover .kiba-stack-tech-icon {
-  background: rgba(201, 76, 76, 0.1);
+  background: rgba(201, 76, 76, 0.12);
   color: var(--kiba-primary, #c94c4c);
 }
 
-.kiba-stack-tech-info {
+.kiba-stack-tech-body {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .kiba-stack-tech-name {
   font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--kiba-text-main, #f0f0f0);
-}
-
-.kiba-stack-tech-level {
-  font-size: 0.75rem;
-  color: var(--kiba-text-muted, #888);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.kiba-stack-additional {
-  margin-top: 40px;
-  text-align: center;
-}
-
-.kiba-stack-additional-title {
-  font-size: 1.125rem;
   font-weight: 600;
   color: var(--kiba-text-main, #f0f0f0);
-  margin-bottom: 20px;
+  line-height: 1.3;
 }
 
-.kiba-stack-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.kiba-stack-tag {
-  padding: 8px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 30px;
+.kiba-stack-tech-use {
   font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--kiba-text-secondary, #b0b0b0);
-  transition: all 0.3s ease;
+  color: var(--kiba-text-muted, #999);
+  line-height: 1.5;
 }
 
-.kiba-stack-tag:hover {
-  background: rgba(201, 76, 76, 0.1);
-  color: var(--kiba-primary, #c94c4c);
+/* Principi */
+.kiba-stack-principles {
+  background: linear-gradient(180deg, rgba(201, 76, 76, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px 32px;
+  margin-bottom: 28px;
+}
+
+.kiba-stack-principles-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--kiba-text-main, #f0f0f0);
+  text-align: center;
+  margin: 0 0 32px;
+  letter-spacing: -0.005em;
+}
+
+.kiba-stack-principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+.kiba-stack-principle {
+  position: relative;
+  padding-left: 16px;
+}
+
+.kiba-stack-principle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--kiba-primary, #c94c4c);
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+.kiba-stack-principle-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--kiba-text-main, #f0f0f0);
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.kiba-stack-principle-description {
+  font-size: 0.9375rem;
+  color: var(--kiba-text-secondary, #b0b0b0);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.kiba-stack-footnote {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--kiba-text-muted, #888);
+  margin: 0;
+  font-style: italic;
 }
 
 @media (max-width: 991px) {
@@ -295,80 +376,94 @@ const additionalSkills = [
   }
 
   .kiba-section-title {
-    font-size: 2.25rem;
+    font-size: 2.125rem;
+  }
+
+  .kiba-stack-intro {
+    margin-bottom: 40px;
+  }
+
+  .kiba-stack-groups {
+    margin-bottom: 48px;
   }
 }
 
 @media (max-width: 767px) {
   .kiba-stack-spa {
-    /* RESET mobile - no flexbox centering */
-    display: block;
-    height: auto;
-    min-height: auto;
     padding: 30px 0;
-    overflow: visible;
   }
 
   .kiba-section-title {
-    font-size: 1.5rem;
-    line-height: 1.3;
+    font-size: 1.625rem;
+    line-height: 1.25;
   }
 
   .kiba-section-subtitle {
     font-size: 0.9375rem;
   }
 
-  .kiba-stack-category {
-    padding: 20px;
+  .kiba-stack-group {
+    padding: 22px;
+  }
+
+  .kiba-stack-group-header {
+    gap: 12px;
+    padding-bottom: 16px;
     margin-bottom: 16px;
   }
 
-  .kiba-stack-category-header {
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-  }
-
-  .kiba-stack-category-header i {
-    font-size: 1.25rem;
-  }
-
-  .kiba-stack-category-header h3 {
+  .kiba-stack-group-icon {
+    width: 38px;
+    height: 38px;
     font-size: 1rem;
+  }
+
+  .kiba-stack-group-title {
+    font-size: 1.0625rem;
+  }
+
+  .kiba-stack-group-intro {
+    font-size: 0.8125rem;
   }
 
   .kiba-stack-tech-list {
-    gap: 12px;
+    gap: 14px;
   }
 
   .kiba-stack-tech-icon {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-  }
-
-  .kiba-stack-tech-name {
-    font-size: 0.875rem;
-  }
-
-  .kiba-stack-tech-level {
-    font-size: 0.6875rem;
-  }
-
-  .kiba-stack-additional {
-    margin-top: 24px;
-  }
-
-  .kiba-stack-additional-title {
+    width: 32px;
+    height: 32px;
     font-size: 0.9375rem;
   }
 
-  .kiba-stack-tags {
-    gap: 8px;
+  .kiba-stack-tech-name {
+    font-size: 0.9rem;
   }
 
-  .kiba-stack-tag {
-    padding: 6px 12px;
-    font-size: 0.75rem;
+  .kiba-stack-tech-use {
+    font-size: 0.78125rem;
+  }
+
+  .kiba-stack-principles {
+    padding: 28px 22px;
+    border-radius: 16px;
+  }
+
+  .kiba-stack-principles-title {
+    font-size: 1.1875rem;
+    margin-bottom: 24px;
+  }
+
+  .kiba-stack-principles-grid {
+    gap: 22px;
+  }
+
+  .kiba-stack-principle-title {
+    font-size: 0.9375rem;
+  }
+
+  .kiba-stack-principle-description {
+    font-size: 0.875rem;
   }
 }
 </style>

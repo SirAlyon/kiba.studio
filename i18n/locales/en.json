@@ -71,40 +71,103 @@
     "consulting_description": "We offer consulting on software architecture, technology choice, code review, refactoring. We help internal teams improve quality and processes."
   },
   "process": {
-    "label": "Our Method",
-    "title": "How we work",
+    "label": "Our method",
+    "title": "How we work, step by step.",
+    "step_label": "Phase",
+    "step_progress": "Phase {current} of {total}",
+    "step_aria_prev": "Previous phase",
+    "step_aria_next": "Next phase",
+    "step_aria_dot": "Go to phase {index}",
     "step_1_label": "Analysis",
     "step_1_title": "Discovery & Strategy",
-    "step_1_description": "We start with an in-depth analysis of your business needs, goals and technical constraints. Together we define the best strategy, project scope, realistic timeline and sustainable budget.",
+    "step_1_description": "Before code, understanding. Conversations with the people who'll actually use the software, mapping the constraints, explicit choice of what stays in scope and what doesn't.",
     "step_1_duration": "1-2 weeks",
+    "step_1_highlights": [
+      "Workshops with real stakeholders",
+      "Map of constraints and risks",
+      "Written scope, itemised quote"
+    ],
     "step_2_label": "Design",
     "step_2_title": "Design & Architecture",
-    "step_2_description": "We create detailed wireframes, interactive mockups and define scalable technical architecture. Design is not just aesthetics: it's usability, accessibility, performance.",
-    "step_2_duration": "2-3 weeks",
+    "step_2_description": "Wireframes only for the flows that actually matter. Stack choice written down with rationale, architecture reproducible by another vendor.",
+    "step_2_duration": "1-3 weeks",
+    "step_2_highlights": [
+      "Wireframes for critical flows",
+      "Stack chosen with rationale",
+      "Architecture portable to others"
+    ],
     "step_3_label": "Development",
-    "step_3_title": "Development Sprint",
-    "step_3_description": "We develop in agile sprints with weekly demos. Clean, tested, documented code. We use Git for versioning, CI/CD for automatic deployments, code review for quality.",
-    "step_3_duration": "4-12 weeks",
-    "step_4_label": "Quality",
-    "step_4_title": "Testing & Security",
-    "step_4_description": "Functional, performance, and security testing. Every feature is validated across different devices and browsers. Complete security audit, penetration testing, OWASP compliance.",
+    "step_3_title": "Development",
+    "step_3_description": "Agreed iterations, demos on milestones, code in your repository from the first commit. Continuous deploy to staging you can access.",
+    "step_3_duration": "Scope-dependent",
+    "step_3_highlights": [
+      "Your repo from commit zero",
+      "Code review before each merge",
+      "Live staging every iteration"
+    ],
+    "step_4_label": "Verification",
+    "step_4_title": "Testing & Hardening",
+    "step_4_description": "Checks declared in writing: automated tests on critical flows, server and app hardening, an audit of what we log and what we don't.",
     "step_4_duration": "1-2 weeks",
-    "step_5_label": "Launch",
-    "step_5_title": "Deploy & Support",
-    "step_5_description": "Deploy on secure and scalable infrastructure. We configure 24/7 monitoring, automatic backups, disaster recovery. Post-launch support includes maintenance and updates.",
-    "step_5_duration": "Ongoing",
-    "scroll_hint": "Next step"
+    "step_4_highlights": [
+      "Automated tests on critical flows",
+      "Server and app hardening",
+      "Privacy audit: what we log, why"
+    ],
+    "step_5_label": "Release",
+    "step_5_title": "Deploy & Handover",
+    "step_5_description": "Release is the handover moment, not the end. Written rollback plan, monitoring on the points that matter, maintenance on a separate contract. Never lock-in.",
+    "step_5_duration": "Ongoing on request",
+    "step_5_highlights": [
+      "Written rollback plan",
+      "Monitoring where it counts",
+      "Maintenance opt-in, never mandatory"
+    ],
+    "scroll_hint": "Next phase",
+    "scene_staging_label": "Staging live",
+    "scene_deployed_label": "In production",
+    "scene_target_url_label": "Public URL",
+    "scene_target_monitoring_label": "Monitoring",
+    "scene_target_team_label": "Client team",
+    "scene_target_docs_label": "Docs"
   },
   "stack": {
-    "label": "Tech Stack",
-    "title": "Modern technologies",
-    "subtitle": "Tested, reliable and scalable stack for every type of project",
-    "category_frontend": "Front-end",
-    "category_backend": "Back-end",
-    "category_database": "Database & DevOps",
-    "level_expert": "Expert",
-    "level_advanced": "Advanced",
-    "additional_skills_title": "Additional Skills"
+    "label": "Tech stack",
+    "title": "The stack we actually use.",
+    "subtitle": "Technologies chosen for maturity, ecosystem and handover. No hype, no lock-in. What you see here is in production on real projects.",
+    "category_frontend_title": "Interfaces & front-end",
+    "category_frontend_intro": "For interactive dashboards, fast static sites and PWAs. Where perceived performance and accessibility matter.",
+    "category_backend_title": "Backend & APIs",
+    "category_backend_intro": "For solid business logic, integrations and documented APIs. Where reliability, security and 3-year maintainability matter.",
+    "category_infra_title": "Data & infrastructure",
+    "category_infra_intro": "For persistence, queues, containers and deploys. EU hosting, no magic: every piece is reproducible by another vendor.",
+    "tech": {
+      "vue_use": "Front-end of this site and of our Filament panels.",
+      "nuxt_use": "For SEO-ready static sites and full-stack apps.",
+      "react_use": "When the client already has a React ecosystem in-house.",
+      "tailwind_use": "Fast design systems without opaque CSS-in-JS.",
+      "gsap_use": "Complex animations where CSS alone isn't enough.",
+      "laravel_use": "Main backend: from Autoimporta to Kiba.Finance.",
+      "filament_use": "Admin panels in days, not weeks.",
+      "node_use": "For event-driven services and build tooling.",
+      "python_use": "For scraping, data pipelines and document processing.",
+      "rest_use": "Documented REST APIs (OpenAPI) for every integration.",
+      "postgres_use": "Default transactional database for new projects.",
+      "mysql_use": "For legacy projects or client constraints.",
+      "redis_use": "Cache, queues (Horizon) and rate limiting.",
+      "docker_use": "Reproducible setups locally and in production.",
+      "linux_use": "EU servers (Hetzner, Scaleway, OVH) configured by hand."
+    },
+    "principles_title": "How we pick the stack",
+    "principles": {
+      "maturity_title": "Reliability before novelty",
+      "maturity_description": "We're wary of frameworks with less than two years of production behind them. A tech choice is paid for years, not for sprints.",
+      "ecosystem_title": "Ecosystem, not just tools",
+      "ecosystem_description": "We prefer tools with a wide community, living documentation and a track record of backwards compatibility. Laravel's value isn't Laravel itself: it's who works around it.",
+      "portable_title": "Always handover-ready",
+      "portable_description": "The stack we choose must be handover-ready to your internal team or another vendor. No proprietary components, no magic black boxes."
+    },
+    "footnote": "The full stack for each real project is declared in the case studies."
   },
   "portfolio": {
     "label": "Portfolio",
@@ -313,7 +376,10 @@
     "form_error_generic": "Sending failed. Please try again later or email us at hello{'@'}kiba.studio.",
     "form_budget_label": "Indicative budget",
     "form_budget_default": "Select a range",
-    "form_budget_discuss": "To discuss"
+    "form_budget_discuss": "To discuss",
+    "form_privacy_consent_prefix": "I consent to the processing of my personal data according to the ",
+    "form_privacy_consent_link": "Privacy Policy",
+    "form_honeypot_label": "Do not fill this field"
   },
   "footer": {
     "description": "Ethical, secure software built to last.",
@@ -369,6 +435,12 @@
       "hero_eyebrow": "Services",
       "hero_title": "What we do, in concrete terms.",
       "hero_subtitle": "We build web products and custom software for those looking for real technical quality, security and responsibility for data. No buzzwords, just work done well.",
+      "group_build_label": "What we build",
+      "group_build_title": "Web products and custom software",
+      "group_build_intro": "The three pillars of an end-to-end project: interface, business logic, infrastructure. We can take on one or all of them, depending on the need.",
+      "group_strengthen_label": "When you need reinforcements",
+      "group_strengthen_title": "Automation, consulting, compliance",
+      "group_strengthen_intro": "Focused interventions for those who already have a team or a product. A second opinion, a missing automation, a compliance issue to fix.",
       "frontend": {
         "title": "Frontend Development",
         "description": "Reactive, accessible and performant interfaces. Vue 3, Nuxt, React. Coherent design systems, animations with a purpose, measured performance (Lighthouse, Core Web Vitals).",
@@ -376,7 +448,8 @@
           "Single Page Applications and static sites (SSG)",
           "Progressive Web Apps and mobile apps (Capacitor / Ionic)",
           "Reusable design systems in TypeScript"
-        ]
+        ],
+        "stack": ["Vue 3", "Nuxt", "React", "TailwindCSS"]
       },
       "backend": {
         "title": "Backend & API",
@@ -385,16 +458,18 @@
           "REST and GraphQL APIs",
           "Integrations with third-party systems (ERP, CRM, payment)",
           "Migrations and refactoring of legacy backends"
-        ]
+        ],
+        "stack": ["Laravel", "Filament", "Node.js", "PostgreSQL"]
       },
       "devops": {
         "title": "Infrastructure & DevOps",
         "description": "Linux servers, containers, CI/CD, monitoring. We pick EU providers by default. Verified backups, documented disaster recovery, no magic: everything is reproducible.",
         "items": [
-          "Docker, Kubernetes, continuous deployment (GitHub Actions)",
+          "Docker, continuous deployment (GitHub Actions)",
           "EU hosting (Hetzner, Scaleway, OVH)",
-          "Hardening and security audits"
-        ]
+          "Hardening, monitoring and verified backups"
+        ],
+        "stack": ["Docker", "Linux", "Nginx", "GitHub Actions"]
       },
       "automation": {
         "title": "Automation & Integration",
@@ -403,7 +478,8 @@
           "ETL and orchestration of recurring tasks",
           "Custom API integrations",
           "OCR and document processing"
-        ]
+        ],
+        "stack": ["Python", "Node.js", "Redis", "Webhooks"]
       },
       "consulting": {
         "title": "Technical Consulting",
@@ -412,7 +488,8 @@
           "Audits of existing codebases",
           "Architecture definition for new projects",
           "Augmentation of internal teams"
-        ]
+        ],
+        "stack": ["Code review", "Audit", "Architecture"]
       },
       "privacy": {
         "title": "Privacy & technical compliance",
@@ -421,8 +498,14 @@
           "Privacy audits of existing applications",
           "Privacy-friendly analytics setup (Plausible, Umami)",
           "Self-hosting of tools that would otherwise leak data"
-        ]
+        ],
+        "stack": ["GDPR", "Plausible", "Umami", "Self-hosting"]
       },
+      "approach_title": "How we get to the result",
+      "approach_intro": "Services don't live alone. Every project goes through five phases that we declare in writing: we tell you up-front what each phase does and what it doesn't.",
+      "approach_link": "Read our process →",
+      "stack_label": "Typical stack",
+      "items_label": "What's included",
       "cta_title": "Want to talk about a project?",
       "cta_subtitle": "A first 30-minute call, no commitment, to understand whether it makes sense to work together.",
       "cta_button": "Get in touch",
@@ -570,9 +653,8 @@
       "value_office": "Milan (MI), 20155, Italy",
       "value_response": "Within 24h business hours",
       "value_languages": "Italian, English",
-      "form_placeholder_title": "Contact form coming soon",
-      "form_placeholder_p1": "We're finalising the secure submission flow (server-side validation, anti-spam, rate limit). In the meantime, write to us directly: ",
-      "form_placeholder_p2": "A deliberate decision: we'd rather tell you it's not ready than show you a form that fakes submission while delivering nothing. That would be exactly the kind of dark pattern we commit not to commit.",
+      "form_section_title": "Tell us about the project",
+      "form_section_intro": "Fill in the fields below. Server-side validation, anti-spam and no third party: no trackers, no \"smart forms\". We reply within 24 business hours.",
       "faq_title": "Frequently asked before the first contact",
       "faqs": [
         {

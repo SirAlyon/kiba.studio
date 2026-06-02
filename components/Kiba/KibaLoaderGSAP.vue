@@ -1,32 +1,22 @@
 <template>
   <!--
     KibaLoaderGSAP.vue
-    Loader animato con GSAP
-    Sequenza: logo fade-in, progress bar, scale out
+    Loader minimo: il sito è SSR-renderizzato, niente da aspettare davvero.
+    Funzione: brand-stamp di ~700ms al primo accesso della sessione,
+    poi salta direttamente nelle pagine successive (sessionStorage flag).
   -->
-  <div ref="loaderRef" class="kiba-loader-gsap">
+  <div ref="loaderRef" class="kiba-loader-gsap" :class="{ 'is-instant': skipAnimation }">
     <div class="kiba-loader-content">
-      <!-- Logo/Icon - Akita stilizzato -->
       <div ref="logoRef" class="kiba-loader-logo">
         <KibaIcon :size="60" variant="light" :animated="false" />
       </div>
 
-      <!-- Brand name -->
       <div ref="brandRef" class="kiba-loader-brand">
-        <span class="kiba-loader-text">Kiba</span>
-        <span class="kiba-loader-dot">.</span>
-        <span class="kiba-loader-text">Studio</span>
+        <span class="kiba-loader-text">Kiba</span><span class="kiba-loader-dot">.</span><span class="kiba-loader-text">Studio</span>
       </div>
 
-      <!-- Progress bar -->
-      <div class="kiba-loader-progress">
-        <div ref="progressBarRef" class="kiba-loader-progress-fill"></div>
-      </div>
-
-      <!-- Loading text -->
-      <div ref="statusRef" class="kiba-loader-status">
-        Caricamento...
-      </div>
+      <!-- Accent line con pulsazione, NON una progress bar fasulla -->
+      <div ref="accentRef" class="kiba-loader-accent" aria-hidden="true"></div>
     </div>
   </div>
 </template>
@@ -38,94 +28,98 @@ import KibaIcon from './KibaIcon.vue';
 
 const emit = defineEmits(['complete']);
 
-// Refs
+const SESSION_KEY = 'kiba_loader_seen';
+
 const loaderRef = ref(null);
 const logoRef = ref(null);
 const brandRef = ref(null);
-const progressBarRef = ref(null);
-const statusRef = ref(null);
+const accentRef = ref(null);
+const skipAnimation = ref(false);
 
-// GSAP composable
 const { loadGSAP } = useGSAP();
 
 onMounted(async () => {
-  const gsapModules = await loadGSAP();
+  // Skip su navigazioni successive nella stessa sessione: il brand-stamp basta una volta.
+  const alreadySeen =
+    typeof window !== 'undefined' && window.sessionStorage?.getItem(SESSION_KEY) === '1';
 
-  if (!gsapModules) {
-    // Fallback senza GSAP
-    setTimeout(() => emit('complete'), 1500);
+  if (alreadySeen) {
+    skipAnimation.value = true;
+    // Lasciamo un frame perché il root applichi `is-instant`, poi via.
+    requestAnimationFrame(() => emit('complete'));
     return;
   }
 
-  const { gsap } = gsapModules;
-  runLoaderAnimation(gsap);
+  const gsapModules = await loadGSAP();
+  if (!gsapModules) {
+    // Fallback: 250ms e via.
+    setTimeout(() => {
+      markSeen();
+      emit('complete');
+    }, 250);
+    return;
+  }
+
+  runLoaderAnimation(gsapModules.gsap);
 });
 
+const markSeen = () => {
+  try {
+    window.sessionStorage?.setItem(SESSION_KEY, '1');
+  } catch {
+    // Storage non disponibile (private mode strict, ecc.): ignoriamo.
+  }
+};
+
 /**
- * Esegue la sequenza di animazione del loader
+ * Animazione: ~700ms totali. Niente progress bar finta — solo brand-stamp.
+ * Sequenza: logo+brand entrano insieme, breve pausa, fade-out.
  */
 const runLoaderAnimation = (gsap) => {
   const tl = gsap.timeline({
     onComplete: () => {
+      markSeen();
       emit('complete');
     }
   });
 
-  // 1. Logo fade in e scale
+  // Logo scale-in
   tl.fromTo(
     logoRef.value,
-    { scale: 0, opacity: 0, rotation: -180 },
-    {
-      scale: 1,
-      opacity: 1,
-      rotation: 0,
-      duration: 0.8,
-      ease: 'back.out(1.7)'
-    }
+    { scale: 0.4, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.6)' }
   );
 
-  // 2. Brand text reveal (stagger)
+  // Brand stagger (Kiba — . — Studio)
   tl.fromTo(
     brandRef.value.children,
-    { y: 30, opacity: 0 },
+    { y: 16, opacity: 0 },
     {
       y: 0,
       opacity: 1,
-      duration: 0.5,
-      stagger: 0.1,
-      ease: 'power3.out'
-    },
-    '-=0.3'
-  );
-
-  // 3. Progress bar fill
-  tl.to(
-    progressBarRef.value,
-    {
-      width: '100%',
-      duration: 1.2,
-      ease: 'power2.inOut'
+      duration: 0.28,
+      stagger: 0.05,
+      ease: 'power2.out'
     },
     '-=0.2'
   );
 
-  // 4. Status text fade
-  tl.to(
-    statusRef.value,
-    {
-      opacity: 0,
-      duration: 0.3,
-      ease: 'power2.out'
-    },
-    '-=0.3'
+  // Accent line: cresce dal centro
+  tl.fromTo(
+    accentRef.value,
+    { scaleX: 0, opacity: 0 },
+    { scaleX: 1, opacity: 1, duration: 0.3, ease: 'power2.out' },
+    '-=0.15'
   );
 
-  // 5. Loader scale out
+  // Brevissima pausa di lettura
+  tl.to({}, { duration: 0.1 });
+
+  // Fade-out: il loader sparisce, il sito è già lì sotto pronto
   tl.to(loaderRef.value, {
-    scale: 1.1,
     opacity: 0,
-    duration: 0.6,
-    ease: 'power3.in'
+    duration: 0.32,
+    ease: 'power2.in'
   });
 };
 </script>
@@ -133,10 +127,7 @@ const runLoaderAnimation = (gsap) => {
 <style scoped>
 .kiba-loader-gsap {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: var(--kiba-bg-dark, #1a1a1a);
   display: flex;
   align-items: center;
@@ -144,81 +135,82 @@ const runLoaderAnimation = (gsap) => {
   z-index: 10000;
 }
 
+.kiba-loader-gsap.is-instant {
+  /* Su navigazioni interne salta tutto: zero attesa. */
+  display: none;
+}
+
 .kiba-loader-content {
   text-align: center;
 }
 
 .kiba-loader-logo {
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--kiba-gradient, linear-gradient(135deg, #c94c4c 0%, #e06666 100%));
-  border-radius: 50%;
-  margin: 0 auto 24px;
-  font-size: 2.5rem;
-  color: #ffffff;
+  border-radius: 24px;
+  margin: 0 auto 20px;
+  box-shadow: 0 12px 40px rgba(201, 76, 76, 0.25);
   opacity: 0;
 }
 
 .kiba-loader-brand {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
+  font-family: 'Manrope', system-ui, sans-serif;
+}
+
+.kiba-loader-text,
+.kiba-loader-dot {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  display: inline-block;
+  opacity: 0;
 }
 
 .kiba-loader-text {
-  font-size: 2.5rem;
-  font-weight: 700;
   color: var(--kiba-text-main, #f0f0f0);
-  opacity: 0;
-  display: inline-block;
 }
 
 .kiba-loader-dot {
-  font-size: 2.5rem;
-  font-weight: 700;
   color: var(--kiba-primary, #c94c4c);
+}
+
+.kiba-loader-accent {
+  width: 80px;
+  height: 2px;
+  background: var(--kiba-gradient, linear-gradient(90deg, #c94c4c 0%, #e06666 100%));
+  border-radius: 2px;
+  margin: 0 auto;
+  transform: scaleX(0);
+  transform-origin: center;
   opacity: 0;
-  display: inline-block;
-}
-
-.kiba-loader-progress {
-  width: 200px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  margin: 0 auto 16px;
-  overflow: hidden;
-}
-
-.kiba-loader-progress-fill {
-  width: 0;
-  height: 100%;
-  background: var(--kiba-gradient, linear-gradient(135deg, #c94c4c 0%, #e06666 100%));
-  border-radius: 3px;
-}
-
-.kiba-loader-status {
-  font-size: 0.875rem;
-  color: var(--kiba-text-muted, #888);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
 }
 
 @media (max-width: 767px) {
   .kiba-loader-logo {
-    width: 80px;
-    height: 80px;
-    font-size: 2rem;
+    width: 78px;
+    height: 78px;
+    border-radius: 20px;
   }
 
   .kiba-loader-text,
   .kiba-loader-dot {
-    font-size: 2rem;
+    font-size: 1.875rem;
   }
 
-  .kiba-loader-progress {
-    width: 160px;
+  .kiba-loader-accent {
+    width: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Niente animazioni residue se l'utente le ha disattivate. */
+  .kiba-loader-gsap {
+    transition: none;
   }
 }
 </style>
