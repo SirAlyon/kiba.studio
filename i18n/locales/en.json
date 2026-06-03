@@ -607,7 +607,12 @@
         "alessio": {
           "name": "Alessio Sada",
           "role": "Founder · Lead developer",
-          "bio": "6+ years of full-stack development. Handles architecture, backend and direct client relations."
+          "bio": "6+ years of full-stack development. Handles architecture, backend and direct client relations. He talks through the most important architecture decisions out loud with Kiba first: the Akita has never rejected a PR, which already counts as a signal."
+        },
+        "filippo": {
+          "name": "Filippo",
+          "role": "Data Scientist · Network",
+          "bio": "Computer engineer specialised in Data Science. At Kiba.Studio he handles the data side: pipelines, ML models, document intelligence — the skills that power projects like Kiba.Fetch. Off the terminal he's a bull in the gym: he treats training sets with the same patience he treats deadlifts."
         },
         "placeholder_name": "To be confirmed",
         "placeholder_role": "Extended network",

@@ -607,7 +607,12 @@
         "alessio": {
           "name": "Alessio Sada",
           "role": "Founder · Lead developer",
-          "bio": "6+ anni di sviluppo full-stack. Si occupa di architettura, backend e relazione diretta con il cliente."
+          "bio": "6+ anni di sviluppo full-stack. Si occupa di architettura, backend e relazione diretta con il cliente. Le scelte di architettura più importanti le discute prima ad alta voce con Kiba: l'Akita non ha mai bocciato un PR, il che è già un segnale."
+        },
+        "filippo": {
+          "name": "Filippo",
+          "role": "Data Scientist · Network",
+          "bio": "Ingegnere informatico specializzato in Data Science. In Kiba.Studio si occupa della parte dati: pipeline, modelli di machine learning, document intelligence — le competenze che alimentano progetti come Kiba.Fetch. Fuori dal terminale è un toro in palestra: ai training set applica la stessa pazienza dei deadlift."
         },
         "placeholder_name": "In conferma",
         "placeholder_role": "Extended network",

@@ -142,6 +142,14 @@ const team = [
     ]
   },
   {
+    slug: 'filippo',
+    nameKey: 'pages.about.team.filippo.name',
+    roleKey: 'pages.about.team.filippo.role',
+    bioKey: 'pages.about.team.filippo.bio',
+    photo: '/team/filippo.jpg',
+    skills: ['Python', 'R', 'Machine Learning', 'Data pipelines', 'OCR']
+  },
+  {
     slug: 'kiba',
     nameKey: 'pages.about.team.kiba.name',
     roleKey: 'pages.about.team.kiba.role',
